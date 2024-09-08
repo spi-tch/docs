@@ -7,11 +7,11 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
+    "primary": "#ADD8E6",
     "light": "#07C983",
-    "dark": "#0D9373",
+    "dark": "#ADD8E6",
     "anchors": {
-      "from": "#0D9373",
+      "from": "#ADD8E6",
       "to": "#07C983"
     }
   },
@@ -85,7 +85,7 @@
   ],
   "footerSocials": {
     "x": "https://x.com/spi---tch",
-    "github": "https://github.com/mintlify",
+    "github": "https://github.com/spi-tch",
     "linkedin": "https://www.linkedin.com/company/mintsearch"
   }
 }
