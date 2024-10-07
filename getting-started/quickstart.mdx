@@ -6,18 +6,24 @@ icon: "play"
 
 This quickstart documentation shows you how to quickly start integrating with the Spitch API using <b>Python</b>.
 
+<Tip>
+    If Python isn't your thing, you can call the ReST API directly.
+</Tip>
+
 <Steps>
-    <Step title={"Get API Key"}>
+    <Step title={"Get API Key"} icon={"key"}>
         Go to https://dev.spi-tch.com to get your API Key.
     </Step>
-    <Step title={"Install the Python library"}>
+    <Step title={"Install the Python library"} icon={"terminal"}>
         ```
         pip install spitch
         ```
+        More info on installation can be found
     </Step>
-    <Step title={"Sample Code"}>
+    <Step title={"Sample Code (Python)"} icon={"terminal"}>
         ```python
         client = Spitch()
+
         with open("audio.wav", "wb") as f:
         response = client.speech.generate(
             text="Báwo ni olólùfé?",
@@ -26,4 +32,8 @@ This quickstart documentation shows you how to quickly start integrating with th
         f.write(response.read())
         ```
     </Step>
+    <Step title={"Congratulations!"} icon={"gift"}>
+        You have now completed a task on speech generation. You are now equipped to start calling the Spitch models. Cool, right?
+    </Step>
 </Steps>
+
