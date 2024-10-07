@@ -27,11 +27,12 @@ This quickstart documentation shows you how to quickly start integrating with th
         client = Spitch()
 
         with open("audio.wav", "wb") as f:
-        response = client.speech.generate(
-            text="Báwo ni olólùfé?",
-            language="yo"
-        )
-        f.write(response.read())
+            response = client.speech.generate(
+                text="Báwo ni olólùfé?",
+                language="yo",
+                voice="femi"
+            )
+            f.write(response.read())
         ```
     </Step>
     <Step title={"Congratulations!"} icon={"gift"}>
