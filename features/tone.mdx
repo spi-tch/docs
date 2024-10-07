@@ -1,0 +1,68 @@
+---
+title: "Tone Marking"
+icon: "markdown"
+---
+
+Also known as diacritics, tone marking allows you to add appropriate. This allows the reader (e.g. our text-to-speech AI model, or a human) to know exactly how to pronounce the words properly.
+We have built this endpoint with model support for African languages.
+
+<Tip>
+    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
+    We're working to add SDKs for more languages.
+</Tip>
+
+## Request
+The `tone_mark()` function can be used to add tone marks to a sentence. Examples are provided below as a guide for you.
+
+## Response
+The response for speech generation is in bytes.
+* The Content-Type is `application/json`
+* A `request_id` is returned for issue resolution with our support team.
+
+Below is an example of a response from the API
+```json
+{
+  "request_id": "'86095cea-77d5-45ba-a093-0f800ac2c7df'",
+  "text": "Báwo ni olólùfẹ́ mi?"
+}
+```
+
+Each of these characters has unique attributes, we think you will find them fun to use. Feel free to try them out and let us know which one you love the most. 😉
+
+## Language Support
+The speech generation model supports the following languages:
+- Yoruba: yo
+
+Support for Hausa and Igbo are coming soon.
+
+<Note>
+    When tone marking a sentence, you should use the language code (e.g. `yo`, `ig`) and not the full text.
+</Note>
+
+## Examples - Synchronous
+<CodeGroup>
+    ```python Python
+    from spitch import Spitch
+
+    client = Spitch()
+    response = client.text.tone_mark(
+        language="yo",
+        text="Bawo ni ololufe mi?"
+    )
+    print(response)
+    ```
+</CodeGroup>
+
+
+## Examples - Asynchronous
+<CodeGroup>
+    ```python Python
+    from spitch import AsyncSpitch
+
+    client = AsyncSpitch()
+    response = await client.text.tone_mark(
+        language="yo",
+        text="Bawo ni ololufe mi?"
+    )
+    ```
+</CodeGroup>

@@ -2,3 +2,101 @@
 title: "Speech Generation"
 icon: "comment-dots"
 ---
+
+Also known as text-to-speech (TTS), speech generation/synthesis is integral part to modern AI systems. We have built this endpoint with strong support for African languages.
+
+<Tip>
+    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
+    We're working to add SDKs for more languages.
+</Tip>
+
+## Request
+The `generate()` function can be used to generate speech. Examples are provided below as a guide for you.
+<Info>
+    We highly recommend that you perform tone-marking first before TTS. This allows the model to pronounce the words properly during speech generation.
+</Info>
+
+## Response
+The response for speech generation is in bytes.
+* The Content-Type is `audio/wav`
+* The content is streamed back to the caller.
+* The file type of the generated audio is `wav`.
+If you use the streaming interface (Python SDK), you can start to take action on the byte chunks, e.g. stream to file.
+
+## Choosing a Voice
+For Yoruba language, we currently have four (4) voices you can choose from:
+* segun: male
+* sade: female
+* femi: male
+* funmi: female
+
+Each of these characters has unique attributes, we think you will find them fun to use. Feel free to try them out and let us know which one you love the most. 😉
+
+## Language Support
+The speech generation model supports the following languages:
+- Yoruba: yo
+
+Support for Hausa and Igbo are coming soon.
+
+<Note>
+    When generating speech, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
+</Note>
+
+## Examples - Synchronous
+<CodeGroup>
+    ```python Python (no streaming)
+    from spitch import Spitch
+
+    client = Spitch()
+
+    with open("new.mp3", "wb") as f:
+        response = client.speech.generate(
+            text="Bawo ni ololufe mi?",
+            language="yo",
+            voice="sade"
+        )
+        f.write(response.read())
+    ```
+
+    ```python Python (with streaming)
+    from spitch import Spitch
+
+    client = Spitch()
+
+    with client.speech.with_streaming_response.generate(
+        text="Bawo ni ololufe mi?",
+        language="yo",
+        voice="sade"
+    ) as response:
+        response.stream_to_file("new.wav")
+    ```
+</CodeGroup>
+
+
+## Examples - Asynchronous
+<CodeGroup>
+    ```python Python (no streaming)
+    from spitch import AsyncSpitch
+
+    client = AsyncSpitch()
+    with open("new.wav", "wb") as f:
+        response = await client.speech.generate(
+            text="Bawo ni ololufe?",
+            language="yo",
+            voice="sade",
+        )
+        f.write(await response.read())
+    ```
+
+    ```python Python (with streaming)
+    from spitch import AsyncSpitch
+
+    client = AsyncSpitch()
+    async with client.speech.with_streaming_response.generate(
+        text="Bawo ni ololufe mi?",
+        language="yo",
+        voice="sade"
+    ) as response:
+        await response.stream_to_file("new.wav")
+    ```
+</CodeGroup>

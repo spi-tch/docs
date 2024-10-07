@@ -2,3 +2,50 @@
 title: "API Keys"
 icon: "key"
 ---
+
+<Tip>
+    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
+    We're working to add SDKs for more languages.
+</Tip>
+
+## About API Keys
+- This is how you are identified on the Spith platform.
+- This is a Bearer token usually passed in the `Authorization` header of your request.
+- Every request that you send to the Spitch API mush be accompanied by your API key.
+- You can only have one valid API key at a time. We will improve key support soon.
+- Once you lose your API key, you have to generate a new one by refreshing on your dashboard.
+
+<Warning>
+    Ensure you store your API keys properly. Once you refresh the dashboard page, you will not be able to see it in full.
+</Warning>
+
+## Getting your API Key
+
+To get your API key, go to https://dev.spi-tch.com. After logging in, an API key is automatically generated for you.
+To get a new key, click the refresh button next to your API key.
+
+## How to Use API Keys
+Set the Authorization header appropriately.
+Find examples below.
+
+<Note>
+    For the Python SDK, you only have to set the SPITCH_API_KEY as an environment variable.
+    `os.environ["SPITCH_API_KEY"] = "my_api_key"`
+</Note>
+
+<CodeGroup>
+    ```sh curl
+    curl --request POST \
+    --url https://api.spi-tch.com/v1/speech \
+    --header 'Authorization: Bearer my_token' \
+    --header 'Content-Type: application/json' \
+    ```
+
+    ```javascript Javascript
+    const options = {{
+        method: 'POST',
+        headers: {Authorization: 'Bearer my_token', 'Content-Type': 'application/json'},
+        body: '{"text":"<string>","voice":"sade","language":"yo"}'
+    }};
+    ```
+</CodeGroup>

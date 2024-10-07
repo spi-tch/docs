@@ -67,21 +67,18 @@
     {
       "group": "FEATURES",
       "pages": [
-        "features/speech"
+        "features/speech",
+        "features/transcription",
+        "features/tone"
       ]
     },
     {
       "group": "CONCEPTS",
       "pages": [
-        "concepts/keys",
         "concepts/voices",
-        "concepts/languages"
-      ]
-    },
-    {
-      "group": "MODELS",
-      "pages": [
-        "models"
+        "concepts/languages",
+        "concepts/keys",
+        "concepts/pricing"
       ]
     }
   ],

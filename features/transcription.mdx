@@ -1,0 +1,78 @@
+---
+title: "Transcription"
+icon: "pen-to-square"
+---
+
+Also known as speech-to-text (TTS), transcription is the process of converting speech to text. We have built this endpoint with strong support for African languages.
+
+<Tip>
+    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
+    We're working to add SDKs for more languages.
+</Tip>
+
+## Request
+The `transcribe()` function can be used to transcribe audio. Examples are provided below as a guide for you.
+<Warning>
+    - The maximum file size is 25MB, we will support
+    - We only support `wav` and `mp3` file formats
+</Warning>
+
+## Response
+The response for speech generation is in bytes.
+* The Content-Type is `application/json`
+* A `request_id` is returned for issue resolution with our support team.
+
+Below is an example of a response from the API
+```json
+{
+  "request_id": "'86095cea-77d5-45ba-a093-0f800ac2c7df'",
+  "text": "Báwo ni olólùfẹ́ mi?"
+}
+```
+
+If you use the streaming interface (Python SDK), you can start to take action on the byte chunks, e.g. stream to file.
+
+Each of these characters has unique attributes, we think you will find them fun to use. Feel free to try them out and let us know which one you love the most. 😉
+
+## Language Support
+Our speech-to-text model supports the following languages:
+- Yoruba: yo
+- English: en
+
+Support for Hausa and Igbo are coming soon.
+
+<Note>
+    When transcribing, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
+</Note>
+
+## Examples - Synchronous
+<CodeGroup>
+    ```python Python (no streaming)
+    from spitch import Spitch
+
+    client = Spitch()
+
+    with open("new.wav", "rb") as f:
+        response = client.speech.transcibe(
+            language="yo",
+            content=f.read()
+        )
+        print(response)
+    ```
+</CodeGroup>
+
+
+## Examples - Asynchronous
+<CodeGroup>
+    ```python Python (no streaming)
+    from spitch import AsyncSpitch
+
+    client = AsyncSpitch()
+    with open("speech.wav", "rb") as f:
+        response = await client.speech.transcibe(
+            language="yo",
+            content=f.read()
+        )
+        print(response)
+    ```
+</CodeGroup>
