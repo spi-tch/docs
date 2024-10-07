@@ -1,192 +1,162 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
+  "openapi": "3.1.0",
+  "info": { "title": "Spitch API", "version": "1.0.0" },
+  "servers": [{ "url": "https://api.spi-tch.com" }],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
+    "/v1/speech": {
+      "post": {
+        "summary": "Generate Speech",
+        "operationId": "synthesize_v1_speech_post",
+        "security": [{ "ApiKeyAuth": [] }],
         "parameters": [
           {
-            "name": "limit",
+            "name": "stream",
             "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "required": false,
+            "schema": { "type": "boolean", "default": false, "title": "Stream" }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Body_synthesize_v1_speech_post" }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
           },
-          "400": {
-            "description": "Unexpected error",
+          "422": {
+            "description": "Validation Error",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
             }
           }
         }
-      },
+      }
+    },
+    "/v1/transcriptions": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "summary": "Transcribe",
+        "operationId": "transcribe_v1_transcriptions_post",
         "requestBody": {
-          "description": "Plant to add to the store",
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
+            "multipart/form-data": {
+              "schema": { "$ref": "#/components/schemas/Body_transcribe_v1_transcriptions_post" }
             }
           },
           "required": true
         },
         "responses": {
           "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
           },
-          "400": {
-            "description": "unexpected error",
+          "422": {
+            "description": "Validation Error",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
             }
           }
-        }
+        },
+        "security": [{ "ApiKeyAuth": [] }]
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
+    "/v1/diacritics": {
+      "post": {
+        "summary": "Tone Mark",
+        "operationId": "tone_mark_v1_diacritics_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Body_tone_mark_v1_diacritics_post" }
             }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
           },
-          "400": {
-            "description": "unexpected error",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
             }
           }
-        }
+        },
+        "security": [{ "ApiKeyAuth": [] }]
       }
     }
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
+      "Body_synthesize_v1_speech_post": {
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
+          "text": { "type": "string", "title": "Text" },
+          "voice": { "$ref": "#/components/schemas/Voice" },
+          "language": { "$ref": "#/components/schemas/Language" }
+        },
         "type": "object",
+        "required": ["text", "language"],
+        "title": "Body_synthesize_v1_speech_post"
+      },
+      "Body_tone_mark_v1_diacritics_post": {
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "text": { "type": "string", "title": "Text" },
+          "language": { "$ref": "#/components/schemas/Language" }
+        },
+        "type": "object",
+        "required": ["text", "language"],
+        "title": "Body_tone_mark_v1_diacritics_post"
+      },
+      "Body_transcribe_v1_transcriptions_post": {
+        "properties": {
+          "content": {
+            "anyOf": [{ "type": "string", "format": "binary" }, { "type": "null" }],
+            "title": "Content"
           },
-          "message": {
-            "type": "string"
+          "url": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Url" },
+          "language": { "$ref": "#/components/schemas/Language" }
+        },
+        "type": "object",
+        "required": ["language"],
+        "title": "Body_transcribe_v1_transcriptions_post"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
           }
-        }
-      }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Language": { "type": "string", "enum": ["yo", "en", "ha", "ig"], "title": "Language" },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "Voice": { "type": "string", "enum": ["sade", "segun", "femi", "funmi"], "title": "Voice" }
     },
     "securitySchemes": {
-      "bearerAuth": {
+      "ApiKeyAuth": {
         "type": "http",
         "scheme": "bearer"
       }

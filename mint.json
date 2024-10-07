@@ -1,18 +1,28 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Spitch Developer Documentation",
+
+  "api": {
+    "baseUrl": "https://api.spi-tch.com/v1",
+    "auth": {
+      "method": "bearer"
+    },
+    "playground": {
+      "mode": "hide"
+    }
+  },
+
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/logo.png",
+    "light": "/logo/logo.png"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#ADD8E6",
-    "light": "#07C983",
-    "dark": "#ADD8E6",
+    "primary": "#a855f7",
+    "light": "#3b82f6",
+    "dark": "#ec4899",
     "anchors": {
-      "from": "#ADD8E6",
-      "to": "#07C983"
+      "from": "#ec4899",
+      "to": "#3b82f6"
     }
   },
   "topbarLinks": [
@@ -28,7 +38,9 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api-reference"
+      "openapi": "/api-reference/openapi.json",
+      "url": "api-reference",
+      "icon": "square-terminal"
     }
   ],
   "anchors": [
@@ -40,21 +52,16 @@
     {
       "name": "Community",
       "icon": "discord",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://discord.gg/A9nqr9bv"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "GETTING STARTED",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "getting-started/welcome",
+        "getting-started/quickstart",
+        "getting-started/installation"
       ]
     },
     {
@@ -67,25 +74,11 @@
         "essentials/navigation",
         "essentials/reusable-snippets"
       ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
     }
   ],
   "footerSocials": {
     "x": "https://x.com/spi---tch",
     "github": "https://github.com/spi-tch",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "linkedin": "https://www.linkedin.com/company/babs-technologies"
   }
 }

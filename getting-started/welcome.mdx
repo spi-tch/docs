@@ -1,0 +1,59 @@
+---
+title: "Welcome"
+icon: "door-open"
+---
+
+You're welcome to the Spitch Developer platform. This documentation will walk you through how to integrate and use our language models effectively.
+
+## What is Spitch?
+
+Quickly setup and get started making an API call in just a few steps
+
+<Card
+    title="Make an API Call"
+    icon="terminal"
+    href="getting-started/quickstart"
+>
+<CodeGroup>
+    ```python Python
+    from spitch import Spitch
+
+    client = Spitch()
+    with open("audio.wav", "wb") as f:
+        response = client.speech.generate(
+            text="Báwo ni olólùfé?",
+            language="yo"
+        )
+        f.write(response.read())
+    ```
+
+    ```shell curl
+    curl --request GET \
+    --url https://api.spi-tch.com/me \
+    --header "accept: application/json" \
+    --header "authorization: Bearer token"
+    ```
+</CodeGroup>
+</Card>
+
+
+## Models
+
+Update your docs to your brand and add valuable content for the best user conversion.
+
+<CardGroup cols={2}>
+<Card
+    title="Customize Style"
+    icon="palette"
+    href="https://mintlify.com/docs/settings/global"
+>
+    Customize your docs to your company's colors and brands
+</Card>
+<Card
+    title="Reference APIs"
+    icon="code"
+    href="https://mintlify.com/docs/api-playground/openapi"
+>
+    Automatically generate endpoints from an OpenAPI spec
+</Card>
+</CardGroup>
