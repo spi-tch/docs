@@ -5,55 +5,16 @@ icon: "door-open"
 
 You're welcome to the Spitch Developer platform. This documentation will walk you through how to integrate and use our language models effectively.
 
-## What is Spitch?
+## <Icon icon={"clipboard-question"}/> What is Spitch?
 
-Quickly setup and get started making an API call in just a few steps
+Spitch is a suite of language solutions with a focus on African languages. Our models are highly capable and solve problems including transcription, translations, diacritics, and speech synthesis. Our focus is on African languages, and we're excited to be bringing this to you. Whether you're looking to translate between languages, transcribe speech, or handle tone marking, our models are capable of handling these tasks.
 
-<Card
-    title="Make an API Call"
-    icon="terminal"
-    href="getting-started/quickstart"
->
-<CodeGroup>
-    ```python Python
-    from spitch import Spitch
+Our team does extensive research to bring you the very best models for African languages.
 
-    client = Spitch()
-    with open("audio.wav", "wb") as f:
-        response = client.speech.generate(
-            text="Báwo ni olólùfé?",
-            language="yo"
-        )
-        f.write(response.read())
-    ```
+## <Icon icon={"flag-checkered"}/> Get started
+We encourage you to explore the documentation and see how Spitch can meet your language processing needs. Each section is designed to guide you through specific tasks, with examples and code snippets to guide you along the way.
 
-    ```shell curl
-    curl --request GET \
-    --url https://api.spi-tch.com/me \
-    --header "accept: application/json" \
-    --header "authorization: Bearer token"
-    ```
-</CodeGroup>
-</Card>
+We would also love for you to join our growing community of developers on Discord. There you can find other developers just like you who are building amazing things with the Spitch API.
 
+Spitch is a product of Babs Technologies, and we're excited to bring you, with API access to our models.
 
-## Models
-
-Update your docs to your brand and add valuable content for the best user conversion.
-
-<CardGroup cols={2}>
-<Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
->
-    Customize your docs to your company's colors and brands
-</Card>
-<Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
->
-    Automatically generate endpoints from an OpenAPI spec
-</Card>
-</CardGroup>
