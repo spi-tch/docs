@@ -5,17 +5,10 @@
   "paths": {
     "/v1/speech": {
       "post": {
-        "summary": "Generate Speech",
+        "summary": "Synthesize",
         "operationId": "synthesize_v1_speech_post",
         "security": [{ "ApiKeyAuth": [] }],
-        "parameters": [
-          {
-            "name": "stream",
-            "in": "query",
-            "required": false,
-            "schema": { "type": "boolean", "default": false, "title": "Stream" }
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
@@ -27,7 +20,7 @@
         "responses": {
           "200": {
             "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
+            "content": { "audio/wav": { "schema": {} } }
           },
           "422": {
             "description": "Validation Error",
@@ -102,7 +95,7 @@
           "language": { "$ref": "#/components/schemas/Language" }
         },
         "type": "object",
-        "required": ["text", "language"],
+        "required": ["text", "language", "voice"],
         "title": "Body_synthesize_v1_speech_post"
       },
       "Body_tone_mark_v1_diacritics_post": {
