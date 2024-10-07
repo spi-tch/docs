@@ -12,10 +12,10 @@
   },
 
   "logo": {
-    "dark": "/logo/logo.png",
-    "light": "/logo/logo.png"
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.jpg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/dark.jpg",
   "colors": {
     "primary": "#a855f7",
     "light": "#3b82f6",
@@ -40,7 +40,7 @@
       "name": "API Reference",
       "openapi": "/api-reference/openapi.json",
       "url": "api-reference",
-      "icon": "square-terminal"
+      "icon": "terminal"
     }
   ],
   "anchors": [
@@ -65,14 +65,23 @@
       ]
     },
     {
-      "group": "Essentials",
+      "group": "FEATURES",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "features/speech"
+      ]
+    },
+    {
+      "group": "CONCEPTS",
+      "pages": [
+        "concepts/keys",
+        "concepts/voices",
+        "concepts/languages"
+      ]
+    },
+    {
+      "group": "MODELS",
+      "pages": [
+        "models"
       ]
     }
   ],
