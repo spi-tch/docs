@@ -106,7 +106,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     with open("speech.wav", "rb") as f:
         response = await client.speech.transcribe(
             language="yo",
-            url=f.read()
+            url="https://myfilelocation.com/file.mp3"
         )
         print(response)
     ```
