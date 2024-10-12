@@ -44,9 +44,9 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     When generating speech, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
 </Note>
 
-## Examples - Synchronous
+## Examples
 <CodeGroup>
-    ```python Python (no streaming)
+    ```python Python
     from spitch import Spitch
 
     client = Spitch()
@@ -60,7 +60,26 @@ More info on languages can be found on the [Languages](/concepts/languages) page
         f.write(response.read())
     ```
 
-    ```python Python (with streaming)
+    ```python Python (async)
+    from spitch import AsyncSpitch
+
+    client = AsyncSpitch()
+
+    with open("new.wav", "wb") as f:
+        response = await client.speech.generate(
+            text="Bawo ni ololufe?",
+            language="yo",
+            voice="sade",
+        )
+        f.write(await response.read())
+    ```
+
+</CodeGroup>
+
+
+## Examples - streaming
+<CodeGroup>
+    ```python Python
     from spitch import Spitch
 
     client = Spitch()
@@ -72,28 +91,12 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     ) as response:
         response.stream_to_file("new.wav")
     ```
-</CodeGroup>
 
-
-## Examples - Asynchronous
-<CodeGroup>
-    ```python Python (no streaming)
+    ```python Python (async)
     from spitch import AsyncSpitch
 
     client = AsyncSpitch()
-    with open("new.wav", "wb") as f:
-        response = await client.speech.generate(
-            text="Bawo ni ololufe?",
-            language="yo",
-            voice="sade",
-        )
-        f.write(await response.read())
-    ```
 
-    ```python Python (with streaming)
-    from spitch import AsyncSpitch
-
-    client = AsyncSpitch()
     async with client.speech.with_streaming_response.generate(
         text="Bawo ni ololufe mi?",
         language="yo",

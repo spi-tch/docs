@@ -11,10 +11,18 @@ Also known as speech-to-text (STT), transcription is the process of converting s
 </Tip>
 
 ## Request
-The `transcribe()` function can be used to transcribe audio. Examples are provided below as a guide for you.
+The `transcribe()` function can be used to transcribe audio. Pass either a `url` or a `content` to the transcribe function.
+Examples are provided below as a guide for you.
+
+<Tip>
+    If you provide the `url`, we will download the file from the specified location.
+</Tip>
+
 <Warning>
-    - The maximum file size is 25MB, we will support
-    - We only support `wav` and `mp3` file formats
+    - You can provide either the `content` (file) or `url` (str), but do not provide both.
+    - The maximum file size is 25MB, we will support larger sizes in the future.
+    - We only support `wav` and `mp3` file formats.
+    - If you provide `url`, ensure that access to the file is not blocked by authentication.
 </Warning>
 
 ## Response
@@ -46,7 +54,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     When transcribing, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
 </Note>
 
-## Examples - Synchronous
+## Examples - file
 <CodeGroup>
     ```python Python
     from spitch import Spitch
@@ -54,7 +62,20 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     client = Spitch()
 
     with open("new.wav", "rb") as f:
-        response = client.speech.transcibe(
+        response = client.speech.transcribe(
+            language="yo",
+            content=f.read()
+        )
+        print(response)
+    ```
+
+    ```python Python (async)
+    from spitch import AsyncSpitch
+
+    client = AsyncSpitch()
+
+    with open("speech.wav", "rb") as f:
+        response = await client.speech.transcribe(
             language="yo",
             content=f.read()
         )
@@ -62,17 +83,30 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     ```
 </CodeGroup>
 
-
-## Examples - Asynchronous
+## Examples - url
 <CodeGroup>
     ```python Python
+    from spitch import Spitch
+
+    client = Spitch()
+
+    with open("new.wav", "rb") as f:
+        response = client.speech.transcribe(
+            language="yo",
+            url="https://myfilelocation.com/file.mp3"
+        )
+            print(response)
+    ```
+
+    ```python Python (async)
     from spitch import AsyncSpitch
 
     client = AsyncSpitch()
+
     with open("speech.wav", "rb") as f:
-        response = await client.speech.transcibe(
+        response = await client.speech.transcribe(
             language="yo",
-            content=f.read()
+            url=f.read()
         )
         print(response)
     ```

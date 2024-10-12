@@ -27,8 +27,6 @@ Below is an example of a response from the API
 }
 ```
 
-Each of these characters has unique attributes, we think you will find them fun to use. Feel free to try them out and let us know which one you love the most. 😉
-
 ## Language Support
 The speech generation model supports the following languages:
 - Yoruba: yo
@@ -40,7 +38,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     When tone marking a sentence, you should use the language code (e.g. `yo`, `ig`) and not the full text.
 </Note>
 
-## Examples - Synchronous
+## Examples
 <CodeGroup>
     ```python Python
     from spitch import Spitch
@@ -50,14 +48,10 @@ More info on languages can be found on the [Languages](/concepts/languages) page
         language="yo",
         text="Bawo ni ololufe mi?"
     )
-    print(response)
+    print(response)   # Báwo ni olólùfẹ́ mi?
     ```
-</CodeGroup>
 
-
-## Examples - Asynchronous
-<CodeGroup>
-    ```python Python
+    ```python Python (async)
     from spitch import AsyncSpitch
 
     client = AsyncSpitch()
@@ -65,5 +59,6 @@ More info on languages can be found on the [Languages](/concepts/languages) page
         language="yo",
         text="Bawo ni ololufe mi?"
     )
+    print(response)   # Báwo ni olólùfẹ́ mi?
     ```
 </CodeGroup>
