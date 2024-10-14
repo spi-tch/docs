@@ -90,12 +90,11 @@ More info on languages can be found on the [Languages](/concepts/languages) page
 
     client = Spitch()
 
-    with open("new.wav", "rb") as f:
-        response = client.speech.transcribe(
-            language="yo",
-            url="https://myfilelocation.com/file.mp3"
-        )
-            print(response)
+    response = client.speech.transcribe(
+        language="yo",
+        url="https://myfilelocation.com/file.mp3"
+    )
+        print(response)
     ```
 
     ```python Python (async)
@@ -103,11 +102,10 @@ More info on languages can be found on the [Languages](/concepts/languages) page
 
     client = AsyncSpitch()
 
-    with open("speech.wav", "rb") as f:
-        response = await client.speech.transcribe(
-            language="yo",
-            url="https://myfilelocation.com/file.mp3"
-        )
-        print(response)
+    response = await client.speech.transcribe(
+        language="yo",
+        url="https://myfilelocation.com/file.mp3"
+    )
+    print(response)
     ```
 </CodeGroup>
