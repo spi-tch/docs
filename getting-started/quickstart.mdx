@@ -25,6 +25,8 @@ This quickstart documentation shows you how to quickly start integrating with th
     <Step title={"Sample Code (Python)"} icon={"terminal"}>
         ```python
         from spitch import Spitch
+
+        os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
         client = Spitch()
 
         with open("audio.wav", "wb") as f:

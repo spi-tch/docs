@@ -43,6 +43,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     ```python Python
     from spitch import Spitch
 
+    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
     client = Spitch()
     response = client.text.tone_mark(
         language="yo",
@@ -54,6 +55,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     ```python Python (async)
     from spitch import AsyncSpitch
 
+    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
     client = AsyncSpitch()
     response = await client.text.tone_mark(
         language="yo",

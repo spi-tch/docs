@@ -49,6 +49,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     ```python Python
     from spitch import Spitch
 
+    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
     client = Spitch()
 
     with open("new.mp3", "wb") as f:
@@ -63,6 +64,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     ```python Python (async)
     from spitch import AsyncSpitch
 
+    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
     client = AsyncSpitch()
 
     with open("new.wav", "wb") as f:
@@ -82,6 +84,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     ```python Python
     from spitch import Spitch
 
+    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
     client = Spitch()
 
     with client.speech.with_streaming_response.generate(
@@ -95,6 +98,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     ```python Python (async)
     from spitch import AsyncSpitch
 
+    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
     client = AsyncSpitch()
 
     async with client.speech.with_streaming_response.generate(
