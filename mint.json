@@ -69,6 +69,7 @@
       "pages": [
         "features/speech",
         "features/transcription",
+        "features/translation",
         "features/tone"
       ]
     },
