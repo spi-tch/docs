@@ -112,7 +112,6 @@ More info on languages can be found on the [Languages](/concepts/languages) page
             timestamp=True
         )
     for segment in response.segments:
-        print(f"Speaker: {segment.speaker}")
         print(f"Text: {segement.text}")
         print(f"Start: {segment.start}")
         print(f"End: {segment.end}")
@@ -127,9 +126,14 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     with open("speech.wav", "rb") as f:
         response = await client.speech.transcribe(
             language="yo",
-            content=f.read()
+            content=f.read(),
+            multispeaker=True
         )
-        print(response.text)
+    for segment in response.segments:
+        print(f"Speaker: {segement.speaker}")
+        print(f"Text: {segement.text}")
+        print(f"Start: {segment.start}")
+        print(f"End: {segment.end}")
     ```
 </CodeGroup>
 
