@@ -1,0 +1,53 @@
+---
+title: "Translation"
+icon: "earth-africa"
+---
+
+Machine Translation converts text from one language to another. This is useful for any context that requires two languages.
+
+<Tip>
+    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
+    We're working to add SDKs for more languages.
+</Tip>
+
+## Request
+The `translate()` function can be used to transcribe audio. Pass a `text`, `source` and `target` languages.
+Examples are provided below as a guide for you.
+
+## Language Support
+Our speech-to-text model supports the following languages:
+- Hausa: ha
+- Igbo: ig
+- Yoruba: yo
+- English: en
+
+More info on languages can be found on the [Languages](/concepts/languages) page
+<Warning>
+    For many languages, translation is context-based. As such, Spitch may not always get the translation correct.
+</Warning>
+
+<CodeGroup>
+    ```python Python
+    from spitch import Spitch
+
+    client = Spitch()
+    translation = client.text.translate(
+        text="Hey my dear friend, how are you doing?",
+        source="en",
+        target="ha",
+    )
+    print(translation.text)
+    ```
+
+    ```python Python (async)
+    from spitch import AsyncSpitch
+
+    client = AsyncSpitch()
+    translation = await client.text.translate(
+        text="Hey my dear friend, how are you doing?",
+        source="en",
+        target="ha",
+    )
+    print(translation.text)
+    ```
+</CodeGroup>
