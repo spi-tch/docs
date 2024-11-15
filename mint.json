@@ -12,8 +12,8 @@
   },
 
   "logo": {
-    "light": "/logo/dark.png",
-    "dark": "/logo/dark.png"
+    "light": "/logo/light.png",
+    "dark": "/logo/light.png"
   },
   "favicon": "/logo/dark.png",
   "colors": {
