@@ -12,10 +12,10 @@
   },
 
   "logo": {
-    "light": "/logo/light.png",
-    "dark": "/logo/dark.jpg"
+    "light": "/logo/dark.png",
+    "dark": "/logo/dark.png"
   },
-  "favicon": "/logo/dark.jpg",
+  "favicon": "/logo/dark.png",
   "colors": {
     "primary": "#a855f7",
     "light": "#3b82f6",
