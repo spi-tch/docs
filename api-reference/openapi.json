@@ -185,7 +185,23 @@
         "required": ["loc", "msg", "type"],
         "title": "ValidationError"
       },
-      "Voice": { "type": "string", "enum": ["sade", "segun", "femi", "funmi"], "title": "Voice" }
+      "Voice": { "type": "string", "enum": [
+        "sade",
+        "segun",
+        "femi",
+        "funmi",
+        "amina",
+        "aliyu",
+        "hasan",
+        "zainab",
+        "ngozi",
+        "amara",
+        "ebuka",
+        "obinna",
+        "lucy",
+        "lina",
+        "john",
+        "jude"], "title": "Voice" }
     },
     "securitySchemes": {
       "ApiKeyAuth": {
