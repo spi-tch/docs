@@ -154,7 +154,10 @@
           "text": { "type": "string", "title": "Text"},
           "source": { "$ref": "#/components/schemas/Language" },
           "target": { "$ref": "#/components/schemas/Language" }
-        }
+        },
+        "type": "object",
+        "required": ["text", "language"],
+        "title": "Body_translate_v1_translate_post"
       },
       "HTTPValidationError": {
         "properties": {
