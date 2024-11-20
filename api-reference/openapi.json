@@ -58,6 +58,35 @@
         "security": [{ "ApiKeyAuth": [] }]
       }
     },
+    "/v1/translate": {
+      "post": {
+        "summary": "Translate",
+        "operationId": "translate_v1_translate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Body_translate_v1_translate_post" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": {} }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
+            }
+          }
+        },
+        "security": [{ "ApiKeyAuth": [] }]
+      }
+    },
     "/v1/diacritics": {
       "post": {
         "summary": "Tone Mark",
@@ -119,6 +148,13 @@
         "type": "object",
         "required": ["language"],
         "title": "Body_transcribe_v1_transcriptions_post"
+      },
+      "Body_translate_v1_translate_post": {
+        "properties": {
+          "text": { "type": "string", "title": "Text"},
+          "source": { "$ref": "#/components/schemas/Language" },
+          "target": { "$ref": "#/components/schemas/Language" }
+        }
       },
       "HTTPValidationError": {
         "properties": {
