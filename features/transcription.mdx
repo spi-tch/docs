@@ -12,9 +12,6 @@ Also known as speech-to-text (STT), transcription is the process of converting s
 
 ## Request
 The `transcribe()` function can be used to transcribe audio. Pass either a `url` or a `content` to the transcribe function.
-You can add timestamps to the output of the transcription by setting `timestamp` to True
-You can also choose to perform multispeaker transcription by setting `multispeaker` to True.
-Check the sections below for details on multispeaker and timestamps.
 Examples are provided below as a guide for you.
 
 <Tip>
@@ -28,62 +25,18 @@ Examples are provided below as a guide for you.
     - If you provide `url`, ensure that access to the file is not blocked by authentication.
 </Warning>
 
-### Timestamp (optional)
-For use-cases like subtitling, you can add timestamps to the output. This can be done by setting the `timesamp` to True.
-Find examples below.
-<Note>
-    Timestamp only works for English and Yoruba.
-</Note>
-
-### Multispeaker Mode (optional)
-This assigns each segment to a speaker so you can know who said what in a conversation.
-You can do this by setting `multispeaker` to True.
-<Note>
-    * Multispeaker mode is only supported for English.
-    * This can sometimes increase latency.
-</Note>
-
 ## Response
 The response for speech generation is in bytes.
 * The Content-Type is `application/json`
 * A `request_id` is returned for issue resolution with our support team.
 
-Below are an example of a response from the API
-<CodeGroup>
-```json No Timestamps
-    // This is an example of a response without timestamps
-    // This is the kind of result you get when both `multispeaker` and `timestamp` are false or not supplied.
+Below is an example of a response from the transcription endpoint.
+```json
     {
       "request_id": "86095cea-77d5-45ba-a093-0f800ac2c7df",
       "text": "Báwo ni olólùfẹ́ mi?"
     }
 ```
-```json With Speaker ID
-    // This is an example of a response with speaker identification.
-    // This is the response you get when `multispeaker` is set to True.
-    {
-        "request_id": "86095cea-77d5-45ba-a093-0f800ac2c7df",
-        "segments": [{
-            "start": 0.341,
-            "end": 1.278,
-            "text": "Báwo ni olólùfẹ́ mi?",
-            "speaker": "SPEAKER_00"
-        }]
-    }
-```
-```json With Timestamp
-    // This is an example of a response with timestamp.
-    // This is the response you get when `timestamp` is set to True.
-    {
-        "request_id": "86095cea-77d5-45ba-a093-0f800ac2c7df",
-        "segments": [{
-            "start": 0.341,
-            "end": 1.278,
-            "text": "Báwo ni olólùfẹ́ mi?"
-        }]
-    }
-```
-</CodeGroup>
 
 ## Language Support
 Our speech-to-text model supports the following languages:
@@ -109,13 +62,8 @@ More info on languages can be found on the [Languages](/concepts/languages) page
     with open("new.wav", "rb") as f:
         response = client.speech.transcribe(
             language="yo",
-            content=f.read(),
-            timestamp=True
+            content=f.read()
         )
-    for segment in response.segments:
-        print(f"Text: {segment.text}")
-        print(f"Start: {segment.start}")
-        print(f"End: {segment.end}")
     ```
 
     ```python Python (async)
@@ -128,13 +76,8 @@ More info on languages can be found on the [Languages](/concepts/languages) page
         response = await client.speech.transcribe(
             language="yo",
             content=f.read(),
-            multispeaker=True
         )
-    for segment in response.segments:
-        print(f"Speaker: {segment.speaker}")
-        print(f"Text: {segment.text}")
-        print(f"Start: {segment.start}")
-        print(f"End: {segment.end}")
+    print(f"Text: {response.text}")
     ```
 </CodeGroup>
 
