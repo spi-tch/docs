@@ -12,8 +12,9 @@
   },
 
   "logo": {
-    "light": "/logo/spitch.png",
-    "dark": "/logo/spitch.png"
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png",
+    "href": "https://spitch.app"
   },
   "favicon": "/logo/favicon.jpg",
   "colors": {
