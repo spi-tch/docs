@@ -8,7 +8,14 @@
         "summary": "Synthesize",
         "operationId": "synthesize_v1_speech_post",
         "security": [{ "ApiKeyAuth": [] }],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "boolean", "default": false, "title": "Stream" }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -46,35 +53,8 @@
         "responses": {
           "200": {
             "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
-            }
-          }
-        },
-        "security": [{ "ApiKeyAuth": [] }]
-      }
-    },
-    "/v1/translate": {
-      "post": {
-        "summary": "Translate",
-        "operationId": "translate_v1_translate_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/Body_translate_v1_translate_post" }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": { "schema": {} }
+              "application/json": { "schema": { "$ref": "#/components/schemas/Transcription" } }
             }
           },
           "422": {
@@ -102,7 +82,38 @@
         "responses": {
           "200": {
             "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/ToneMarked" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
+            }
+          }
+        },
+        "security": [{ "ApiKeyAuth": [] }]
+      }
+    },
+    "/v1/translate": {
+      "post": {
+        "summary": "Translate",
+        "operationId": "translate_v1_translate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Body_translate_v1_translate_post" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Translation" } }
+            }
           },
           "422": {
             "description": "Validation Error",
@@ -143,7 +154,9 @@
             "title": "Content"
           },
           "url": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Url" },
-          "language": { "$ref": "#/components/schemas/Language" }
+          "language": { "$ref": "#/components/schemas/Language" },
+          "timestamp": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Timestamp" },
+          "multispeaker": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Multispeaker" }
         },
         "type": "object",
         "required": ["language"],
@@ -151,12 +164,12 @@
       },
       "Body_translate_v1_translate_post": {
         "properties": {
-          "text": { "type": "string", "title": "Text"},
+          "text": { "type": "string", "title": "Text" },
           "source": { "$ref": "#/components/schemas/Language" },
           "target": { "$ref": "#/components/schemas/Language" }
         },
         "type": "object",
-        "required": ["text", "language"],
+        "required": ["text", "source", "target"],
         "title": "Body_translate_v1_translate_post"
       },
       "HTTPValidationError": {
@@ -185,23 +198,70 @@
         "required": ["loc", "msg", "type"],
         "title": "ValidationError"
       },
-      "Voice": { "type": "string", "enum": [
-        "sade",
-        "segun",
-        "femi",
-        "funmi",
-        "amina",
-        "aliyu",
-        "hasan",
-        "zainab",
-        "ngozi",
-        "amara",
-        "ebuka",
-        "obinna",
-        "lucy",
-        "lina",
-        "john",
-        "jude"], "title": "Voice" }
+      "Voice": {
+        "type": "string",
+        "enum": [
+          "sade",
+          "segun",
+          "femi",
+          "funmi",
+          "amina",
+          "aliyu",
+          "hasan",
+          "zainab",
+          "ngozi",
+          "amara",
+          "ebuka",
+          "obinna",
+          "lucy",
+          "lina",
+          "john",
+          "jude",
+          "henry",
+          "kani"
+        ],
+        "title": "Voice"
+      },
+      "Segment": {
+        "properties": {
+          "start": { "type": "integer", "title": "Start" },
+          "end": { "type": "integer", "title": "End" },
+          "text": { "type": "integer", "title": "Text" },
+          "speaker": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Speaker" }
+        }
+      },
+      "Transcription": {
+        "properties": {
+          "request_id": { "type": "string", "title": "RequestID" },
+          "text": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Text" },
+          "segments": {
+            "items": { "anyOf": [{ "$ref": "#/components/schemas/Segment" }, { "type": "null" }] },
+            "type": "array",
+            "title": "Segments"
+          }
+        },
+        "type": "object",
+        "required": ["request_id"],
+        "title": "Transcription"
+      },
+      "Translation": {
+        "properties": {
+          "request_id": { "type": "string", "title": "RequestID" },
+          "text": { "type": "string", "title": "Text" }
+        },
+        "type": "object",
+        "required": ["request_id"],
+        "title": "Translation"
+      },
+      "ToneMarked": {
+        "properties": {
+          "request_id": { "type": "string", "title": "RequestID" },
+          "text": { "type": "string", "title": "Text" }
+        },
+        "type": "object",
+        "required": ["request_id"],
+        "title": "ToneMarked"
+      }
     },
     "securitySchemes": {
       "ApiKeyAuth": {
