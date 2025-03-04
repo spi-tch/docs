@@ -18,11 +18,11 @@
   "favicon": "/logo/favicon.jpg",
   "colors": {
     "primary": "#808080",
-    "light": "#000000",
+    "light": "#808080",
     "dark": "#ffffff",
     "anchors": {
       "from": "#ffffff",
-      "to": "#000000"
+      "to": "#808080"
     }
   },
   "topbarLinks": [
