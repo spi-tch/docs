@@ -20,7 +20,7 @@
   "theme": "prism",
   "colors": {
     "primary": "#ffffff"
-  }
+  },
   "topbarLinks": [
     {
       "name": "Support",
