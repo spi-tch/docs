@@ -21,7 +21,7 @@
     "light": "#808080",
     "dark": "#ffffff",
     "anchors": {
-      "from": "#ffffff",
+      "from": "#000000",
       "to": "#808080"
     }
   },
