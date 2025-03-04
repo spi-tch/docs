@@ -12,23 +12,23 @@
   },
 
   "logo": {
-    "light": "/logo/light.png",
-    "dark": "/logo/light.png"
+    "light": "/logo/spitch.jpg",
+    "dark": "/logo/spitch.jpg"
   },
-  "favicon": "/logo/dark.png",
+  "favicon": "/logo/spitch.jpg",
   "colors": {
-    "primary": "#a855f7",
-    "light": "#3b82f6",
-    "dark": "#ec4899",
+    "primary": "#808080",
+    "light": "#000000",
+    "dark": "#ffffff",
     "anchors": {
-      "from": "#ec4899",
-      "to": "#3b82f6"
+      "from": "#ffffff",
+      "to": "#000000"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@spi-tch.com"
+      "url": "mailto:hello@spi-tch.com"
     }
   ],
   "topbarCtaButton": {
