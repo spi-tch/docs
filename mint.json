@@ -17,7 +17,7 @@
     "href": "https://spitch.app"
   },
   "favicon": "/logo/favicon.jpg",
-  "theme": "prism",
+  "theme": "quill",
   "colors": {
     "primary": "#ffffff"
   },
