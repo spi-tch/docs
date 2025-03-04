@@ -21,7 +21,7 @@ Examples are provided below as a guide for you.
 <Warning>
     - You can provide either the `content` (file) or `url` (str), but do not provide both.
     - The maximum file size is 25MB, we will support larger sizes in the future.
-    - We only support `wav` and `mp3` file formats.
+    - We only support `mp3`, `wav`, `m4a`, and `ogg` file formats.
     - If you provide `url`, ensure that access to the file is not blocked by authentication.
 </Warning>
 
@@ -65,6 +65,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
             language="yo",
             content=f.read()
         )
+    print(f"Text: {response.text}")
     ```
 
     ```python Python (async)
@@ -96,7 +97,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
         language="yo",
         url="https://myfilelocation.com/file.mp3"
     )
-        print(response.text)
+    print(response.text)
     ```
 
     ```python Python (async)
