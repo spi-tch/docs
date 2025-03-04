@@ -12,10 +12,10 @@
   },
 
   "logo": {
-    "light": "/logo/spitch.jpg",
-    "dark": "/logo/spitch.jpg"
+    "light": "/logo/spitch.png",
+    "dark": "/logo/spitch.png"
   },
-  "favicon": "/logo/spitch.jpg",
+  "favicon": "/logo/favicon.jpg",
   "colors": {
     "primary": "#808080",
     "light": "#000000",
