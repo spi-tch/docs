@@ -18,6 +18,9 @@
   },
   "favicon": "/logo/favicon.jpg",
   "theme": "willow",
+  "colors": {
+    "primary": "#00008B"
+  }
   "topbarLinks": [
     {
       "name": "Support",
