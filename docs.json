@@ -21,6 +21,9 @@
   "colors": {
     "primary": "#808080"
   },
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  },
   "topbarLinks": [
     {
       "name": "Support",
@@ -80,7 +83,7 @@
         ]
       }
     ],
-    "languages": []
+    "languages": ["en", "yo"]
   },
   "footerSocials": {
     "x": "https://x.com/spi---tch",
