@@ -17,9 +17,9 @@
     "href": "https://spitch.app"
   },
   "favicon": "/logo/favicon.jpg",
-  "theme": "tran",
+  "theme": "willow",
   "colors": {
-    "primary": "#ffffff"
+    "primary": "#808080"
   },
   "topbarLinks": [
     {
@@ -51,34 +51,36 @@
       "url": "https://discord.gg/2S7zgKGhPj"
     }
   ],
-  "navigation": [
-    {
-      "group": "GETTING STARTED",
-      "pages": [
-        "getting-started/welcome",
-        "getting-started/quickstart",
-        "getting-started/installation"
-      ]
-    },
-    {
-      "group": "FEATURES",
-      "pages": [
-        "features/speech",
-        "features/transcription",
-        "features/translation",
-        "features/tone"
-      ]
-    },
-    {
-      "group": "CONCEPTS",
-      "pages": [
-        "concepts/voices",
-        "concepts/languages",
-        "concepts/keys",
-        "concepts/pricing"
-      ]
-    }
-  ],
+  "navigation": {
+    "groups": [
+      {
+        "group": "GETTING STARTED",
+        "pages": [
+          "getting-started/welcome",
+          "getting-started/quickstart",
+          "getting-started/installation"
+        ]
+      },
+      {
+        "group": "FEATURES",
+        "pages": [
+          "features/speech",
+          "features/transcription",
+          "features/translation",
+          "features/tone"
+        ]
+      },
+      {
+        "group": "CONCEPTS",
+        "pages": [
+          "concepts/voices",
+          "concepts/languages",
+          "concepts/keys",
+          "concepts/pricing"
+        ]
+      }
+    ]
+  },
   "footerSocials": {
     "x": "https://x.com/spi---tch",
     "github": "https://github.com/spi-tch",
