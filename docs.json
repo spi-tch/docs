@@ -19,7 +19,7 @@
   "favicon": "/logo/favicon.jpg",
   "theme": "palm",
   "colors": {
-    "primary": "#00008B"
+    "primary": "#808080"
   },
   "topbarLinks": [
     {
@@ -79,7 +79,8 @@
           "concepts/pricing"
         ]
       }
-    ]
+    ],
+    "languages": []
   },
   "footerSocials": {
     "x": "https://x.com/spi---tch",
