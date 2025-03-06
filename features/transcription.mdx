@@ -6,31 +6,39 @@ icon: "pen-to-square"
 Also known as speech-to-text (STT), transcription is the process of converting speech to text. We have built this endpoint with strong support for African languages.
 
 <Tip>
-    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
-    We're working to add SDKs for more languages.
+  If Python isn't your vibe, try using the ReST API directly. Go to the [API Reference section](https://docs.spi-tch.com/api-reference/transcribe).
+  We're working to add SDKs for more languages.
 </Tip>
 
 ## Request
+
 The `transcribe()` function can be used to transcribe audio. Pass either a `url` or a `content` to the transcribe function.
 Examples are provided below as a guide for you.
 
 <Tip>
-    If you provide the `url`, we will download the file from the specified location.
+  If you provide the `url`, we will download the file from the specified location.
 </Tip>
 
 <Warning>
-    - You can provide either the `content` (file) or `url` (str), but do not provide both.
-    - The maximum file size is 25MB, we will support larger sizes in the future.
-    - We only support `mp3`, `wav`, `m4a`, and `ogg` file formats.
-    - If you provide `url`, ensure that access to the file is not blocked by authentication.
+  * You can provide either the `content` (file) or `url` (str), but do not provide both.
+
+  * The maximum file size is 25MB, we will support larger sizes in the future.
+
+  * We only support `mp3`, `wav`, `m4a`, and `ogg` file formats.
+
+  * If you provide `url`, ensure that access to the file is not blocked by authentication.
 </Warning>
 
 ## Response
+
 The response for speech generation is in bytes.
+
 * The Content-Type is `application/json`
+
 * A `request_id` is returned for issue resolution with our support team.
 
 Below is an example of a response from the transcription endpoint.
+
 ```json
     {
       "request_id": "86095cea-77d5-45ba-a093-0f800ac2c7df",
@@ -39,78 +47,85 @@ Below is an example of a response from the transcription endpoint.
 ```
 
 ## Language Support
+
 Our speech-to-text model supports the following languages:
-- Hausa: ha
-- Igbo: ig
-- Yoruba: yo
-- English: en
+
+* Hausa: ha
+
+* Igbo: ig
+
+* Yoruba: yo
+
+* English: en
 
 More info on languages can be found on the [Languages](/concepts/languages) page
 
 <Note>
-    When transcribing, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
+  When transcribing, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
 </Note>
 
 ## Examples - file
+
 <CodeGroup>
-    ```python Python
-    import os
-    from spitch import Spitch
+  ```python Python
+  import os
+  from spitch import Spitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = Spitch()
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = Spitch()
 
-    with open("new.wav", "rb") as f:
-        response = client.speech.transcribe(
-            language="yo",
-            content=f.read()
-        )
-    print(f"Text: {response.text}")
-    ```
+  with open("new.wav", "rb") as f:
+      response = client.speech.transcribe(
+          language="yo",
+          content=f.read()
+      )
+  print(f"Text: {response.text}")
+  ```
 
-    ```python Python (async)
-    import os
-    from spitch import AsyncSpitch
+  ```python Python (async)
+  import os
+  from spitch import AsyncSpitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = AsyncSpitch()
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = AsyncSpitch()
 
-    with open("speech.wav", "rb") as f:
-        response = await client.speech.transcribe(
-            language="yo",
-            content=f.read(),
-        )
-    print(f"Text: {response.text}")
-    ```
+  with open("speech.wav", "rb") as f:
+      response = await client.speech.transcribe(
+          language="yo",
+          content=f.read(),
+      )
+  print(f"Text: {response.text}")
+  ```
 </CodeGroup>
 
 ## Examples - url
+
 <CodeGroup>
-    ```python Python
-    import os
-    from spitch import Spitch
+  ```python Python
+  import os
+  from spitch import Spitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = Spitch()
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = Spitch()
 
-    response = client.speech.transcribe(
-        language="yo",
-        url="https://myfilelocation.com/file.mp3"
-    )
-    print(response.text)
-    ```
+  response = client.speech.transcribe(
+      language="yo",
+      url="https://myfilelocation.com/file.mp3"
+  )
+  print(response.text)
+  ```
 
-    ```python Python (async)
-    import os
-    from spitch import AsyncSpitch
+  ```python Python (async)
+  import os
+  from spitch import AsyncSpitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = AsyncSpitch()
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = AsyncSpitch()
 
-    response = await client.speech.transcribe(
-        language="yo",
-        url="https://myfilelocation.com/file.mp3"
-    )
-    print(response.text)
-    ```
+  response = await client.speech.transcribe(
+      language="yo",
+      url="https://myfilelocation.com/file.mp3"
+  )
+  print(response.text)
+  ```
 </CodeGroup>

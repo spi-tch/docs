@@ -6,114 +6,124 @@ icon: "comment-dots"
 Also known as text-to-speech (TTS), speech generation/synthesis is integral part to modern AI systems. We have built this endpoint with strong support for African languages.
 
 <Tip>
-    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
-    We're working to add SDKs for more languages.
+  If Python isn't your vibe, try using the ReST API directly. Go to the [API Reference section](https://docs.spi-tch.com/api-reference/synthesize).
+  We're working to add SDKs for more languages.
 </Tip>
 
 ## Request
+
 The `generate()` function can be used to generate speech. Examples are provided below as a guide for you.
+
 <Info>
-    We highly recommend that you perform tone-marking first before TTS. This allows the model to pronounce the words properly during speech generation.
+  We highly recommend that you perform tone-marking first before TTS. This allows the model to pronounce the words properly during speech generation.
 </Info>
 
 ## Response
+
 The response for speech generation is in bytes.
+
 * The Content-Type is `audio/wav`
+
 * The content is streamed back to the caller.
+
 * The file type of the generated audio is `wav`.
-If you use the streaming interface (Python SDK), you can start to take action on the byte chunks, e.g. stream to file.
+  If you use the streaming interface (Python SDK), you can start to take action on the byte chunks, e.g. stream to file.
 
 ## Choosing a Voice
+
 We currently have 8 characters with unique voices for the supported languages.
 Each of these characters has unique attributes, we think you will find them fun to use. Feel free to try them out and let us know which one you love the most. 😉
 
 <Note>
-    Not all voices work for all languages. Ensure you select the voice that matches the language of your choice.
+  Not all voices work for all languages. Ensure you select the voice that matches the language of your choice.
 
-    More info on voices can be found on the [Voices](/concepts/voices) page
+  More info on voices can be found on the [Voices](/concepts/voices) page
 </Note>
 
-
 ## Language Support
-The speech generation model supports the following languages:
-- English: `en`
-- Hausa: `ha`
-- Igbo: `ig`
-- Yoruba: `yo`
 
+The speech generation model supports the following languages:
+
+* English: `en`
+
+* Hausa: `ha`
+
+* Igbo: `ig`
+
+* Yoruba: `yo`
 
 <Note>
-    When generating speech, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
+  When generating speech, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
 
-    More info on languages can be found on the [Languages](/concepts/languages) page
+  More info on languages can be found on the [Languages](/concepts/languages) page
 </Note>
 
 ## Examples
+
 <CodeGroup>
-    ```python Python
-    import os
-    from spitch import Spitch
+  ```python Python
+  import os
+  from spitch import Spitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = Spitch()
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = Spitch()
 
-    with open("new.mp3", "wb") as f:
-        response = client.speech.generate(
-            text="Bawo ni ololufe mi?",
-            language="yo",
-            voice="sade"
-        )
-        f.write(response.read())
-    ```
+  with open("new.mp3", "wb") as f:
+      response = client.speech.generate(
+          text="Bawo ni ololufe mi?",
+          language="yo",
+          voice="sade"
+      )
+      f.write(response.read())
+  ```
 
-    ```python Python (async)
-    import os
-    from spitch import AsyncSpitch
+  ```python Python (async)
+  import os
+  from spitch import AsyncSpitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = AsyncSpitch()
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = AsyncSpitch()
 
-    with open("new.wav", "wb") as f:
-        response = await client.speech.generate(
-            text="Bawo ni ololufe?",
-            language="yo",
-            voice="sade",
-        )
-        f.write(await response.read())
-    ```
-
+  with open("new.wav", "wb") as f:
+      response = await client.speech.generate(
+          text="Bawo ni ololufe?",
+          language="yo",
+          voice="sade",
+      )
+      f.write(await response.read())
+  ```
 </CodeGroup>
 
-
 ## Examples - streaming
+
 <CodeGroup>
-    ```python Python
-    import os
-    from spitch import Spitch
+  ```python Python
+  import os
+  from spitch import Spitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = Spitch()
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = Spitch()
 
-    with client.speech.with_streaming_response.generate(
-        text="Bawo ni ololufe mi?",
-        language="yo",
-        voice="funmi"
-    ) as response:
-        response.stream_to_file("new.wav")
-    ```
+  with client.speech.with_streaming_response.generate(
+      text="Bawo ni ololufe mi?",
+      language="yo",
+      voice="funmi"
+  ) as response:
+      response.stream_to_file("new.wav")
+  ```
 
-    ```python Python (async)
-    import os
-    from spitch import AsyncSpitch
+  ```python Python (async)
+  import os
+  from spitch import AsyncSpitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = AsyncSpitch()
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = AsyncSpitch()
 
-    async with client.speech.with_streaming_response.generate(
-        text="Bawo ni ololufe mi?",
-        language="yo",
-        voice="segun"
-    ) as response:
-        await response.stream_to_file("new.wav")
-    ```
+  async with client.speech.with_streaming_response.generate(
+      text="Bawo ni ololufe mi?",
+      language="yo",
+      voice="segun"
+  ) as response:
+      await response.stream_to_file("new.wav")
+  ```
 </CodeGroup>

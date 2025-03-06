@@ -7,19 +7,24 @@ Many African languages are tonal (i.e. there is a specific way to pronounce them
 We have built this endpoint with model support for African languages.
 
 <Tip>
-    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
-    We're working to add SDKs for more languages.
+  If Python isn't your vibe, try using the ReST API directly. Go to the [API Reference section](https://docs.spi-tch.com/api-reference/tone-mark).
+  We're working to add SDKs for more languages.
 </Tip>
 
 ## Request
+
 The `tone_mark()` function can be used to add tone marks to a sentence. Examples are provided below as a guide for you.
 
 ## Response
+
 The response for speech generation is in bytes.
+
 * The Content-Type is `application/json`
+
 * A `request_id` is returned for issue resolution with our support team.
 
 Below is an example of a response from the API
+
 ```json
 {
   "request_id": "'86095cea-77d5-45ba-a093-0f800ac2c7df'",
@@ -28,41 +33,44 @@ Below is an example of a response from the API
 ```
 
 ## Language Support
+
 The speech generation model supports the following languages:
-- Yoruba: yo
+
+* Yoruba: yo
 
 Support for Igbo is coming soon.
 More info on languages can be found on the [Languages](/concepts/languages) page
 
 <Note>
-    When tone marking a sentence, you should use the language code (e.g. `yo`, `ig`) and not the full text.
+  When tone marking a sentence, you should use the language code (e.g. `yo`, `ig`) and not the full text.
 </Note>
 
 ## Examples
+
 <CodeGroup>
-    ```python Python
-    import os
-    from spitch import Spitch
+  ```python Python
+  import os
+  from spitch import Spitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = Spitch()
-    response = client.text.tone_mark(
-        language="yo",
-        text="Bawo ni ololufe mi?"
-    )
-    print(response.text)   # Báwo ni olólùfẹ́ mi?
-    ```
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = Spitch()
+  response = client.text.tone_mark(
+      language="yo",
+      text="Bawo ni ololufe mi?"
+  )
+  print(response.text)   # Báwo ni olólùfẹ́ mi?
+  ```
 
-    ```python Python (async)
-    import os
-    from spitch import AsyncSpitch
+  ```python Python (async)
+  import os
+  from spitch import AsyncSpitch
 
-    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-    client = AsyncSpitch()
-    response = await client.text.tone_mark(
-        language="yo",
-        text="Bawo ni ololufe mi?"
-    )
-    print(response.text)   # Báwo ni olólùfẹ́ mi?
-    ```
+  os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+  client = AsyncSpitch()
+  response = await client.text.tone_mark(
+      language="yo",
+      text="Bawo ni ololufe mi?"
+  )
+  print(response.text)   # Báwo ni olólùfẹ́ mi?
+  ```
 </CodeGroup>
