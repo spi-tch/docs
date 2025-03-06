@@ -49,37 +49,45 @@
   "navigation": {
     "tabs": [
       {
-        "name": "API Reference",
-        "openapi": "/api-reference/openapi.json",
-        "url": "api-reference",
-        "icon": "terminal"
-      }
-    ],
-    "groups": [
-      {
-        "group": "GETTING STARTED",
-        "pages": [
-          "getting-started/welcome",
-          "getting-started/quickstart",
-          "getting-started/installation"
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "GETTING STARTED",
+            "pages": [
+              "getting-started/welcome",
+              "getting-started/quickstart",
+              "getting-started/installation"
+            ]
+          },
+          {
+            "group": "FEATURES",
+            "pages": [
+              "features/speech",
+              "features/transcription",
+              "features/translation",
+              "features/tone"
+            ]
+          },
+          {
+            "group": "CONCEPTS",
+            "pages": [
+              "concepts/voices",
+              "concepts/languages",
+              "concepts/keys",
+              "concepts/pricing"
+            ]
+          }
         ]
       },
       {
-        "group": "FEATURES",
-        "pages": [
-          "features/speech",
-          "features/transcription",
-          "features/translation",
-          "features/tone"
-        ]
-      },
-      {
-        "group": "CONCEPTS",
-        "pages": [
-          "concepts/voices",
-          "concepts/languages",
-          "concepts/keys",
-          "concepts/pricing"
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Endpoints",
+            "openapi": {
+              "source": "/api-reference/openapi.json"
+            }
+          }
         ]
       }
     ]
