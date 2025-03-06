@@ -34,14 +34,6 @@
     "name": "Dashboard",
     "url": "https://dev.spi-tch.com"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "openapi": "/api-reference/openapi.json",
-      "url": "api-reference",
-      "icon": "terminal"
-    }
-  ],
   "anchors": [
     {
       "name": "Documentation",
@@ -55,6 +47,14 @@
     }
   ],
   "navigation": {
+    "tabs": [
+      {
+        "name": "API Reference",
+        "openapi": "/api-reference/openapi.json",
+        "url": "api-reference",
+        "icon": "terminal"
+      }
+    ],
     "groups": [
       {
         "group": "GETTING STARTED",
