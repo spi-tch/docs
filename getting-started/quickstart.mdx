@@ -7,40 +7,43 @@ icon: "play"
 This quickstart documentation shows you how to quickly start integrating with the Spitch API using <b>Python</b>.
 
 <Tip>
-    If Python isn't your vibe, try using the ReST API directly. Go to the API Reference section.
-    We're working to add SDKs for more languages.
+  If Python isn't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/synthesize).
+  We're working to add SDKs for more languages.
 </Tip>
 
 <Steps>
-    <Step title={"Get API Key"} icon={"key"}>
-        Go to https://dev.spi-tch.com to get your API Key.
-        More info on API keys can be found on the [Keys](/concepts/keys) page.
-    </Step>
-    <Step title={"Install the Python library"} icon={"terminal"}>
-        ```
-        pip install spitch
-        ```
-        More info on installation can be found on [Installation](/getting-started/installation)
-    </Step>
-    <Step title={"Sample Code (Python)"} icon={"terminal"}>
-        ```python
-        import os
-        from spitch import Spitch
+  <Step title={"Get API Key"} icon={"key"}>
+    Go to https://dev.spi-tch.com to get your API Key.
+    More info on API keys can be found on the [Keys](/concepts/keys) page.
+  </Step>
 
-        os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-        client = Spitch()
+  <Step title={"Install the Python library"} icon={"terminal"}>
+    ```
+    pip install spitch
+    ```
 
-        with open("audio.wav", "wb") as f:
-            response = client.speech.generate(
-                text="Báwo ni olólùfé?",
-                language="yo",
-                voice="femi"
-            )
-            f.write(response.read())
-        ```
-    </Step>
-    <Step title={"Congratulations!"} icon={"gift"}>
-        You have now completed a task on speech generation. You are now equipped to start calling the Spitch models. Cool, right?
-    </Step>
+    More info on installation can be found on [Installation](/getting-started/installation)
+  </Step>
+
+  <Step title={"Sample Code (Python)"} icon={"terminal"}>
+    ```python
+    import os
+    from spitch import Spitch
+
+    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+    client = Spitch()
+
+    with open("audio.wav", "wb") as f:
+        response = client.speech.generate(
+            text="Báwo ni olólùfé?",
+            language="yo",
+            voice="femi"
+        )
+        f.write(response.read())
+    ```
+  </Step>
+
+  <Step title={"Congratulations!"} icon={"gift"}>
+    You have now completed a task on speech generation. You are now equipped to start calling the Spitch models. Cool, right?
+  </Step>
 </Steps>
-
