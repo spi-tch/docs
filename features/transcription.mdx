@@ -6,7 +6,7 @@ icon: "pen-to-square"
 Also known as speech-to-text (STT), transcription is the process of converting speech to text. We have built this endpoint with strong support for African languages.
 
 <Tip>
-  If Python isn't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/transcribe).
+  If Python and JavaScript aren't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/transcribe).
   We're working to add SDKs for more languages.
 </Tip>
 
@@ -91,6 +91,28 @@ with open("speech.wav", "rb") as f:
         content=f.read(),
     )
 print(f"Text: {response.text}")
+```
+
+
+```JavaScript
+import Spitch, { toFile } from 'spitch';
+import fs from 'fs';
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+async function transcribeFile() {
+  const buffer = fs.readFileSync("hello.wav");
+  const file = await toFile(buffer, "hello.wav");
+
+  const res = await client.speech.transcribe({
+    content: file,
+    language: "en"
+  });
+
+  console.log("Transcript:", res.text);
+}
+
+transcribeFile();
 ```
 
 </CodeGroup>

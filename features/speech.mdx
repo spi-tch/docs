@@ -6,7 +6,7 @@ icon: "comment-dots"
 Also known as text-to-speech (TTS), speech generation/synthesis is integral part to modern AI systems. We have built this endpoint with strong support for African languages.
 
 <Tip>
-  If Python isn't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/synthesize).
+  If Python and JavaScript aren't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/synthesize).
   We're working to add SDKs for more languages.
 </Tip>
 
@@ -89,6 +89,28 @@ with open("new.wav", "wb") as f:
         voice="sade",
     )
     f.write(await response.read())
+```
+
+
+```JavaScript JavaScript
+import Spitch from 'spitch';
+import fs from 'fs';
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+async function generateSpeech() {
+  const res = await client.speech.generate({
+    text: "Báwo ní ṣe wà?",
+    language: "yo",
+    voice: "femi"
+  });
+  const blob = await res.blob();
+  const buffer = Buffer.from(await blob.arrayBuffer());
+  fs.writeFileSync("output.wav", buffer);
+  console.log("Audio saved to output.wav");
+}
+
+generateSpeech();
 ```
 
 </CodeGroup>
