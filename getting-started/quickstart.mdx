@@ -4,10 +4,7 @@ description: "Start building awesome products in just 2 minutes"
 icon: "play"
 ---
 
-This quickstart documentation shows you how to quickly start integrating with the Spitch API using <b>
-Python</b>
-
-.
+This quickstart documentation shows you how to quickly start integrating with the Spitch API using **Python **or **JavaScript**
 
 <Tip>
   If Python and JavaScript aren't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/synthesize).
@@ -26,7 +23,7 @@ Python</b>
 
     More info on installation can be found on [Installation](/getting-started/installation)
   </Step>
-  <Step title='"Sample Code (Python)"' icon='"terminal"'>
+  <Step title='"Sample Code (Python)"' icon="terminal">
     ```python
     import os
     from spitch import Spitch
@@ -43,7 +40,32 @@ Python</b>
         f.write(response.read())
     ```
   </Step>
-  <Step title='"Congratulations!"' icon='"gift"'>
+  <Step title='"Install the Node package"' icon='"gift"'>
+    ```
+    npm install spitch
+    ```
+
+    More info on installation can be found on [Installation](/getting-started/installation)
+  </Step>
+  <Step title='"Sample Code (JavaScript)"' icon="terminal">
+    ```javascript
+    import Spitch from 'spitch';
+    
+    const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+    
+    async function translate() {
+      const response = await client.text.translate({
+        text: "Hello, how are you?",
+        source: "en",
+        target: "yo"
+      });
+      console.log("Translated:", response.text);
+    }
+    
+    translate();
+    ```
+  </Step>
+  <Step title="Congratulations!" icon="gift">
     You have now completed a task on speech generation. You are now equipped to start calling the Spitch models. Cool, right?
   </Step>
 </Steps>
