@@ -30,7 +30,7 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hello@spi-tch.com"
+      "url": "mailto:hello@spitch.app"
     }
   ],
   "topbarCtaButton": {
@@ -98,6 +98,6 @@
   "footerSocials": {
     "x": "https://x.com/spitch_app",
     "github": "https://github.com/spi-tch",
-    "linkedin": "https://www.linkedin.com/company/babs-technologies"
+    "linkedin": "https://www.linkedin.com/company/spi-tch"
   }
 }
