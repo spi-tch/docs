@@ -1,0 +1,70 @@
+---
+title: "Spitch x Livekit Integration Guide"
+description: "How to create voice agents on Livekit using Spitch STT and TTS models."
+---
+
+### Prerequisites
+
+- Python 3.7 or higher
+- Spitch API key
+- Livekit API key, URL and secret key
+
+### Installation & Setup
+
+Install the following modules into your Python environment and setup your \*\*.env \*\*file with the following parameters.
+
+```powershell
+pip install "livekit-agents[spitch]~=1.0"
+```
+
+<CodeGroup>
+
+```.env
+SPITCH_API_KEY=<Your Spitch API Key>
+LIVEKIT_API_KEY=<your API Key>
+LIVEKIT_API_SECRET=<your API Secret>
+LIVEKIT_URL=<Your URL>
+```
+
+</CodeGroup>
+
+## Integrating Spitch STT with Livekit
+
+```python
+from livekit.plugins import spitch
+
+session = AgentSession(
+   stt=spitch.STT(
+      language="en",
+   ),
+)
+```
+
+### STT Parameters
+
+<ParamField path="language" type="string" required>
+  Check [here](https://docs.spitch.app/concepts/languages) for language options
+</ParamField>
+
+## Integrating Spitch TTS with Livekit
+
+```python
+from livekit.plugins import spitch
+
+session = AgentSession(
+   tts=spitch.TTS(
+      language="en",
+      voice="lina",
+   )
+)
+```
+
+### TTS Parameters
+
+<ParamField path="language" default="'en'" type="string" required>
+  Check [here](https://docs.spitch.app/concepts/languages) for language options
+</ParamField>
+
+<ParamField path="voice" default="'en'" type="string" required>
+  Check [here](https://docs.spitch.app/concepts/voices) for voice options
+</ParamField>
