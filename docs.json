@@ -59,7 +59,8 @@
             "pages": [
               "getting-started/welcome",
               "getting-started/quickstart",
-              "getting-started/installation"
+              "getting-started/installation",
+              "getting-started/livekit"
             ]
           },
           {
