@@ -60,7 +60,8 @@
               "getting-started/welcome",
               "getting-started/quickstart",
               "getting-started/installation",
-              "getting-started/livekit"
+              "getting-started/livekit",
+              "getting-started/models"
             ]
           },
           {
