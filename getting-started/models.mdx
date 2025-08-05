@@ -14,52 +14,92 @@ Some of the key features are:
 - Custom spelling guidance for names and specialized terms.
 - Sentence or Word-level timestamps for audio up to 30 minutes (25MB)
 
+<Info>
+  Before you can try out our new model, you need to make sure that you're using the latest version of our SDK.
+
+  <CodeGroup>
+
+  ```shellscript Python SDK
+  pip install spitch==1.34.0
+  ```
+
+  
+  ```shellscript Node SDK
+  npm install spitch@1.20.0
+  ```
+
+  </CodeGroup>
+</Info>
+
 Ready to give it a spin? Use the code sample below to get started.
 
 <CodeGroup>
 
 ```python Python
-import requests
-url = "https://api.spi-tch.com/v1/transcriptions"
-files = { "content": "open('example-file', 'rb')" }
-payload = {
-    “model”: “mansa_v1”,
-    “timestamp”: “sentence”,
-    “special_words”: “spitch”, #replace with your special words
-    "language": “<lang>“
-}
-headers = {"Authorization": "Bearer <token>"}
-response = requests.post(url, data=payload, files=files, headers=headers)
-print(response.json())
+from spitch import Spitch
+client = Spitch(api_key="YOUR-API-KEY")
+
+response = client.speech.transcribe(
+    content=open("YOUR-AUDIO-FILE", "rb"), 
+    language="en", 
+    model="mansa_v1",
+	timestamps="sentence",
+	special_words=["Spitch"] # Add your special words here
+)
+
+"""
+RESPONSE FORMAT
+---------------
+SpeechTranscribeResponse(
+request_id='35580dcf-xxxx-4666-8d75-xxxxxxxxxx', 
+text="I'm having some power issues, I won't be available for a bit.  All right. Please let me know when you are back.", 
+timestamps=[Timestamp(end=4.64, start=1.2, text="I'm having some power issues, I won't be available for a bit."), Timestamp(end=6.72, start=5.8, text=' All right.'), Timestamp(end=9.92, start=8.08, text='Please let me know when you are back.')])
+
+# TO ACCESS TRANSCRIPT
+print(response.text)
+
+# TO ACCESS TIMESTAMPS
+print(response.timestamps)
+"""
 ```
 
 
 ```javascript JavaScript
-const fs = require('fs');
-const axios = require('axios');
-const FormData = require('form-data');
+import Spitch from 'spitch';
+import fs from 'fs';
 
-const url = 'https://api.spi-tch.com/v1/transcriptions';
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
 
-const form = new FormData();
-form.append('content', fs.createReadStream('example-file'));
-form.append('model', 'mansa_v1');
-form.append('timestamp', 'sentence');
-form.append('special_words', 'spitch'); // Replace with your special words
-form.append('language', '<lang>');
+async function speechToText() {
+  const response = await client.speech.transcribe({
+          content: selectedFile,
+          language: "en",
+          model: "mansa_v1",
+          special_words: "Chinedu, Lekki",
+          timestamp: "sentence",
+        });
+  console.log("Transcript:", response.text);
+}
 
-axios.post(url, form, {
-  headers: {
-    ...form.getHeaders(),
-    'Authorization': 'Bearer <token>'
-  }
-})
-.then(response => {
-  console.log(response.data);
-})
-.catch(error => {
-  console.error(error);
-});
+speechToText();
+
+/*
+SAMPLE RESPONSE FORMAT
+----------------------
+
+{
+    "request_id": "35580dcf-xxxx-4666-8d75-xxxxxxxxxxx",
+    "text": "Have you ever spoken and felt like you weren't truly heard?",
+    "timestamps": [
+        {
+            "text": "Have you ever spoken and felt like you weren't truly heard?",
+            "start": 0.2,
+            "end": 5.16
+        },
+		....
+    ]
+}
+*/
 ```
 
 </CodeGroup>
@@ -67,3 +107,15 @@ axios.post(url, form, {
 <Note>
   Mansa.v1 currently supports only English language. Additional language support will be available in upcoming releases.
 </Note>
+
+<ParamField path="model" body="mansa_v1" type="string" placeholder="mansa_v1">
+  'mansa_v1'
+</ParamField>
+
+<ParamField path="timestamp" type="string">
+  'sentence', 'word', 'none'
+</ParamField>
+
+<ParamField path="special_words" type="string">
+  [...]
+</ParamField>
