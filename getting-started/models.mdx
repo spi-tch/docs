@@ -1,0 +1,68 @@
+---
+title: "Spitch Models"
+description: "Here's what you need to know about our new STT model!"
+---
+
+# Mansa.v1
+
+Mansa is a 1.4B parameter ASR model optimized for African languages, offering high transcription accuracy and low-latency performance.
+
+Some of the key features are:
+
+- African named entity recognition in English contexts
+- Custom spelling guidance for names and specialized terms.
+- Sentence or Word-level timestamps for audio up to 30 minutes (25MB)
+
+Ready to give it a spin? Use the code sample below to get started.
+
+<CodeGroup>
+
+```python Python
+import requests
+url = "https://api.spi-tch.com/v1/transcriptions"
+files = { "content": "open('example-file', 'rb')" }
+payload = {
+    “model”: “mansa_v1”,
+    “timestamp”: “sentence”,
+    “special_words”: “spitch”, #replace with your special words
+    "language": “<lang>“
+}
+headers = {"Authorization": "Bearer <token>"}
+response = requests.post(url, data=payload, files=files, headers=headers)
+print(response.json())
+```
+
+
+```javascript JavaScript
+const fs = require('fs');
+const axios = require('axios');
+const FormData = require('form-data');
+
+const url = 'https://api.spi-tch.com/v1/transcriptions';
+
+const form = new FormData();
+form.append('content', fs.createReadStream('example-file'));
+form.append('model', 'mansa_v1');
+form.append('timestamp', 'sentence');
+form.append('special_words', 'spitch'); // Replace with your special words
+form.append('language', '<lang>');
+
+axios.post(url, form, {
+  headers: {
+    ...form.getHeaders(),
+    'Authorization': 'Bearer <token>'
+  }
+})
+.then(response => {
+  console.log(response.data);
+})
+.catch(error => {
+  console.error(error);
+});
+```
+
+</CodeGroup>
+
+<Note>
+  Mansa.v1 currently supports only English language. Additional language support will be available in upcoming releases.
+</Note>
