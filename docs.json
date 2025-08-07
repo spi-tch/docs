@@ -30,12 +30,7 @@
         "label": "Blog",
         "href": "https://spitch.app/blog",
         "icon": "bookmark"
-      },
-      {
-        "label": "Studio",
-        "href": "https://spitch.studio",
-        "icon": "microphone-lines"
-    }
+      }
     ]
   },
   "navigation": {
@@ -51,8 +46,7 @@
             "pages": [
               "index",
               "start/quickstart",
-              "start/installation",
-              "start/livekit",
+              "start/libraries",
               "start/models"
             ]
           },
@@ -64,6 +58,21 @@
               "features/transcription",
               "features/translation",
               "features/tone"
+            ]
+          },
+          {
+            "group": "Voice Agents",
+            "icon": "microphone-stand",
+            "pages": [
+              "agents/overview",
+              "agents/livekit"
+            ]
+          },
+          {
+            "group": "Code Walkthroughs",
+            "icon": "laptop-code",
+            "pages": [
+              "code/audio-transcription"
             ]
           },
           {

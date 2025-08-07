@@ -1,0 +1,102 @@
+---
+title: Audio Transcription App
+---
+
+This guide walks you through setting up and running a basic audio transcription app using the Spitch Python SDK and Streamlit.
+
+## Overview
+
+This app allows users to upload audio files (WAV, OGG, M4A or MP3), select a language, and receive an accurate transcription using the Spitch ASR API.
+
+## 🔧 Prerequisites
+
+- Python 3.7+
+- Streamlit
+- Spitch Python SDK
+- A Spitch API key
+
+## 🚀 Installation
+
+Install the required packages:
+
+```bash
+pip install streamlit spitch
+```
+
+## 🧠 App Structure
+
+Your main application code lives in a single file. Here's a breakdown of its structure:
+
+### 1. Import Modules
+
+```python
+import streamlit as st
+from spitch import Spitch
+import os
+import tempfile
+```
+
+### 2. Transcription Logic
+
+```python
+def transcribe_audio(audio_file, lang):
+    os.environ["SPITCH_API_KEY"] = "YOUR-API-KEY"
+    client = Spitch()
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
+        temp_file.write(audio_file.read())
+        temp_path = temp_file.name
+
+    with open(temp_path, "rb") as f:
+        response = client.speech.transcribe(language=lang, content=f.read())
+
+    return response.text
+```
+
+### 3. Streamlit UI
+
+```python
+def main():
+    st.title("My Spitch Transcription App")
+    st.write("Upload an audio file to transcribe it to text.")
+
+    audio_file = st.file_uploader("Upload Audio", type=["wav", "mp3"])
+
+    if audio_file:
+        st.audio(audio_file, format='audio/wav')
+        language = st.selectbox("Language", ["English", "Yoruba", "Igbo", "Hausa"])
+        lang = {'English': 'en', 'Yoruba': 'yo', 'Igbo': 'ig'}.get(language, 'ha')
+
+        if st.button("Transcribe"):
+            with st.spinner("Transcribing..."):
+                transcript = transcribe_audio(audio_file, lang)
+                st.success("Transcription completed!")
+                st.text_area("Transcript", transcript, height=200)
+                st.download_button("Download Transcript", data=transcript, file_name="transcript.txt")
+
+if __name__ == "__main__":
+    main()
+```
+
+
+## 🧑‍💻 Access the code here
+```bash
+$ git clone https://github.com/Nalito/My-Spitch-Transcription-App.git
+$ cd My-Spitch-Transcription-App
+```
+
+
+## 🧪 Testing the App
+
+Run the Streamlit app:
+
+```bash
+streamlit run app.py
+```
+
+Upload an audio file, select the language, and click **Transcribe** to test the transcription.
+
+
+## 🛠️ Make it your own!
+Play around with the code to store transcripts in databases, or even integrate with frontend frameworks for a richer UI!
+

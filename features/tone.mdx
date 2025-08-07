@@ -92,4 +92,14 @@ async function addToneMarks() {
 addToneMarks();
 ```
 
+```bash cURL
+curl -X POST https://api.spi-tch.com/v1/diacritics \
+  -H "Authorization: Bearer $SPITCH_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "language": "yo",
+    "text": "Mo bọ̀rọ̀ ṣùgbọ́n emi ko ranti sísọ ohunkohun nipa ewe kọlọtọ, emi ni àwọn ṣe ede nla emi ko ni àwọn ijiroro ẹni-kọọkan tabi iranti ati pe emi ko ni idaduro alaye lati àwọn ibaraẹnisọrọ tẹlẹ, ni igba kọọkan ti o ba ni ijiroro tuntun ti o ba fẹ lati mọ nkan nipa ewe kọlọtọ emi yoo ni idunnu lati gbiyanju lati ranlọwọ pẹlu iyẹnì olèbiribiri miiran lẹyin ẹ̀hin."
+  }'
+```  
+
 </CodeGroup>
