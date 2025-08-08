@@ -1,6 +1,6 @@
 ---
 title: "Quickstart"
-description: "Start building with Spitch in 2 minutes"
+description: "Start building with Spitch in 2 minutes or less!"
 ---
 
 <Tabs>
@@ -37,11 +37,11 @@ description: "Start building with Spitch in 2 minutes"
                 Set your environment variable depending on your OS
                 <CodeGroup dropdown>
                     ```bash MacOS/Linux
-                    export OPENAI_API_KEY="your_api_key_here"
+                    export SPITCH_API_KEY="your_api_key_here"
                     ```
 
                     ```powershell Windows Powershell
-                    setx OPENAI_API_KEY "your_api_key_here"
+                    setx SPITCH_API_KEY "your_api_key_here"
                     ```
                 </CodeGroup>
                 Alternatively, you can set it in your `.env` file
@@ -128,11 +128,11 @@ description: "Start building with Spitch in 2 minutes"
                 Set your environment variable depending on your OS
                 <CodeGroup dropdown>
                     ```bash MacOS/Linux
-                    export OPENAI_API_KEY="your_api_key_here"
+                    export SPITCH_API_KEY="your_api_key_here"
                     ```
 
                     ```powershell Windows Powershell
-                    setx OPENAI_API_KEY "your_api_key_here"
+                    setx SPITCH_API_KEY "your_api_key_here"
                     ```
                 </CodeGroup>
                 Alternatively, you can set it in your `.env` file
@@ -185,4 +185,196 @@ description: "Start building with Spitch in 2 minutes"
             </Step>
         </Steps>
     </Tab>
+
+
+    <Tab title={"Translate text"} icon={"language"}>
+        <Steps>
+            <Step title="Get an API Key" icon="key">
+                <Columns>
+                    <Frame caption={"Creating a Spitch API key"}>
+                        <img src={"/images/create-api-key.png"} alt={"Creating a Spitch API key"}/>
+                    </Frame>
+                    <Frame caption={"API key has been created"}>
+                        <img src={"/images/api-key-created.png"} alt={"Screenshot of API key created"}/>
+                    </Frame>
+                </Columns>
+                Create your API key at [Spitch Studio](https://spitch.studio/api-keys). This will be used to [securely access the API](/keys).
+            </Step>
+
+            <Step title="Install your library" icon="sign-posts-wrench">
+                Our official Python and Node SDKs allow you easily use the API. You can also install `dotenv` so that your API keys are set properly.
+                <CodeGroup dropdown>
+                    ```python Install the official Spitch Python SDK
+                    pip install spitch
+                    pip install python-dotenv
+                    ```
+
+                    ```typescript Install the official Spitch Node SDK
+                    npm install spitch
+                    npm install dotenv
+                    ```
+                </CodeGroup>
+                More info on installation can be found on [Installation](/getting-started/installation)
+            </Step>
+
+            <Step title={"Set environment variable"} icon={"envira"}>
+                Set your environment variable depending on your OS
+                <CodeGroup dropdown>
+                    ```bash MacOS/Linux
+                    export SPITCH_API_KEY="your_api_key_here"
+                    ```
+
+                    ```powershell Windows Powershell
+                    setx SPITCH_API_KEY "your_api_key_here"
+                    ```
+                </CodeGroup>
+                Alternatively, you can set it in your `.env` file
+                ```.env
+                SPITCH_API_KEY=<your_api_key>
+                ```
+            </Step>
+
+            <Step title="Write your script" icon="square-terminal">
+                <CodeGroup dropdown>
+                    ```python app.py
+                    from spitch import Spitch
+                    client = Spitch()
+
+                    translation = client.text.translate(
+                    text="I'll be in the backyard of the Ikorodu house.",
+                    source="en",
+                    target="yo",
+                )
+
+                print(translation.text)
+                    ```
+
+                    ```typescript app.mts
+                    import { Spitch } from "spitch";
+                    const client = new Spitch();
+
+                    async function translate() {
+                        const response = await client.text.translate({
+                            text: "I'll be in the backyard of the Ikorodu house.",
+                            source: "en",
+                            target: "yo"
+                        });
+                        console.log("Translated:", response.text);
+                        }
+
+                    translate();
+                    ```
+                </CodeGroup>
+            </Step>
+
+            <Step title="Run the code" icon="person-running-fast">
+                <CodeGroup dropdown>
+                    ```python
+                    python app.py
+                    ```
+
+                    ```typescript
+                    npx tsx app.mts
+                    ```
+                </CodeGroup>
+                You should see the text displayed on console.
+            </Step>
+        </Steps>
+    </Tab>
+
+
+    <Tab title={"Generate diacritics"} icon={"ankh"}>
+        <Steps>
+            <Step title="Get an API Key" icon="key">
+                <Columns>
+                    <Frame caption={"Creating a Spitch API key"}>
+                        <img src={"/images/create-api-key.png"} alt={"Creating a Spitch API key"}/>
+                    </Frame>
+                    <Frame caption={"API key has been created"}>
+                        <img src={"/images/api-key-created.png"} alt={"Screenshot of API key created"}/>
+                    </Frame>
+                </Columns>
+                Create your API key at [Spitch Studio](https://spitch.studio/api-keys). This will be used to [securely access the API](/keys).
+            </Step>
+
+            <Step title="Install your library" icon="sign-posts-wrench">
+                Our official Python and Node SDKs allow you easily use the API. You can also install `dotenv` so that your API keys are set properly.
+                <CodeGroup dropdown>
+                    ```python Install the official Spitch Python SDK
+                    pip install spitch
+                    pip install python-dotenv
+                    ```
+
+                    ```typescript Install the official Spitch Node SDK
+                    npm install spitch
+                    npm install dotenv
+                    ```
+                </CodeGroup>
+                More info on installation can be found on [Installation](/getting-started/installation)
+            </Step>
+
+            <Step title={"Set environment variable"} icon={"envira"}>
+                Set your environment variable depending on your OS
+                <CodeGroup dropdown>
+                    ```bash MacOS/Linux
+                    export SPITCH_API_KEY="your_api_key_here"
+                    ```
+
+                    ```powershell Windows Powershell
+                    setx SPITCH_API_KEY "your_api_key_here"
+                    ```
+                </CodeGroup>
+                Alternatively, you can set it in your `.env` file
+                ```.env
+                SPITCH_API_KEY=<your_api_key>
+                ```
+            </Step>
+
+            <Step title="Write your script" icon="square-terminal">
+                <CodeGroup dropdown>
+                    ```python app.py
+                    import os
+                    from spitch import Spitch
+
+                    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
+                    client = Spitch()
+                    response = client.text.tone_mark(
+                        language="yo",
+                        text="Bawo ni ololufe mi?"
+                    )
+                    print(response.text)   # Báwo ni olólùfẹ́ mi?
+                    ```
+
+                    ```typescript app.mts
+                    import { Spitch } from "spitch";
+                    const client = new Spitch();
+
+                    async function addToneMarks() {
+                        const input = "Bawo ni ololufe mi";
+                        const response = await client.text.toneMark({
+                            text: input,
+                            language: "yo"
+                        });
+                        console.log("With diacritics:", response.text);
+                    }
+
+                    addToneMarks();
+                    ```
+                </CodeGroup>
+            </Step>
+
+            <Step title="Run the code" icon="person-running-fast">
+                <CodeGroup dropdown>
+                    ```python
+                    python app.py
+                    ```
+
+                    ```typescript
+                    npx tsx app.mts
+                    ```
+                </CodeGroup>
+                You should see the text displayed on console.
+            </Step>
+        </Steps>
+    </Tab>        
 </Tabs>
