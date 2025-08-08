@@ -30,3 +30,19 @@ Install our Github App to auto propagate changes from your repo to your deployme
 
 - Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
 - Page loads as a 404 - Make sure you are running in a folder with `mint.json`
+
+
+
+
+import os
+from spitch import Spitch
+
+client = Spitch()
+
+with open("audio.wav", "wb") as f:
+    response = client.speech.generate(
+        text="Báwo ni olólùfé?",
+        language="yo",
+        voice="femi"
+    )
+    f.write(response.read())

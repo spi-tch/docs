@@ -1,43 +1,15 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Spitch API", "version": "1.0.0" },
-  "servers": [{ "url": "https://api.spi-tch.com" }],
+  "info": {
+    "title": "Spitch API",
+    "version": "1.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.spi-tch.com"
+    }
+  ],
   "paths": {
-    "/v1/speech": {
-      "post": {
-        "summary": "Synthesize",
-        "operationId": "synthesize_v1_speech_post",
-        "security": [{ "ApiKeyAuth": [] }],
-        "parameters": [
-          {
-            "name": "stream",
-            "in": "query",
-            "required": false,
-            "schema": { "type": "boolean", "default": false, "title": "Stream" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/Body_synthesize_v1_speech_post" }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "audio/wav": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
-            }
-          }
-        }
-      }
-    },
     "/v1/transcriptions": {
       "post": {
         "summary": "Transcribe",
@@ -45,36 +17,47 @@
         "requestBody": {
           "content": {
             "multipart/form-data": {
-              "schema": { "$ref": "#/components/schemas/Body_transcribe_v1_transcriptions_post" }
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_v1_transcriptions_post"
+              }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/Transcription" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transcription"
+                }
+              }
             }
           },
           "422": {
             "description": "Validation Error",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
             }
           }
         },
         "security": [{ "ApiKeyAuth": [] }]
       }
     },
-    "/v1/diacritics": {
+    "/v1/speech": {
       "post": {
-        "summary": "Tone Mark",
-        "operationId": "tone_mark_v1_diacritics_post",
+        "summary": "Synthesize",
+        "operationId": "synthesize_v1_speech_post",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Body_tone_mark_v1_diacritics_post" }
+              "schema": {
+                "$ref": "#/components/schemas/Speech"
+              }
             }
           },
           "required": true
@@ -83,13 +66,22 @@
           "200": {
             "description": "Successful Response",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/ToneMarked" } }
+              "audio/wav": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
             }
           },
           "422": {
             "description": "Validation Error",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
             }
           }
         },
@@ -103,7 +95,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Body_translate_v1_translate_post" }
+              "schema": {
+                "$ref": "#/components/schemas/Translate"
+              }
             }
           },
           "required": true
@@ -112,13 +106,60 @@
           "200": {
             "description": "Successful Response",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/Translation" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
             }
           },
           "422": {
             "description": "Validation Error",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "ApiKeyAuth": [] }]
+      }
+    },
+    "/v1/diacritics": {
+      "post": {
+        "summary": "Tone Mark",
+        "operationId": "tone_mark_v1_diacritics_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToneMark"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Diacritics"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
             }
           }
         },
@@ -128,54 +169,84 @@
   },
   "components": {
     "schemas": {
-      "Body_synthesize_v1_speech_post": {
-        "properties": {
-          "text": { "type": "string", "title": "Text" },
-          "voice": { "$ref": "#/components/schemas/Voice" },
-          "language": { "$ref": "#/components/schemas/Language" }
-        },
-        "type": "object",
-        "required": ["text", "language", "voice"],
-        "title": "Body_synthesize_v1_speech_post"
-      },
-      "Body_tone_mark_v1_diacritics_post": {
-        "properties": {
-          "text": { "type": "string", "title": "Text" },
-          "language": { "$ref": "#/components/schemas/Language" }
-        },
-        "type": "object",
-        "required": ["text", "language"],
-        "title": "Body_tone_mark_v1_diacritics_post"
-      },
       "Body_transcribe_v1_transcriptions_post": {
         "properties": {
+          "model": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/STTModelEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "legacy"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Language"
+          },
           "content": {
-            "anyOf": [{ "type": "string", "format": "binary" }, { "type": "null" }],
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "binary"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Content"
           },
-          "url": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Url" },
-          "language": { "$ref": "#/components/schemas/Language" },
-          "timestamp": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Timestamp" },
-          "multispeaker": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Multispeaker" }
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "special_words": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Special Words",
+            "default": ""
+          },
+          "timestamp": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TimestampEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "none"
+          }
         },
         "type": "object",
-        "required": ["language"],
+        "required": [
+          "language"
+        ],
         "title": "Body_transcribe_v1_transcriptions_post"
-      },
-      "Body_translate_v1_translate_post": {
-        "properties": {
-          "text": { "type": "string", "title": "Text" },
-          "source": { "$ref": "#/components/schemas/Language" },
-          "target": { "$ref": "#/components/schemas/Language" }
-        },
-        "type": "object",
-        "required": ["text", "source", "target"],
-        "title": "Body_translate_v1_translate_post"
       },
       "HTTPValidationError": {
         "properties": {
           "detail": {
-            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
             "type": "array",
             "title": "Detail"
           }
@@ -183,20 +254,35 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
-      "Language": { "type": "string", "enum": ["yo", "en", "ha", "ig"], "title": "Language" },
-      "ValidationError": {
+      "Diacritics": {
         "properties": {
-          "loc": {
-            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
-            "type": "array",
-            "title": "Location"
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
           },
-          "msg": { "type": "string", "title": "Message" },
-          "type": { "type": "string", "title": "Error Type" }
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
         },
         "type": "object",
-        "required": ["loc", "msg", "type"],
-        "title": "ValidationError"
+        "required": [
+          "request_id",
+          "text"
+        ],
+        "title": "Diacritics"
+      },
+      "Language": {
+        "type": "string",
+        "enum": [
+          "yo",
+          "en",
+          "ha",
+          "ig",
+          "am"
+        ],
+        "title": "Language"
       },
       "Voice": {
         "type": "string",
@@ -209,58 +295,224 @@
           "aliyu",
           "hasan",
           "zainab",
-          "ngozi",
-          "amara",
-          "ebuka",
-          "obinna",
-          "lucy",
-          "lina",
           "john",
           "jude",
+          "lina",
+          "lucy",
           "henry",
-          "kani"
+          "kani",
+          "ngozi",
+          "amara",
+          "obinna",
+          "ebuka",
+          "hana",
+          "selam",
+          "tena",
+          "tesfaye"
         ],
         "title": "Voice"
       },
-      "Segment": {
+      "Speech": {
         "properties": {
-          "start": { "type": "integer", "title": "Start" },
-          "end": { "type": "integer", "title": "End" },
-          "text": { "type": "integer", "title": "Text" },
-          "speaker": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Speaker" }
-        }
-      },
-      "Transcription": {
-        "properties": {
-          "request_id": { "type": "string", "title": "RequestID" },
-          "text": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Text" },
-          "segments": {
-            "items": { "anyOf": [{ "$ref": "#/components/schemas/Segment" }, { "type": "null" }] },
-            "type": "array",
-            "title": "Segments"
+          "model": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TTSModelEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "legacy"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "voice": {
+            "$ref": "#/components/schemas/Voice"
           }
         },
         "type": "object",
-        "required": ["request_id"],
+        "required": [
+          "language",
+          "text",
+          "voice"
+        ],
+        "title": "Speech"
+      },
+      "TTSModelEnum": {
+        "type": "string",
+        "enum": [
+          "legacy"
+        ],
+        "title": "TTSModelEnum"
+      },
+      "STTModelEnum": {
+        "type": "string",
+        "enum": [
+          "mansa_v1",
+          "legacy"
+        ],
+        "title": "STTModelEnum"
+      },
+      "TimeStamp": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "start": {
+            "type": "number",
+            "title": "Start"
+          },
+          "end": {
+            "type": "number",
+            "title": "End"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "start",
+          "end"
+        ],
+        "title": "TimeStamp"
+      },
+      "TimestampEnum": {
+        "type": "string",
+        "enum": [
+          "sentence",
+          "word",
+          "none"
+        ],
+        "title": "TimestampEnum"
+      },
+      "ToneMark": {
+        "properties": {
+          "language": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language",
+          "text"
+        ],
+        "title": "ToneMark"
+      },
+      "Transcription": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "timestamps": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/TimeStamp"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timestamps"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "text"
+        ],
         "title": "Transcription"
+      },
+      "Translate": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "target": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "target",
+          "text"
+        ],
+        "title": "Translate"
       },
       "Translation": {
         "properties": {
-          "request_id": { "type": "string", "title": "RequestID" },
-          "text": { "type": "string", "title": "Text" }
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
         },
         "type": "object",
-        "required": ["request_id"],
+        "required": [
+          "request_id",
+          "text"
+        ],
         "title": "Translation"
       },
-      "ToneMarked": {
+      "ValidationError": {
         "properties": {
-          "request_id": { "type": "string", "title": "RequestID" },
-          "text": { "type": "string", "title": "Text" }
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
         },
         "type": "object",
-        "required": ["request_id"],
-        "title": "ToneMarked"
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
       }
     },
     "securitySchemes": {
