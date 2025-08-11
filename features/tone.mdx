@@ -5,14 +5,24 @@ title: "Tone Marking"
 Many African languages are tonal (i.e. there is a specific way to pronounce them properly). In writing, this is indicated by certain marks which can help the reader (human or AI) to properly pronounce such text.
 We have built this endpoint with model support for African languages.
 
-<Tip>
-  If Python and JavaScript aren't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/tone-mark).
-  We're working to add SDKs for more languages.
-</Tip>
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/X6UYn1TqFtE?si=qEw619mQU1_EdZvG"
+  title="Tone Marking in Spitch"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
 
 ## Request
 
 The `tone_mark()` function can be used to add tone marks to a sentence. Examples are provided below as a guide for you.
+
+### Best Practices for Use
+<Info>
+  When tone marking a sentence, you should use the language code (e.g. `yo`, `ig`) and not the full text.
+</Info>
+
 
 ## Response
 
@@ -39,13 +49,11 @@ The speech generation model supports the following languages:
 Support for Igbo is coming soon.
 More info on languages can be found on the [Languages](/concepts/languages) page
 
-<Note>
-  When tone marking a sentence, you should use the language code (e.g. `yo`, `ig`) and not the full text.
-</Note>
+
 
 ## Examples
 
-<CodeGroup>
+<CodeGroup dropdown>
 
 ```python Python
 import os
@@ -61,21 +69,7 @@ print(response.text)   # Báwo ni olólùfẹ́ mi?
 ```
 
 
-```python Python (async)
-import os
-from spitch import AsyncSpitch
-
-os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-client = AsyncSpitch()
-response = await client.text.tone_mark(
-    language="yo",
-    text="Bawo ni ololufe mi?"
-)
-print(response.text)   # Báwo ni olólùfẹ́ mi?
-```
-
-
-```javascript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 
 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });

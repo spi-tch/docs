@@ -4,15 +4,23 @@ title: "Translation"
 
 Machine Translation converts text from one language to another. This is useful for any context that requires two languages.
 
-<Tip>
-  If Python and JavaScript aren't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/translate).
-  We're working to add SDKs for more languages.
-</Tip>
-
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/yep7BFCffqc?si=BOVW9syAZvmQt54O"
+  title="Language Translation in Spitch"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
 ## Request
 
 The `translate()` function can be used to transcribe audio. Pass a `text`, `source` and `target` languages.
 Examples are provided below as a guide for you.
+
+### Best Practices for Use
+<Info>
+  Context matters for many languages, so translations can differ based on wording and usage.
+</Info>
 
 ## Language Support
 
@@ -25,11 +33,9 @@ Our speech-to-text model supports the following languages:
 
 More info on languages can be found on the [Languages](/concepts/languages) page
 
-<Warning>
-  For many languages, translation is context-based. As such, Spitch may not always get the translation correct.
-</Warning>
 
-<CodeGroup>
+
+<CodeGroup dropdown>
 
 ```python Python
 from spitch import Spitch
@@ -43,21 +49,7 @@ translation = client.text.translate(
 print(translation.text)
 ```
 
-
-```python Python (async)
-from spitch import AsyncSpitch
-
-client = AsyncSpitch()
-translation = await client.text.translate(
-    text="Hey my dear friend, how are you doing?",
-    source="en",
-    target="ha",
-)
-print(translation.text)
-```
-
-
-```JavaScript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 
 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });

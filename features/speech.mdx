@@ -3,18 +3,27 @@ title: "Speech Generation"
 ---
 
 Also known as text-to-speech (TTS), speech generation/synthesis is integral part to modern AI systems. We have built this endpoint with strong support for African languages.
-
-<Tip>
-  If Python and JavaScript aren't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/synthesize).
-  We're working to add SDKs for more languages.
-</Tip>
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/qgGS55efGxc?si=aipAieBX4xS5U2k-"
+  title="Speech Generation on Spitch"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
 
 ## Request
 
 The `generate()` function can be used to generate speech. Examples are provided below as a guide for you.
 
+### Best Practice for Use
+
+
 <Info>
-  We highly recommend that you perform tone-marking first before TTS. This allows the model to pronounce the words properly during speech generation.
+- We highly recommend that you perform tone-marking first before TTS. This allows the model to pronounce the words properly during speech generation.
+- Make sure your text has correct punctuation before sending it for speech generation to achieve more natural and accurate output.
+- Not all voices work for all languages. Ensure you select the voice that matches the language of your choice. More info on voices can be found on the [Voices](/concepts/voices) page
+
 </Info>
 
 ## Response
@@ -31,12 +40,6 @@ The response for speech generation is in bytes.
 We currently have 8 characters with unique voices for the supported languages.
 Each of these characters has unique attributes, we think you will find them fun to use. Feel free to try them out and let us know which one you love the most. 😉
 
-<Note>
-  Not all voices work for all languages. Ensure you select the voice that matches the language of your choice.
-
-  More info on voices can be found on the [Voices](/concepts/voices) page
-</Note>
-
 ## Language Support
 
 The speech generation model supports the following languages:
@@ -47,15 +50,9 @@ The speech generation model supports the following languages:
 - Amharic: `am`
 - Yoruba: `yo`
 
-<Note>
-  When generating speech, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
-
-  More info on languages can be found on the [Languages](/concepts/languages) page
-</Note>
-
 ## Examples
 
-<CodeGroup>
+<CodeGroup dropdown>
 
 ```python Python
 import os
@@ -73,25 +70,7 @@ with open("new.mp3", "wb") as f:
     f.write(response.read())
 ```
 
-
-```python Python (async)
-import os
-from spitch import AsyncSpitch
-
-os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-client = AsyncSpitch()
-
-with open("new.wav", "wb") as f:
-    response = await client.speech.generate(
-        text="Bawo ni ololufe?",
-        language="yo",
-        voice="sade",
-    )
-    f.write(await response.read())
-```
-
-
-```JavaScript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 import fs from 'fs';
 
@@ -127,7 +106,7 @@ curl -X POST https://api.spi-tch.com/v1/speech \
 
 ## Examples - streaming
 
-<CodeGroup>
+<CodeGroup dropdown>
 
 ```python Python
 import os
@@ -143,21 +122,4 @@ with client.speech.with_streaming_response.generate(
 ) as response:
     response.stream_to_file("new.wav")
 ```
-
-
-```python Python (async)
-import os
-from spitch import AsyncSpitch
-
-os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-client = AsyncSpitch()
-
-async with client.speech.with_streaming_response.generate(
-    text="Bawo ni ololufe mi?",
-    language="yo",
-    voice="segun"
-) as response:
-    await response.stream_to_file("new.wav")
-```
-
 </CodeGroup>

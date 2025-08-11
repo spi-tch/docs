@@ -72,7 +72,8 @@
             "group": "Code Walkthroughs",
             "icon": "laptop-code",
             "pages": [
-              "code/audio-transcription"
+              "code/audio-transcription",
+              "code/multilingual-chatbot"
             ]
           },
           {
