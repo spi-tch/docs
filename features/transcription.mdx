@@ -4,26 +4,29 @@ title: "Transcription"
 
 Also known as speech-to-text (STT), transcription is the process of converting speech to text. We have built this endpoint with strong support for African languages.
 
-<Tip>
-  If Python and JavaScript aren't your vibe, try using the ReST API directly. Go to the [API Reference section](/api-reference/transcribe).
-  We're working to add SDKs for more languages.
-</Tip>
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/VUOuV_C8Rls?si=zedxDolOks9yFX6s"
+  title="Audio Transcription in Spitch"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
 
 ## Request
 
 The `transcribe()` function can be used to transcribe audio. Pass either a `url` or a `content` to the transcribe function.
 Examples are provided below as a guide for you.
 
-<Tip>
-  If you provide the `url`, we will download the file from the specified location.
-</Tip>
+### Best Practices for Use
 
-<Warning>
+<Info>
   - You can provide either the `content` (file) or `url` (str), but do not provide both.
   - The maximum file size is 25MB, we will support larger sizes in the future.
   - We only support `mp3`, `wav`, `m4a`, and `ogg` file formats.
   - If you provide `url`, ensure that access to the file is not blocked by authentication.
-</Warning>
+  - When transcribing, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
+</Info>
 
 ## Response
 
@@ -53,13 +56,10 @@ Our speech-to-text model supports the following languages:
 
 More info on languages can be found on the [Languages](/concepts/languages) page
 
-<Note>
-  When transcribing, you should use the language code (e.g. `en`, `yo`, `ig`) and not the full text.
-</Note>
 
 ## Examples - file
 
-<CodeGroup>
+<CodeGroup dropdown>
 
 ```python Python
 import os
@@ -77,23 +77,7 @@ print(f"Text: {response.text}")
 ```
 
 
-```python Python (async)
-import os
-from spitch import AsyncSpitch
-
-os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-client = AsyncSpitch()
-
-with open("speech.wav", "rb") as f:
-    response = await client.speech.transcribe(
-        language="yo",
-        content=f.read(),
-    )
-print(f"Text: {response.text}")
-```
-
-
-```JavaScript
+```typescript TypeScript
 import Spitch, { toFile } from 'spitch';
 import fs from 'fs';
 
@@ -118,7 +102,7 @@ transcribeFile();
 
 ## Examples - url
 
-<CodeGroup>
+<CodeGroup dropdown>
 
 ```python Python
 import os
@@ -128,21 +112,6 @@ os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
 client = Spitch()
 
 response = client.speech.transcribe(
-    language="yo",
-    url="https://myfilelocation.com/file.mp3"
-)
-print(response.text)
-```
-
-
-```python Python (async)
-import os
-from spitch import AsyncSpitch
-
-os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-client = AsyncSpitch()
-
-response = await client.speech.transcribe(
     language="yo",
     url="https://myfilelocation.com/file.mp3"
 )
