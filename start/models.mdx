@@ -42,28 +42,12 @@ response = client.speech.transcribe(
     content=open("YOUR-AUDIO-FILE", "rb"), 
     language="en", 
     model="mansa_v1",
-	timestamps="sentence",
+	timestamps="sentence",#Choose either sentence-level transcriptions or word-level transcriptions
 	special_words=["Spitch"] # Add your special words here
 )
-
-"""
-RESPONSE FORMAT
----------------
-SpeechTranscribeResponse(
-request_id='35580dcf-xxxx-4666-8d75-xxxxxxxxxx', 
-text="I'm having some power issues, I won't be available for a bit.  All right. Please let me know when you are back.", 
-timestamps=[Timestamp(end=4.64, start=1.2, text="I'm having some power issues, I won't be available for a bit."), Timestamp(end=6.72, start=5.8, text=' All right.'), Timestamp(end=9.92, start=8.08, text='Please let me know when you are back.')])
-
-# TO ACCESS TRANSCRIPT
-print(response.text)
-
-# TO ACCESS TIMESTAMPS
-print(response.timestamps)
-"""
 ```
 
-
-```javascript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 import fs from 'fs';
 
@@ -80,28 +64,40 @@ async function speechToText() {
   console.log("Transcript:", response.text);
 }
 
-speechToText();
-
-/*
-SAMPLE RESPONSE FORMAT
-----------------------
-
-{
-    "request_id": "35580dcf-xxxx-4666-8d75-xxxxxxxxxxx",
-    "text": "Have you ever spoken and felt like you weren't truly heard?",
-    "timestamps": [
-        {
-            "text": "Have you ever spoken and felt like you weren't truly heard?",
-            "start": 0.2,
-            "end": 5.16
-        },
-		....
-    ]
-}
-*/
+speechToText()
 ```
-
 </CodeGroup>
+
+The sample response format is:
+```bash
+SpeechTranscribeResponse(
+    request_id="35580dcf-xxxx-4666-8d75-xxxxxxxxxx",
+    text=(
+        "I'm having some power issues, I won't be available for a bit. "
+        "All right. Please let me know when you are back."
+    ),
+    timestamps=[
+        Timestamp(
+            start=1.20,
+            end=4.64,
+            text="I'm having some power issues, I won't be available for a bit."
+        ),
+        Timestamp(
+            start=5.80,
+            end=6.72,
+            text="All right."
+        ),
+        Timestamp(
+            start=8.08,
+            end=9.92,
+            text="Please let me know when you are back."
+        ),
+    ]
+)
+```
+You can index into this response to fetch specific parameters like ```text``` or ```timestamps```.
+
+
 
 <Note>
   Mansa.v1 currently supports only English language. Additional language support will be available in upcoming releases.

@@ -1,0 +1,18 @@
+# Spitch
+
+## Docs
+
+- [Livekit](https:///docs.spitch.app/agents/livekit): Learn how to integrate Spitch into your Livekit voice agent
+- [Agents Overview](https://docs.spitch.app/agents/overview): An overview of voice agents and the architecture
+- [Audio Transcription](https://docs.spitch.app/code/audio-transcription): How to build an audio transcription app with Spitch
+- [Multilingual Chatbot](https://docs.spitch.app/code/multilingual-chatbot): How to build a multilingual chatbot with Spitch
+- [Languagees](https://docs.spitch.app/concepts/languages): Learn about the languages we offer on our platform
+- [Pricing](https://docs.spitch.app/concepts/pricing): View our updated pricing model
+- [Voices](https://docs.spitch.app/concepts/voices): Check out the voice options we have available on Spitch
+- [Speech Generation](https://docs.spitch.app/features/speech): Learn how to use our speech generation feature with code samples to get started
+- [Tone Marking](https://docs.spitch.app/features/tone): Learn how to use the tone marking or diacritization feature on Spitch
+- [Transcription](https://docs.spitch.app/features/transcription): Learn how to use the STT or speech transcription feature on Spitch
+- [Translation](https://docs.spitch.app/features/translation): Learn how to use the translation feature to translate text to different languages
+- [Libraries](https://docs.spitch.app/start/libraries): Know about the SDK libraries we suppport
+- [Models](https://docs.spitch.app/start/models): Learn about our model options
+- [Quickstart](https://docs.spitch.app/start/quickstart): Code samples to integrate with Spitch in 2 minutes or less
