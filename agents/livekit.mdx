@@ -101,7 +101,7 @@ LIVEKIT_URL=<Your Livekit URL>
 
 ### Voice Agent Code
 
-```python agent.py
+```python agent.py focus={5,20,22}
 from dotenv import load_dotenv
 from livekit import agents
 from livekit.agents import AgentSession, Agent, RoomInputOptions
@@ -115,11 +115,9 @@ from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
 load_dotenv()
 
-
 class Assistant(Agent):
     def __init__(self) -> None:
         super().__init__(instructions="You are a helpful voice AI assistant.") #You can change the instrruction to meet your unique use case.
-
 
 async def entrypoint(ctx: agents.JobContext):
     session = AgentSession(

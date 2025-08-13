@@ -147,26 +147,34 @@ description: "Start building with Spitch in 2 minutes or less!"
                     from spitch import Spitch
                     client = Spitch()
 
-                    response = client.speech.generate(
-                        text="I'll be in the backyard of the Ikorodu house.",
-                        language="en",
-                        voice="lina"
-                    )
-
-                    print(response.text)
+                    with open("audio.mp3", "wb") as f:
+                        response = client.speech.generate(
+                            text="I'll be in the backyard of the Ikorodu house.",
+                            language="en",
+                            voice="lina"
+                        )
+                        f.write(response.read())                    
                     ```
 
                     ```typescript app.mts
-                    import { Spitch } from "spitch";
-                    const client = new Spitch();
+                    import Spitch from 'spitch';
+                    import fs from 'fs';
 
-                    const response = await client.speech.generate({
-                        language: 'en',
-                        text: "I'll be in the backyard of the Ikorodu house.",
-                        voice: 'lina'
+                    const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+                    async function generateSpeech() {
+                    const res = await client.speech.generate({
+                        text: "I'll be in the backyard of the Ikorodu house.,
+                        language: "en",
+                        voice: "lina"
                     });
+                    const blob = await res.blob();
+                    const buffer = Buffer.from(await blob.arrayBuffer());
+                    fs.writeFileSync("output.wav", buffer);
+                    console.log("Audio saved to output.wav");
+                    }
 
-                    console.log(response.text);
+                    generateSpeech();
                     ```
                 </CodeGroup>
             </Step>
