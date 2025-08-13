@@ -1,0 +1,126 @@
+---
+title: "Overview"
+description: "Spitch is the most accurate voice AI platform for African languages."
+mode: "frame"
+---
+
+<div className="relative">
+    <div className="absolute top-0 lg:-top-16 left-0 right-0">
+        <img
+            src="/logo/logo-dark.png"
+            className="block dark:hidden pointer-events-none [-webkit-mask-image:linear-gradient(black,transparent)]"
+            alt="Spitch Logo"
+        />
+        <img
+            src="/logo/logo-light.png"
+            className="hidden dark:block pointer-events-none [-webkit-mask-image:linear-gradient(black,transparent)]"
+            alt="Spitch Logo"
+        />
+    </div>
+
+    <div className="px-4 py-16 lg:py-48 lg:pb-24 max-w-3xl mx-auto">
+        <div className="flex justify-center">
+            <h1 className="text-4xl font-medium text-center text-gray-900 dark:text-zinc-50 tracking-tight">
+                Developer Platform
+            </h1>
+        </div>
+        <div className="max-w-xl mx-auto px-4 mt-4 text-lg text-center text-gray-500 dark:text-zinc-500">
+            the most accurate voice AI platform for Africa.
+        </div>
+
+        <Card title="Developer quickstart" icon="rabbit-running">
+            [Make your first API call, learn about the Spitch API.](/start/quickstart)
+            <CodeGroup dropdown>
+                ```python
+                from spitch import Spitch
+                client = Spitch()
+
+                response = client.speech.transcribe(
+                    content=open("file.wav", "rb"),
+                    language="en",
+                    model="mansa_v1"
+                )
+
+                print(response.text)
+                ```
+
+                ```typescript
+                import { Spitch } from "spitch";
+                const client = new Spitch();
+
+                const response = await client.speech.transcribe({
+                    language: 'en',
+                    content: fs.createReadStream('file.wav')
+                    model: "mansa_v1",
+                });
+
+                console.log(response.text);
+                ```
+
+                ```bash
+                curl --request POST \
+                    --url https://api.spi-tch.com/v1/transcriptions \
+                    -H 'Authorization: Bearer $SPITCH_API_KEY' \
+                    -H 'Content-Type: multipart/form-data' \
+                    -F content=@file.wav \
+                    -F language=en \
+                    -F model=mansa_v1
+                ```
+            </CodeGroup>
+        </Card>
+
+
+        <br />
+        <br />
+        ## Checkout our models
+        <Columns>
+            <Card title={"Mansa v1"} img={"/images/mansa.png"} href={"start/models"} arrow={"true"}>
+                the most versatile ASR model for African languages.
+            </Card>
+        </Columns>
+
+        <br />
+        <br />
+        ## Start building
+        <Columns>
+            <Card
+                title={"Audio Transcription"}
+                icon={"file-audio"}
+                arrow={"true"}
+                href={"code/audio-transcription"}
+                horizontal
+            >
+                create a web application that transcribes audio files in seconds with Spitch!
+            </Card>
+            <Card
+                title={"Multilingual Chatbot"}
+                icon={"message-bot"}
+                arrow={"true"}
+                href={"code/multilingual-chatbot"}
+                horizontal
+            >
+                create chatbots that converse in multiple languages using translation API.
+            </Card>
+        </Columns>
+        <Columns>
+            <Card
+                title={"Voice AI Agent"}
+                icon={"language"}
+                arrow={"true"}
+                href={"agents/livekit"}
+                horizontal
+            >
+                use our API to build voice agents with LiveKit.
+            </Card>
+            <Card
+                title={"Real-time Transcription"}
+                icon={"audio-description"}
+                arrow={"true"}
+                href={"features/transcription"}
+                horizontal
+            >
+                implement live speech-to-text transcription for online meetings and webinars.
+            </Card>
+        </Columns>
+  </div>
+</div>

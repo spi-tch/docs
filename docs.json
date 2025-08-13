@@ -1,71 +1,58 @@
 {
-  "name": "Spitch Developer Documentation",
-
-  "api": {
-    "baseUrl": "https://api.spi-tch.com/v1",
-    "auth": {
-      "method": "bearer"
-    },
-    "playground": {
-      "mode": "hide"
-    }
-  },
-
-  "logo": {
-    "light": "/logo/light.png",
-    "dark": "/logo/dark.png",
-    "href": "https://spitch.app"
+  "name": "Spitch",
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "maple",
+  "colors": {
+    "primary": "#000000",
+    "light": "#FFFFFF",
+    "dark": "#000000"
   },
   "favicon": {
     "light": "/favicon/light.png",
     "dark": "/favicon/dark.png"
   },
-  "theme": "palm",
-  "colors": {
-    "primary": "#808080"
+  "icons": {
+    "library": "fontawesome"
   },
-  "styling": {
-    "eyebrows": "breadcrumbs"
-  },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hello@spitch.app"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dev.spi-tch.com"
-  },
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://docs.spi-tch.com"
-    },
-    {
-      "name": "Community",
-      "icon": "discord",
-      "url": "https://discord.gg/2S7zgKGhPj"
-    }
-  ],
-  "navigation": {
-    "tabs": [
+  "navbar": {
+    "links": [
       {
-        "tab": "Documentation",
+        "label": "Community",
+        "href": "https://discord.gg/2S7zgKGhPj",
+        "icon": "discord"
+      },
+      {
+        "label": "Support",
+        "href": "mailto:dev@spitch.app",
+        "icon": "envelope"
+      },
+      {
+        "label": "Blog",
+        "href": "https://spitch.app/blog",
+        "icon": "bookmark"
+      }
+    ]
+  },
+  "navigation": {
+    "dropdowns": [
+      {
+        "dropdown": "Documentation",
+        "icon": "books",
+        "description": "developer docs",
         "groups": [
           {
-            "group": "GETTING STARTED",
+            "group": "Get Started",
+            "icon": "cloud-sun",
             "pages": [
-              "getting-started/welcome",
-              "getting-started/quickstart",
-              "getting-started/installation",
-              "getting-started/livekit",
-              "getting-started/models"
+              "index",
+              "start/quickstart",
+              "start/libraries",
+              "start/models"
             ]
           },
           {
-            "group": "FEATURES",
+            "group": "Features",
+            "icon": "message-code",
             "pages": [
               "features/speech",
               "features/transcription",
@@ -74,32 +61,77 @@
             ]
           },
           {
-            "group": "CONCEPTS",
+            "group": "Voice Agents",
+            "icon": "microphone-stand",
+            "pages": [
+              "agents/overview",
+              "agents/livekit"
+            ]
+          },
+          {
+            "group": "Code Walkthroughs",
+            "icon": "laptop-code",
+            "pages": [
+              "code/audio-transcription",
+              "code/multilingual-chatbot"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "icon": "thought-bubble",
             "pages": [
               "concepts/voices",
               "concepts/languages",
-              "concepts/keys",
               "concepts/pricing"
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "dropdown": "API Reference",
+        "icon": "display-code",
+        "description": "spitch api reference",
         "groups": [
           {
             "group": "Endpoints",
             "openapi": {
               "source": "/api-reference/openapi.json"
             }
+          },
+          {
+            "group": "Authentication",
+            "pages": [
+              "keys"
+            ]
           }
         ]
       }
     ]
   },
-  "footerSocials": {
-    "x": "https://x.com/spitch_app",
-    "github": "https://github.com/spi-tch",
-    "linkedin": "https://www.linkedin.com/company/spi-tch"
+
+  "footer": {
+
+  },
+
+  "thumbnails": {
+    "background": "/images/thumbnail/background.svg"
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "chatgpt",
+      "claude",
+      "cursor"
+    ]
+  },
+
+  "logo": {
+    "light": "/logo/logo-dark.png",
+    "dark": "/logo/logo-light.png",
+    "href": "https://docs.spitch.app"
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs"
   }
+
 }

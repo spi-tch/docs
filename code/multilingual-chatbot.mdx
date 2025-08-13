@@ -1,0 +1,150 @@
+---
+title: Multilingual Chatbot
+---
+
+This guide walks you through building a simple multilingual FAQ chatbot using the Spitch API.
+
+
+## 🔧 Prerequisites
+Before you start, make sure you have:
+- Python 3.7+
+- Spitch Python SDK
+- A Spitch API key
+
+## 🚀 Installation
+
+Install the required packages:
+
+```bash
+pip install spitch
+```
+
+## Code Walkthrough
+
+#### 1. **Import and Setup**
+
+We import the necessary modules, set the API key, and initialize the Spitch client.
+
+```python
+import os
+from spitch import Spitch
+
+# Set up Spitch client
+os.environ["SPITCH_API_KEY"] = "your_api_key_here"
+client = Spitch()
+```
+
+---
+
+#### 2. **FAQ Database**
+
+We define a simple English-based FAQ dictionary.
+
+```python
+faq_db = {
+    "hi": "hello. how may I help you",
+    "what are your opening hours": "Our support team is available 24/7 to assist you.",
+    "how can i reset my password": "To reset your password, click on 'Forgot Password' on the login page.",
+    # ... more FAQs here
+}
+```
+
+---
+
+#### 3. **Translation Function**
+
+This helper function uses Spitch's text translation service.
+
+```python
+def translate(text, source_lang, target_lang):
+    translation = client.text.translate(
+        text=text,
+        source=source_lang,
+        target=target_lang,
+    )
+    return translation.text.lower()
+```
+
+---
+
+#### 4. **FAQ Matching**
+
+Matches the normalized user input against the FAQ database.
+
+```python
+def get_response(user_input):
+    normalized = user_input.strip().lower()
+    for question, answer in faq_db.items():
+        if question in normalized:
+            return answer
+    return "I'm sorry, I didn't understand that. Could you please rephrase?"
+```
+
+---
+
+#### 5. **Main Chat Loop**
+
+This is where the chatbot runs interactively.
+
+```python
+def main():
+    print("Welcome to Multilingual Support Chatbot!")
+    source_lang = input("Enter your language code (e.g., 'yo' for Yoruba, 'ig' for Igbo): ")
+
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in ["exit", "quit"]:
+            print("Goodbye!")
+            break
+
+        # Translate to English for matching
+        input_en = translate(user_input, source_lang, "en")
+
+        # Get English response
+        response_en = get_response(input_en)
+
+        # Translate back to user's language
+        response_user_lang = translate(response_en, "en", source_lang)
+        print(f"Bot: {response_user_lang}")
+
+if __name__ == "__main__":
+    main()
+```
+
+---
+
+
+## 🧑‍💻 Access the code here
+```bash
+$ git clone https://github.com/Nalito/spitch-multilingual-chatbot-python.git
+$ cd spitch-multilingual-chatbot-python
+```
+
+### Running the Chatbot
+
+Run this command in your terminal:
+
+```bash
+python chatbot.py
+```
+
+Enter your preferred language code, ask a question, and the bot will respond in your chosen language.
+
+---
+
+### Example Interaction
+
+```text
+Welcome to Multilingual Support Chatbot!
+Enter your language code (e.g., 'yo' for Yoruba, 'ig' for Igbo): yo
+You: Bawo ni mo se le tun oro igbaniwo mi se
+Bot: lati tun oro igbaniwo re se, tẹ lori 'gbagbe oro igbaniwo' lori oju-iwe wiwọle ati tẹle awọn ilana naa.
+```
+
+---
+
+### Next Steps
+
+* Expand the `faq_db` with more multilingual entries.
+* Integrate with a web UI or messaging platform.
+* Add speech-to-text and text-to-speech for full voice-based interaction.

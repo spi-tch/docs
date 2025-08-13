@@ -1,0 +1,64 @@
+---
+title: Libraries
+description: Here are the Spitch libraries to get started with our SDKs
+---
+
+Learn how to set up a local development environment on your system to use Spitch API. We currently support:
+- Python
+- TypeScript
+
+## Accessing your API Key
+Log on to the [developer portal](https://spitch.studio) to create your API Key. You can store your API Key in a .env file, or use it directly in your code.
+
+```bash .env
+SPITCH_API_KEY = "YOUR_API_KEY"
+```
+
+## Installation
+<CodeGroup dropdown>
+```python Python
+pip install spitch
+```
+
+```javascript JavaScript
+npm install spitch
+```
+</CodeGroup>
+
+## Usage
+Test your installation by running the sample code below for text translation.
+
+<CodeGroup dropdown>
+```python Python
+from spitch import Spitch
+
+client = Spitch()
+translation = client.text.translate(
+    text="Hey my dear friend, how are you doing?",
+    source="en",
+    target="ha",
+)
+print(translation.text)
+```
+
+```javascript JavaScript
+import Spitch from 'spitch';
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+async function translate() {
+  const response = await client.text.translate({
+    text: "Hello, how are you?",
+    source: "en",
+    target: "yo"
+  });
+  console.log("Translated:", response.text);
+}
+
+translate();
+```
+</CodeGroup>
+
+## API Reference
+
+For full details on all available methods and options, check out the [API Reference](/api-reference/transcribe).
