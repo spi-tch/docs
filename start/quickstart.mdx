@@ -53,7 +53,7 @@ description: "Start building with Spitch in 2 minutes or less!"
                 <CodeGroup dropdown>
                     ```python app.py
                     from spitch import Spitch
-                    client = Spitch()
+                    client = Spitch(api_key="YOUR-API-KEY")
 
                     response = client.speech.transcribe(
                         content=open("file.wav", "rb"),
@@ -145,7 +145,7 @@ description: "Start building with Spitch in 2 minutes or less!"
                 <CodeGroup dropdown>
                     ```python app.py
                     from spitch import Spitch
-                    client = Spitch()
+                    client = Spitch(api_key="YOUR-API-KEY")
 
                     with open("audio.mp3", "wb") as f:
                         response = client.speech.generate(
@@ -246,7 +246,7 @@ description: "Start building with Spitch in 2 minutes or less!"
                 <CodeGroup dropdown>
                     ```python app.py
                     from spitch import Spitch
-                    client = Spitch()
+                    client = Spitch(api_key="YOUR-API-KEY")
 
                     translation = client.text.translate(
                     text="I'll be in the backyard of the Ikorodu house.",
@@ -344,8 +344,7 @@ description: "Start building with Spitch in 2 minutes or less!"
                     import os
                     from spitch import Spitch
 
-                    os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-                    client = Spitch()
+                    client = Spitch(api_key="YOUR-API-KEY")
                     response = client.text.tone_mark(
                         language="yo",
                         text="Bawo ni ololufe mi?"

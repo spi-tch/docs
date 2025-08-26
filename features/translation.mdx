@@ -40,6 +40,7 @@ More info on languages can be found on the [Languages](/concepts/languages) page
 ```python Python
 from spitch import Spitch
 
+os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
 client = Spitch()
 translation = client.text.translate(
     text="Hey my dear friend, how are you doing?",
