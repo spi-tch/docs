@@ -1,10 +1,10 @@
 ---
 title: "Models"
-description: "Here's what you need to know about our new STT model!"
+date: 24-08-2025
+description: "Here's what you need to know about our models!"
 ---
 
 # Mansa.v1
-
 
 <iframe
   className="w-full aspect-video rounded-xl"
@@ -23,17 +23,18 @@ Some of the key features are:
 - Custom spelling guidance for names and specialized terms.
 - Sentence or Word-level timestamps for audio up to 30 minutes (25MB)
 
+## Getting Started
 <Info>
   Before you can try out our new model, you need to make sure that you're using the latest version of our SDK.
 
   <CodeGroup dropdown>
 
-  ```shellscript Python SDK
+  ```bash Python SDK
   pip install spitch>=1.34.0
   ```
 
   
-  ```shellscript Node SDK
+  ```bash Node SDK
   npm install spitch@1.20.0
   ```
 
@@ -78,6 +79,7 @@ speechToText()
 ```
 </CodeGroup>
 
+### Response Format
 The sample response format is:
 ```bash
 SpeechTranscribeResponse(
@@ -113,6 +115,7 @@ You can index into this response to fetch specific parameters like ```text``` or
   Mansa.v1 currently supports only English language. Additional language support will be available in upcoming releases.
 </Note>
 
+## Parameters
 <ParamField path="model" body="mansa_v1" type="string" placeholder="mansa_v1">
   "mansa_v1"
 </ParamField>

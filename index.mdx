@@ -33,7 +33,7 @@ mode: "frame"
             <CodeGroup dropdown>
                 ```python
                 from spitch import Spitch
-                client = Spitch()
+                client = Spitch(api_key="YOUR-API-KEY")
 
                 response = client.speech.transcribe(
                     content=open("file.wav", "rb"),
@@ -45,16 +45,23 @@ mode: "frame"
                 ```
 
                 ```typescript
-                import { Spitch } from "spitch";
-                const client = new Spitch();
+                import Spitch from 'spitch';
+                import fs from 'fs';
 
+                const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+                async function speechToText() {
                 const response = await client.speech.transcribe({
-                    language: 'en',
-                    content: fs.createReadStream('file.wav')
-                    model: "mansa_v1",
-                });
+                        content: selectedFile,
+                        language: "en",
+                        model: "mansa_v1",
+                        special_words: "Chinedu, Lekki",
+                        timestamp: "sentence",
+                        });
+                console.log("Transcript:", response.text);
+                }
 
-                console.log(response.text);
+                speechToText()
                 ```
 
                 ```bash
@@ -74,9 +81,16 @@ mode: "frame"
         <br />
         ## Checkout our models
         <Columns>
-            <Card title={"Mansa v1"} img={"/images/mansa.png"} href={"start/models"} arrow={"true"}>
+            <Card title={"Mansa v1"} img={"/images/mansa.png"} href={"start/models#mansa-v1"} arrow={"true"}>
                 the most versatile ASR model for African languages.
             </Card>
+<>
+  {/* 
+            <Card title={"Mela v1"} img={"/images/mansa.png"} href={"start/models#mela-v1"} arrow={"true"}>
+                the most expressive TTS model.
+            </Card>    
+  */}
+</>    
         </Columns>
 
         <br />

@@ -32,7 +32,7 @@ Test your installation by running the sample code below for text translation.
 ```python Python
 from spitch import Spitch
 
-client = Spitch()
+client = Spitch(api_key="YOUR-API-KEY")
 translation = client.text.translate(
     text="Hey my dear friend, how are you doing?",
     source="en",
