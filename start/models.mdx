@@ -15,7 +15,7 @@ description: "Here's what you need to know about our models!"
   allowFullScreen
 ></iframe>
 
-Mansa is a 1.4B parameter ASR model optimized for African languages, offering high transcription accuracy and low-latency performance.
+Mansa is a 1.4B parameter ASR model optimized for African names and concepts, offering high transcription accuracy and low-latency performance.
 
 Some of the key features are:
 
@@ -23,11 +23,14 @@ Some of the key features are:
 - Custom spelling guidance for names and specialized terms.
 - Sentence or Word-level timestamps for audio up to 30 minutes (25MB)
 
+<Warning>
+Mansa currently supports <b>English</b> only. If you try to use it with any other language, the API will return a 400 error.
+</Warning>
 ## Getting Started
 <Info>
   Before you can try out our new model, you need to make sure that you're using the latest version of our SDK.
 
-  <CodeGroup dropdown>
+  <CodeGroup>
 
   ```bash Python SDK
   pip install spitch>=1.34.0
