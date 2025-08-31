@@ -69,7 +69,8 @@
               "audio/wav": {
                 "schema": {
                   "type": "string",
-                  "format": "binary"
+                  "format": "binary",
+                  "x-responseType": "file"
                 }
               }
             }
@@ -85,6 +86,13 @@
             }
           }
         },
+        "x-codeSamples": [
+          {
+            "lang": "Python",
+            "label": "Python example",
+            "source": "import requests\n\nurl = \"https://api.spi-tch.com/v1/synthesize\"\n\npayload = {\n  \"language\": \"en\",\n  \"voice\": \"sade\",\n  \"text\": \"<string>\"\n}\nheaders = {\"Authorization\": \"Bearer YOUR_API_KEY\"}\n\nresponse = requests.post(url, json=payload)\n\nwith open(\"output.wav\", \"wb\") as f:\n    f.write(response.content)\n"
+          }
+        ],
         "security": [{ "ApiKeyAuth": [] }]
       }
     },
