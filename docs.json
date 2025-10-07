@@ -1,19 +1,11 @@
 {
   "name": "Spitch",
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "venus",
+  "theme": "maple",
   "colors": {
     "primary": "#2563eb",
     "light": "#3b82f6",
-    "dark": "#1e40af",
-    "anchors": {
-      "from": "#2563eb",
-      "to": "#1e40af"
-    },
-    "background": {
-      "light": "#fafafa",
-      "dark": "#0f0f0f"
-    }
+    "dark": "#1e40af"
   },
   "favicon": {
     "light": "/favicon/light.png",
@@ -68,7 +60,7 @@
             "icon": "waveform",
             "pages": [
               "features/speech",
-              "features/transcription", 
+              "features/transcription",
               "features/translation",
               "features/tone"
             ]
