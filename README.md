@@ -33,7 +33,7 @@ Install our Github App to auto propagate changes from your repo to your deployme
 
 
 
-
+```python
 import os
 from spitch import Spitch
 
@@ -46,3 +46,4 @@ with open("audio.wav", "wb") as f:
         voice="femi"
     )
     f.write(response.read())
+```

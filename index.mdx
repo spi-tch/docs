@@ -25,7 +25,16 @@ mode: "frame"
             </h1>
         </div>
         <div className="max-w-xl mx-auto px-4 mt-4 text-lg text-center text-gray-500 dark:text-zinc-500">
-            the most accurate voice AI platform for Africa.
+            The most accurate voice AI platform for African languages.
+        </div>
+
+        <div className="flex justify-center gap-4 mt-8">
+            <a href="/start/quickstart" className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors">
+                Get Started
+            </a>
+            <a href="/api-reference/speech-to-text/transcribe-audio" className="border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                API Reference
+            </a>
         </div>
 
         <Card title="Developer quickstart" icon="rabbit-running">
@@ -44,24 +53,25 @@ mode: "frame"
                 print(response.text)
                 ```
 
-                ```javascript
+                ```typescript
                 import Spitch from 'spitch';
                 import fs from 'fs';
 
                 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
 
-                async function speechToText() {
-                const response = await client.speech.transcribe({
+                async function speechToText(): Promise<void> {
+                    const selectedFile = new File([""], "audio.wav");
+                    const response = await client.speech.transcribe({
                         content: selectedFile,
-                        language: "en",
-                        model: "mansa_v1",
+                        language: "en" as const,
+                        model: "mansa_v1" as const,
                         special_words: "Chinedu, Lekki",
-                        timestamp: "sentence",
-                        });
-                console.log("Transcript:", response.text);
+                        timestamp: "sentence" as const,
+                    });
+                    console.log("Transcript:", response.text);
                 }
 
-                speechToText()
+                speechToText();
                 ```
 
                 ```bash
@@ -77,34 +87,85 @@ mode: "frame"
         </Card>
 
 
-        <br />
-        <br />
-        ## Checkout our models
-        <Columns>
-            <Card title={"Mansa v1"} img={"/images/mansa.png"} href={"start/models#mansa-v1"} arrow={"true"}>
-                the most versatile ASR model for African languages.
-            </Card>
-<>
-  {/* 
-            <Card title={"Mela v1"} img={"/images/mansa.png"} href={"start/models#mela-v1"} arrow={"true"}>
-                the most expressive TTS model.
-            </Card>    
-  */}
-</>    
-        </Columns>
+        <div className="mt-24">
 
-        <br />
-        <br />
-        ## Start building
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">Why Choose Spitch?</h2>
+
+        <CardGroup>
+            <Card title="High Accuracy" icon="bullseye-pointer">
+                State-of-the-art models trained on diverse African datasets for superior performance.
+            </Card>
+            <Card title="Easy Integration" icon="plug">
+                Simple SDKs for Python and TypeScript with comprehensive documentation and examples.
+            </Card>
+        </CardGroup>
+
+        </div>
+
+        <div className="mt-24">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-8">Our Models</h2>
+        <div className="flex justify-center">
+            <Card title={"Mansa v1"} img={"/images/mansa.png"} href={"start/models#mansa-v1"} arrow={"true"}>
+                The most versatile ASR model for African languages with support for custom vocabulary and timestamps.
+            </Card>
+        </div>
+        </div>
+
+        <div className="mt-24">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-8">Voice Collection</h2>
+        <div className="flex justify-center">
+            <Card title={"18+ African Voices"} icon={"microphone"} href={"concepts/voices"} arrow={"true"}>
+                Unique African voices across multiple languages for natural-sounding speech synthesis with authentic pronunciation.
+            </Card>
+        </div>
+        </div>
+
+        <div className="mt-24">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent mb-8">Core Features</h2>
+
+        <CardGroup cols={2}>
+            <Card
+                title="Speech-to-Text"
+                icon="waveform"
+                href="/features/transcription"
+            >
+                Convert audio to text with high accuracy for African languages, supporting multiple formats and custom vocabularies.
+            </Card>
+            <Card
+                title="Text-to-Speech"
+                icon="volume-high"
+                href="/features/speech"
+            >
+                Generate natural-sounding speech from text using authentic African voices across 5 languages.
+            </Card>
+            <Card
+                title="Language Translation"
+                icon="language"
+                href="/features/translation"
+            >
+                Translate between African languages and English with context-aware AI models.
+            </Card>
+            <Card
+                title="Tone Marking"
+                icon="pen-nib"
+                href="/features/tone"
+            >
+                Add proper diacritical marks to Yoruba text for accurate pronunciation and meaning.
+            </Card>
+        </CardGroup>
+        </div>
+
+        <div className="mt-24">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-green-600 bg-clip-text text-transparent mb-8">Tutorials & Examples</h2>
         <Columns>
             <Card
-                title={"Audio Transcription"}
+                title={"Audio Transcription App"}
                 icon={"file-audio"}
                 arrow={"true"}
                 href={"code/audio-transcription"}
                 horizontal
             >
-                create a web application that transcribes audio files in seconds with Spitch!
+                Build a web application that transcribes audio files in seconds with Spitch.
             </Card>
             <Card
                 title={"Multilingual Chatbot"}
@@ -113,28 +174,29 @@ mode: "frame"
                 href={"code/multilingual-chatbot"}
                 horizontal
             >
-                create chatbots that converse in multiple languages using translation API.
+                Create chatbots that converse in multiple African languages.
             </Card>
         </Columns>
         <Columns>
             <Card
                 title={"Voice AI Agent"}
-                icon={"language"}
+                icon={"robot"}
                 arrow={"true"}
                 href={"agents/livekit"}
                 horizontal
             >
-                use our API to build voice agents with LiveKit.
+                Build real-time voice agents using Spitch with LiveKit integration.
             </Card>
             <Card
-                title={"Real-time Transcription"}
-                icon={"audio-description"}
+                title={"File Management"}
+                icon={"folder"}
                 arrow={"true"}
-                href={"features/transcription"}
+                href={"utility/files"}
                 horizontal
             >
-                implement live speech-to-text transcription for online meetings and webinars.
+                Upload, manage, and download files for use with translation services.
             </Card>
         </Columns>
+        </div>
   </div>
 </div>

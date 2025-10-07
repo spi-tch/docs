@@ -1,0 +1,437 @@
+---
+title: 'Files'
+description: 'Upload, manage, and download files with the Spitch API'
+---
+
+The Files API allows you to upload, manage, and download files for use with other Spitch services like translation.
+
+## Client Setup
+
+The Spitch SDK provides both synchronous and asynchronous clients:
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import Spitch, AsyncSpitch
+
+# Synchronous client
+sync_client = Spitch(api_key="YOUR_API_KEY")
+
+# Asynchronous client  
+async_client = AsyncSpitch(api_key="YOUR_API_KEY")
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+// The TypeScript SDK uses async/await by default
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+```
+
+</CodeGroup>
+
+## Upload File
+
+Upload a file to the Spitch server for processing.
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import AsyncSpitch
+
+async_client = AsyncSpitch(api_key="YOUR_API_KEY")
+
+# Upload a file
+async def upload_file():
+    with open("document.pdf", "rb") as file:
+        result = await async_client.files.upload(file=file)
+        
+    print("File uploaded successfully!")
+    print(f"File ID: {result.file_id}")
+    print(f"Status: {result.status}")
+    print(f"Original Name: {result.original_name}")
+    print(f"Size: {result.size_bytes} bytes")
+    
+    return result
+
+# Usage
+import asyncio
+asyncio.run(upload_file())
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+import fs from "fs";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+// Upload a file
+const uploadFile = async (filePath: string) => {
+  try {
+    const file = fs.createReadStream(filePath);
+    const result = await client.files.upload({ file });
+    
+    console.log("File uploaded successfully!");
+    console.log(`File ID: ${result.file_id}`);
+    console.log(`Status: ${result.status}`);
+    console.log(`Original Name: ${result.original_name}`);
+    console.log(`Size: ${result.size_bytes} bytes`);
+    
+    return result;
+  } catch (error) {
+    console.error("Upload error:", error);
+    throw error;
+  }
+};
+
+// Usage
+uploadFile("document.pdf");
+```
+
+</CodeGroup>
+
+## List Files
+
+Get a paginated list of files for your organization.
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import AsyncSpitch
+
+async_client = AsyncSpitch(api_key="YOUR_API_KEY")
+
+# List files with optional parameters
+async def list_files():
+    files = await async_client.files.list(limit=20, status="ready")
+    
+    print("Files in your organization:")
+    
+    # Iterate through files (async iterator)
+    async for file in files:
+        print(f"- {file.original_name} ({file.file_id})")
+        print(f"  Status: {file.status}")
+        print(f"  Size: {file.size_bytes} bytes")
+        print(f"  Created: {file.created_at}")
+        print(f"  Uploaded by: {file.uploaded_by}")
+
+# Usage
+import asyncio
+asyncio.run(list_files())
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+// List files with optional parameters
+const listFiles = async () => {
+  try {
+    const files = await client.files.list({
+      limit: 20,
+      status: "ready" as const
+    });
+    
+    console.log("Files in your organization:");
+    
+    // Iterate through files (async iterator)
+    for await (const file of files) {
+      console.log(`- ${file.original_name} (${file.file_id})`);
+      console.log(`  Status: ${file.status}`);
+      console.log(`  Size: ${file.size_bytes} bytes`);
+      console.log(`  Created: ${file.created_at}`);
+      console.log(`  Uploaded by: ${file.uploaded_by}`);
+    }
+  } catch (error) {
+    console.error("List files error:", error);
+  }
+};
+
+// Usage
+listFiles();
+```
+
+</CodeGroup>
+
+## Get File Metadata
+
+Retrieve metadata for a specific file.
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import AsyncSpitch
+
+async_client = AsyncSpitch(api_key="YOUR_API_KEY")
+
+# Get file metadata
+async def get_file_metadata(file_id: str):
+    try:
+        file_info = await async_client.files.get(file_id=file_id)
+        
+        print(f"File: {file_info.original_name}")
+        print(f"Status: {file_info.status}")
+        print(f"Size: {file_info.size_bytes} bytes")
+        print(f"Content Type: {file_info.content_type}")
+        print(f"Created: {file_info.created_at}")
+        print(f"Uploaded by: {file_info.uploaded_by}")
+        
+        return file_info
+    except Exception as e:
+        print(f"Error: {e}")
+        raise
+
+# Usage
+import asyncio
+file_id = "123e4567-e89b-12d3-a456-426614174000"
+asyncio.run(get_file_metadata(file_id))
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+// Get file metadata
+const getFileMetadata = async (fileId: string) => {
+  try {
+    const fileInfo = await client.files.get({ file_id: fileId });
+    
+    console.log(`File: ${fileInfo.original_name}`);
+    console.log(`Status: ${fileInfo.status}`);
+    console.log(`Size: ${fileInfo.size_bytes} bytes`);
+    console.log(`Content Type: ${fileInfo.content_type}`);
+    console.log(`Created: ${fileInfo.created_at}`);
+    console.log(`Uploaded by: ${fileInfo.uploaded_by}`);
+    
+    return fileInfo;
+  } catch (error) {
+    console.error("Get file metadata error:", error);
+    throw error;
+  }
+};
+
+// Usage
+getFileMetadata("123e4567-e89b-12d3-a456-426614174000");
+```
+
+</CodeGroup>
+
+## Download File
+
+Generate a pre-signed URL to download a file.
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import AsyncSpitch
+import aiohttp
+import asyncio
+
+async_client = AsyncSpitch(api_key="YOUR_API_KEY")
+
+# Download a file
+async def download_file(file_id: str, save_path: str):
+    try:
+        # Get download URL and metadata
+        download_info = await async_client.files.download(file_id)
+        
+        print(f"Download URL: {download_info.url}")
+        print(f"Expires at: {download_info.expires_at}")
+        
+        # Download the actual file content
+        async with aiohttp.ClientSession() as session:
+            async with session.get(download_info.url) as response:
+                if response.status == 200:
+                    content = await response.read()
+                    
+                    with open(save_path, "wb") as f:
+                        f.write(content)
+                    
+                    print(f"File downloaded to: {save_path}")
+                else:
+                    raise Exception(f"Download failed: {response.status}")
+                    
+    except Exception as e:
+        print(f"Download error: {e}")
+
+# Usage
+file_id = "123e4567-e89b-12d3-a456-426614174000"
+asyncio.run(download_file(file_id, "downloaded_file.pdf"))
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+import fs from "fs";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+// Download a file
+const downloadFile = async (fileId: string) => {
+  try {
+    // Get download URL and metadata
+    const downloadInfo = await client.files.download({ file_id: fileId });
+    
+    console.log(`Download URL: ${downloadInfo.url}`);
+    console.log(`Expires at: ${downloadInfo.expires_at}`);
+    
+    // Download the actual file content
+    const response = await fetch(downloadInfo.url);
+    
+    if (!response.ok) {
+      throw new Error(`Download failed: ${response.status} ${response.statusText}`);
+    }
+    
+    return response;
+  } catch (error) {
+    console.error("Download error:", error);
+    throw error;
+  }
+};
+
+// Usage for Node.js - save to file
+const saveFileToLocal = async (fileId: string, outputPath: string) => {
+  try {
+    const response = await downloadFile(fileId);
+    const buffer = Buffer.from(await response.arrayBuffer());
+    
+    fs.writeFileSync(outputPath, buffer);
+    console.log(`File saved to: ${outputPath}`);
+  } catch (error) {
+    console.error("Save file error:", error);
+  }
+};
+
+// Usage
+saveFileToLocal("123e4567-e89b-12d3-a456-426614174000", "downloaded_file.pdf");
+```
+
+</CodeGroup>
+
+## Delete File
+
+Delete a file and its associated storage.
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import AsyncSpitch
+
+async_client = AsyncSpitch(api_key="YOUR_API_KEY")
+
+# Delete a file
+async def delete_file(file_id: str):
+    try:
+        await async_client.files.delete(file_id=file_id)
+        print(f"File {file_id} deleted successfully")
+    except Exception as e:
+        print(f"Delete file error: {e}")
+        raise
+
+# Usage
+import asyncio
+file_id = "123e4567-e89b-12d3-a456-426614174000"
+asyncio.run(delete_file(file_id))
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+// Delete a file
+const deleteFile = async (fileId: string) => {
+  try {
+    await client.files.delete({ file_id: fileId });
+    console.log(`File ${fileId} deleted successfully`);
+  } catch (error) {
+    console.error("Delete file error:", error);
+    throw error;
+  }
+};
+
+// Usage
+deleteFile("123e4567-e89b-12d3-a456-426614174000");
+```
+
+</CodeGroup>
+
+## Get Storage Usage
+
+Check your organization's storage usage statistics.
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import AsyncSpitch
+
+async_client = AsyncSpitch(api_key="YOUR_API_KEY")
+
+# Get storage usage statistics
+async def get_storage_usage():
+    try:
+        usage = await async_client.files.usage()
+        
+        print("Storage Usage:")
+        print(f"  Total: {usage.total} ({usage.total_bytes} bytes)")
+        print(f"  Used: {usage.used} ({usage.used_bytes} bytes)")
+        print(f"  Files: {usage.num_files}")
+        
+        # Calculate percentage
+        percentage = (usage.used_bytes / usage.total_bytes) * 100
+        print(f"  Usage: {percentage:.1f}%")
+        
+        return usage
+    except Exception as e:
+        print(f"Get storage usage error: {e}")
+        raise
+
+# Usage
+import asyncio
+asyncio.run(get_storage_usage())
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+// Get storage usage statistics
+const getStorageUsage = async () => {
+  try {
+    const usage = await client.files.usage();
+    
+    console.log("Storage Usage:");
+    console.log(`  Total: ${usage.total} (${usage.total_bytes} bytes)`);
+    console.log(`  Used: ${usage.used} (${usage.used_bytes} bytes)`);
+    console.log(`  Files: ${usage.num_files}`);
+    
+    // Calculate percentage
+    const percentage = (usage.used_bytes / usage.total_bytes) * 100;
+    console.log(`  Usage: ${percentage.toFixed(1)}%`);
+    
+    return usage;
+  } catch (error) {
+    console.error("Get storage usage error:", error);
+    throw error;
+  }
+};
+
+// Usage
+getStorageUsage();
+```
+
+</CodeGroup>
+
+## Error Handling
+
+The Files API returns standard HTTP status codes:
+
+- `200` - Success
+- `400` - Bad request (invalid cursor, etc.)
+- `404` - File not found or doesn't belong to your organization
+- `422` - Validation error
+- `500` - Server error
+
+Make sure to handle these appropriately in your applications and check file status before attempting operations like downloads.

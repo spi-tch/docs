@@ -16,6 +16,36 @@ Also known as speech-to-text (STT), transcription is the process of converting s
 ## Request
 
 The `transcribe()` function can be used to transcribe audio. Pass either a `url` or a `content` to the transcribe function.
+
+### Parameters
+
+- `language` (required) - Language code: `en`, `yo`, `ha`, `ig`, `am`
+- `content` (optional) - Audio file content (binary data)
+- `url` (optional) - URL to the audio file
+- `model` (optional) - STT model to use: `mansa_v1`, `legacy`, `human`. Defaults to `legacy`
+- `special_words` (optional) - Custom words to help with recognition accuracy
+- `timestamp` (optional) - Timestamp granularity: `sentence`, `word`, `none`. Defaults to `none`
+
+<Note>
+You must provide either `content` or `url`, but not both.
+</Note>
+
+### STT Models
+
+The `model` parameter allows you to choose different speech-to-text models:
+
+- `legacy` (default) - Standard transcription model
+- `mansa_v1` - Enhanced model with better accuracy for African languages  
+- `human` - High-quality model optimized for human speech patterns
+
+### Timestamp Options
+
+The `timestamp` parameter controls the level of timing information returned:
+
+- `none` (default) - No timestamp information
+- `sentence` - Timestamps for each sentence
+- `word` - Timestamps for each individual word
+
 Examples are provided below as a guide for you.
 
 ### Best Practices for Use
@@ -71,28 +101,32 @@ client = Spitch()
 with open("new.wav", "rb") as f:
     response = client.speech.transcribe(
         language="yo",
-        content=f.read()
+        content=f.read(),
+        model="mansa_v1",
+        timestamp="sentence"
     )
 print(f"Text: {response.text}")
 ```
 
 
-```javascript JavaScript
+```typescript TypeScript
 import Spitch, { toFile } from 'spitch';
 import fs from 'fs';
 
 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
 
-async function transcribeFile() {
-  const buffer = fs.readFileSync("hello.wav");
-  const file = await toFile(buffer, "hello.wav");
+async function transcribeFile(): Promise<void> {
+    const buffer = fs.readFileSync("hello.wav");
+    const file = await toFile(buffer, "hello.wav");
 
-  const res = await client.speech.transcribe({
-    content: file,
-    language: "en"
-  });
-
-  console.log("Transcript:", res.text);
+    const res = await client.speech.transcribe({
+        content: file,
+        language: "en" as const,
+        model: "mansa_v1" as const,
+        timestamp: "word" as const
+    });
+    
+    console.log("Transcript:", res.text);
 }
 
 transcribeFile();
@@ -113,9 +147,30 @@ client = Spitch()
 
 response = client.speech.transcribe(
     language="yo",
-    url="https://myfilelocation.com/file.mp3"
+    url="https://myfilelocation.com/file.mp3",
+    model="human",
+    special_words="Spitch API"
 )
 print(response.text)
+```
+
+```typescript TypeScript
+import Spitch from 'spitch';
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+async function transcribeUrl(): Promise<void> {
+    const res = await client.speech.transcribe({
+        url: "https://myfilelocation.com/file.mp3",
+        language: "yo" as const,
+        model: "human" as const,
+        special_words: "Spitch API"
+    });
+    
+    console.log("Transcript:", res.text);
+}
+
+transcribeUrl();
 ```
 
 </CodeGroup>

@@ -1,0 +1,238 @@
+---
+title: "Troubleshooting"
+description: "Common issues and error handling patterns for the Spitch API"
+---
+
+## Error Handling
+
+The Spitch API returns standard HTTP status codes and structured error responses to help you debug and handle issues gracefully.
+
+### Common Status Codes
+
+- `200` - Success
+- `400` - Bad request (invalid parameters)
+- `401` - Unauthorized (invalid or missing API key)
+- `402` - Payment required (insufficient credits)
+- `404` - Not found
+- `422` - Validation error (malformed request)
+- `429` - Rate limit exceeded
+- `500` - Internal server error
+
+### Error Response Format
+
+```json
+{
+  "error": {
+    "message": "Description of the error",
+    "type": "validation_error",
+    "code": "invalid_language"
+  }
+}
+```
+
+### Best Practices
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import AsyncSpitch
+from spitch.exceptions import SpitchError
+
+client = AsyncSpitch()
+
+try:
+    response = await client.speech.generate(
+        text="Hello world",
+        language="en",
+        voice="lina"
+    )
+except SpitchError as e:
+    print(f"Spitch API error: {e}")
+    # Handle specific error types
+    if e.status_code == 401:
+        print("Check your API key")
+    elif e.status_code == 429:
+        print("Rate limit exceeded, try again later")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+```
+
+```typescript TypeScript  
+import { Spitch } from "spitch";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+try {
+  const response = await client.speech.generate({
+    text: "Hello world",
+    language: "en" as const,
+    voice: "lina" as const
+  });
+} catch (error) {
+  if (error.status === 401) {
+    console.error("Invalid API key - check your authentication");
+  } else if (error.status === 429) {
+    console.error("Rate limit exceeded - slow down your requests");
+  } else if (error.status === 400) {
+    console.error("Bad request - check your parameters:", error.message);
+  } else {
+    console.error("API error:", error);
+  }
+}
+```
+
+</CodeGroup>
+
+## Common Issues
+
+### Authentication Problems
+
+**Issue**: `401 Unauthorized` errors
+
+**Solutions**:
+- Verify your API key is correct
+- Check that the API key is properly set in environment variables
+- Ensure you're using the latest version of the SDK
+- Make sure your API key hasn't expired
+
+<CodeGroup dropdown>
+
+```python Python
+# Test your API key
+from spitch import AsyncSpitch
+
+async def test_auth():
+    client = AsyncSpitch()  # Uses SPITCH_API_KEY env var
+    try:
+        usage = await client.files.usage()
+        print("✅ Authentication successful")
+    except Exception as e:
+        print(f"❌ Authentication failed: {e}")
+```
+
+```typescript TypeScript
+// Test your API key
+import { Spitch } from "spitch";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+async function testAuth() {
+  try {
+    await client.files.usage();
+    console.log("✅ Authentication successful");
+  } catch (error) {
+    console.error("❌ Authentication failed:", error);
+  }
+}
+```
+
+</CodeGroup>
+
+### Rate Limiting
+
+**Issue**: `429 Rate Limit Exceeded` errors
+
+**Solutions**:
+- Implement exponential backoff
+- Add delays between requests
+- Monitor your usage in the dashboard
+- Consider upgrading your plan for higher limits
+
+<CodeGroup dropdown>
+
+```python Python
+import asyncio
+from spitch import AsyncSpitch
+
+async def make_request_with_retry(client, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            response = await client.speech.generate(
+                text="Hello world",
+                language="en",
+                voice="lina"
+            )
+            return response
+        except Exception as e:
+            if hasattr(e, 'status_code') and e.status_code == 429:
+                wait_time = 2 ** attempt  # Exponential backoff
+                print(f"Rate limited, waiting {wait_time}s...")
+                await asyncio.sleep(wait_time)
+                continue
+            raise e
+    
+    raise Exception("Max retries exceeded")
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+async function makeRequestWithRetry(maxRetries = 3) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await client.speech.generate({
+        text: "Hello world",
+        language: "en" as const,
+        voice: "lina" as const
+      });
+    } catch (error) {
+      if (error.status === 429) {
+        const waitTime = Math.pow(2, attempt) * 1000; // Exponential backoff
+        console.log(`Rate limited, waiting ${waitTime}ms...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+        continue;
+      }
+      throw error;
+    }
+  }
+  throw new Error("Max retries exceeded");
+}
+```
+
+</CodeGroup>
+
+### File Upload Issues
+
+**Issue**: Problems uploading files for translation
+
+**Solutions**:
+- Check file size limits (25MB max)
+- Verify file format is supported
+- Ensure proper file permissions
+- Check your storage quota
+
+### Audio Format Issues
+
+**Issue**: Audio transcription or generation failures
+
+**Solutions**:
+- Use supported formats: `mp3`, `wav`, `m4a`, `ogg`
+- Check audio quality and sample rates
+- Ensure audio files aren't corrupted
+- Try converting to a different supported format
+
+### Language and Voice Compatibility
+
+**Issue**: Voice not working with selected language
+
+**Solutions**:
+- Check the [voices documentation](/concepts/voices) for language compatibility
+- Verify the language code is correct (`en`, `yo`, `ha`, `ig`, `am`)
+- Make sure you're using a voice that supports your chosen language
+
+## Getting Help
+
+If you're still experiencing issues:
+
+1. Check the [API Reference](/api-reference) for detailed parameter information
+2. Join our [Discord community](https://discord.gg/2S7zgKGhPj) for support
+3. Contact our support team at [dev@spitch.app](mailto:dev@spitch.app)
+4. Check the [status page](https://status.spitch.app) for service updates
+
+When reporting issues, please include:
+- Your SDK version
+- The full error message
+- A minimal code example that reproduces the issue
+- Your API request/response (with API keys redacted)

@@ -1,15 +1,28 @@
 {
   "name": "Spitch",
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
+  "theme": "venus",
   "colors": {
-    "primary": "#000000",
-    "light": "#FFFFFF",
-    "dark": "#000000"
+    "primary": "#2563eb",
+    "light": "#3b82f6",
+    "dark": "#1e40af",
+    "anchors": {
+      "from": "#2563eb",
+      "to": "#1e40af"
+    },
+    "background": {
+      "light": "#fafafa",
+      "dark": "#0f0f0f"
+    }
   },
   "favicon": {
     "light": "/favicon/light.png",
     "dark": "/favicon/dark.png"
+  },
+  "logo": {
+    "light": "/logo/logo-dark.png",
+    "dark": "/logo/logo-light.png",
+    "href": "https://docs.spitch.app"
   },
   "icons": {
     "library": "fontawesome"
@@ -17,14 +30,14 @@
   "navbar": {
     "links": [
       {
+        "label": "Dashboard",
+        "href": "https://spitch.studio",
+        "icon": "chart-line"
+      },
+      {
         "label": "Community",
         "href": "https://discord.gg/2S7zgKGhPj",
         "icon": "discord"
-      },
-      {
-        "label": "Support",
-        "href": "mailto:dev@spitch.app",
-        "icon": "envelope"
       },
       {
         "label": "Blog",
@@ -38,83 +51,75 @@
       {
         "dropdown": "Documentation",
         "icon": "books",
-        "description": "developer docs",
+        "description": "Complete developer documentation and guides",
         "groups": [
           {
-            "group": "Get Started",
-            "icon": "cloud-sun",
+            "group": "Getting Started",
+            "icon": "rocket",
             "pages": [
               "index",
+              "start/setup",
               "start/quickstart",
-              "start/libraries",
-              "start/models"
+              "start/libraries"
             ]
           },
           {
-            "group": "Features",
-            "icon": "message-code",
+            "group": "Core Features",
+            "icon": "waveform",
             "pages": [
               "features/speech",
-              "features/transcription",
+              "features/transcription", 
               "features/translation",
               "features/tone"
             ]
           },
           {
+            "group": "Advanced Usage",
+            "icon": "gear",
+            "pages": [
+              "start/models",
+              "utility/files"
+            ]
+          },
+          {
             "group": "Voice Agents",
-            "icon": "microphone-stand",
+            "icon": "robot",
             "pages": [
               "agents/overview",
               "agents/livekit"
             ]
           },
           {
-            "group": "Code Walkthroughs",
-            "icon": "laptop-code",
+            "group": "Tutorials",
+            "icon": "graduation-cap",
             "pages": [
               "code/audio-transcription",
               "code/multilingual-chatbot"
             ]
           },
           {
-            "group": "Concepts",
-            "icon": "thought-bubble",
+            "group": "Reference",
+            "icon": "book",
             "pages": [
               "concepts/voices",
               "concepts/languages",
-              "concepts/pricing"
+              "concepts/pricing",
+              "concepts/troubleshooting",
+              "keys"
             ]
           }
         ]
       },
       {
         "dropdown": "API Reference",
-        "icon": "display-code",
-        "description": "spitch api reference",
-        "groups": [
-          {
-            "group": "Endpoints",
-            "openapi": {
-              "source": "/api-reference/openapi.json"
-            }
-          },
-          {
-            "group": "Authentication",
-            "pages": [
-              "keys"
-            ]
-          }
-        ]
+        "icon": "code",
+        "description": "Complete API documentation and schemas",
+        "openapi": "openapi.json"
       }
     ]
   },
-
-  "footer": {
-
-  },
-
   "thumbnails": {
-    "background": "/images/thumbnail/background.svg"
+    "background": "/images/hero-background.png"
   },
   "contextual": {
     "options": [
@@ -124,14 +129,50 @@
       "cursor"
     ]
   },
-
-  "logo": {
-    "light": "/logo/logo-dark.png",
-    "dark": "/logo/logo-light.png",
-    "href": "https://docs.spitch.app"
+  "seo": {
+    "indexHiddenPages": true
+  },
+  "analytics": {
+    "posthog": {
+      "apiKey": "phc_project_api_key"
+    }
   },
   "styling": {
     "eyebrows": "breadcrumbs"
-  }
+  },
+  "topbarCtaButton": {
+    "name": "Get API Key",
+    "url": "https://spitch.studio"
+  },
 
+  "api": {
+    "playground": {
+      "mode": "show"
+    },
+    "examples": {
+      "defaults": "required",
+      "prefill": true
+    },
+    "layout": "single-page",
+    "maintainOrder": true,
+    "hideMethodBadge": false,
+    "auth": {
+      "method": "bearer",
+      "name": "Authorization"
+    },
+    "request": {
+      "example": "show"
+    },
+    "response": {
+      "example": "show"
+    }
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
+  },
+  "search": {
+    "prompt": "Search Spitch API documentation..."
+  }
 }

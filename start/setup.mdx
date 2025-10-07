@@ -1,0 +1,134 @@
+---
+title: "API Setup"
+description: "Get your API key and set up authentication for the Spitch API"
+---
+
+## Getting Your API Key
+
+Before you can use the Spitch API, you'll need to get your API key:
+
+1. Sign up or log in to [Spitch Studio](https://spitch.studio)
+2. Navigate to the API Keys section
+3. Generate a new API key
+4. Store it securely in your environment variables
+
+<Warning>
+Keep your API key secure! Never commit it directly to version control or share it publicly.
+</Warning>
+
+## Environment Setup
+
+<CodeGroup dropdown>
+
+```bash Environment Variable (Recommended)
+export SPITCH_API_KEY="your_api_key_here"
+```
+
+```.env add to your .env file
+SPITCH_API_KEY=your_api_key_here
+```
+
+```powershell Windows PowerShell
+$env:SPITCH_API_KEY="your_api_key_here"
+```
+
+</CodeGroup>
+
+## Client Initialization
+
+<CodeGroup dropdown>
+
+```python Python (Async)
+from spitch import AsyncSpitch
+
+# Using environment variable (recommended)
+client = AsyncSpitch()  # automatically reads SPITCH_API_KEY
+
+# Or pass directly
+client = AsyncSpitch(api_key="YOUR_API_KEY")
+```
+
+```python Python (Sync)
+from spitch import Spitch
+
+# Using environment variable (recommended)
+client = Spitch()  # automatically reads SPITCH_API_KEY
+
+# Or pass directly
+client = Spitch(api_key="YOUR_API_KEY") 
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+const client = new Spitch({ 
+  apiKey: process.env.SPITCH_API_KEY 
+});
+```
+
+</CodeGroup>
+
+## Verifying Your Setup
+
+Test your API key by making a simple request:
+
+<CodeGroup dropdown>
+
+```python Python
+from spitch import AsyncSpitch
+
+async def test_connection():
+    client = AsyncSpitch()
+    
+    try:
+        # Test with a simple TTS request
+        response = await client.speech.generate(
+            text="Hello, this is a test",
+            language="en",
+            voice="lina"
+        )
+        print("✅ API key is working!")
+        return True
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return False
+
+# Run the test
+import asyncio
+asyncio.run(test_connection())
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+
+async function testConnection() {
+  try {
+    const response = await client.speech.generate({
+      text: "Hello, this is a test",
+      language: "en" as const,
+      voice: "lina" as const
+    });
+    console.log("✅ API key is working!");
+    return true;
+  } catch (error) {
+    console.error("❌ Error:", error);
+    return false;
+  }
+}
+
+testConnection();
+```
+
+</CodeGroup>
+
+## Next Steps
+
+Once your API key is set up:
+
+1. **[Install the SDK](/start/libraries)** - Choose Python or TypeScript and learn about client setup
+2. **[Quick Start Guide](/start/quickstart)** - Make your first API call in under 2 minutes  
+3. **[Core Features](/features/speech)** - Explore speech synthesis, transcription, translation, and tone marking
+
+Need help? Check our [troubleshooting guide](/concepts/troubleshooting) for common issues and solutions.

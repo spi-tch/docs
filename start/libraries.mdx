@@ -4,8 +4,8 @@ description: Here are the Spitch libraries to get started with our SDKs
 ---
 
 Learn how to set up a local development environment on your system to use Spitch API. We currently support:
-- Python
-- JavaScipt
+- **Python** - Both synchronous and asynchronous clients
+- **TypeScript/JavaScript** - Modern async/await support
 
 ## Accessing your API Key
 Log on to the [developer portal](https://spitch.studio) to create your API Key. You can store your API Key in a .env file, or use it directly in your code.
@@ -20,39 +20,80 @@ SPITCH_API_KEY = "YOUR_API_KEY"
 pip install spitch
 ```
 
-```javascript JavaScript
+```typescript TypeScript
 npm install spitch
 ```
 </CodeGroup>
 
-## Usage
+## Client Setup
+
+The Spitch SDK provides both synchronous and asynchronous clients for Python, and async support for TypeScript:
+
+<CodeGroup dropdown>
+
+```python Python (Async - Recommended)
+from spitch import AsyncSpitch
+
+# Using environment variable (recommended)
+client = AsyncSpitch()  # automatically reads SPITCH_API_KEY
+
+# Or pass API key directly
+client = AsyncSpitch(api_key="YOUR_API_KEY")
+```
+
+```python Python (Sync)
+from spitch import Spitch
+
+# Using environment variable (recommended)
+client = Spitch()  # automatically reads SPITCH_API_KEY
+
+# Or pass API key directly
+client = Spitch(api_key="YOUR_API_KEY") 
+```
+
+```typescript TypeScript
+import { Spitch } from "spitch";
+
+const client = new Spitch({ 
+  apiKey: process.env.SPITCH_API_KEY 
+});
+```
+
+</CodeGroup>
+
+## Usage Example
 Test your installation by running the sample code below for text translation.
 
 <CodeGroup dropdown>
 ```python Python
-from spitch import Spitch
+from spitch import AsyncSpitch
+import asyncio
 
-client = Spitch(api_key="YOUR-API-KEY")
-translation = client.text.translate(
-    text="Hey my dear friend, how are you doing?",
-    source="en",
-    target="ha",
-)
-print(translation.text)
+async def translate_text():
+    client = AsyncSpitch()
+    translation = await client.text.translate(
+        text="Hey my dear friend, how are you doing?",
+        source="en",
+        target="ha",
+    )
+    print(translation.text)
+
+# Run the example
+asyncio.run(translate_text())
 ```
 
-```javascript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 
 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
 
-async function translate() {
-  const response = await client.text.translate({
-    text: "Hello, how are you?",
-    source: "en",
-    target: "yo"
-  });
-  console.log("Translated:", response.text);
+async function translate(): Promise<void> {
+    const response = await client.text.translate({
+        text: "Hello, how are you?",
+        source: "en" as const,
+        target: "yo" as const
+    });
+    console.log("Translated:", response.text);
 }
 
 translate();

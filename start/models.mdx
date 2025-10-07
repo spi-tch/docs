@@ -24,13 +24,13 @@ Some of the key features are:
 - Sentence or Word-level timestamps for audio up to 30 minutes (25MB)
 
 <Warning>
-Mansa currently supports <b>English</b> only. If you try to use it with any other language, the API will return a 400 error.
+Mansa currently supports <b>English</b> only. If you try to use it with any other language, the API will return an error.
 </Warning>
 ## Getting Started 
 <Info>
   Before you can try out our new model, you need to make sure that you're using the latest version of our SDK.
 
-  <CodeGroup>
+  <CodeGroup dropdown>
 
   ```bash Python SDK
   pip install spitch>=1.34.0
@@ -62,24 +62,25 @@ response = client.speech.transcribe(
 )
 ```
 
-```javascript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 import fs from 'fs';
 
 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
 
-async function speechToText() {
-  const response = await client.speech.transcribe({
-          content: selectedFile,
-          language: "en",
-          model: "mansa_v1",
-          special_words: "Chinedu, Lekki",
-          timestamp: "sentence",
-        });
-  console.log("Transcript:", response.text);
+async function speechToText(): Promise<void> {
+    const selectedFile = new File([""], "audio.wav");
+    const response = await client.speech.transcribe({
+        content: selectedFile,
+        language: "en" as const,
+        model: "mansa_v1" as const,
+        special_words: "Chinedu, Lekki",
+        timestamp: "sentence" as const,
+    });
+    console.log("Transcript:", response.text);
 }
 
-speechToText()
+speechToText();
 ```
 </CodeGroup>
 

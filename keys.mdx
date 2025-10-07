@@ -37,7 +37,7 @@ Find examples below.
   `os.environ["SPITCH_API_KEY"] = "my_api_key"`
 </Note>
 
-<CodeGroup>
+<CodeGroup dropdown>
 
 ```sh curl
 curl --request POST \
@@ -47,12 +47,12 @@ curl --request POST \
 ```
 
 
-```javascript Javascript
-const options = {{
+```typescript TypeScript
+const options: RequestInit = {
     method: 'POST',
     headers: {Authorization: 'Bearer my_token', 'Content-Type': 'application/json'},
     body: '{"text":"<string>","voice":"sade","language":"yo"}'
-}};
+};
 ```
 
 </CodeGroup>

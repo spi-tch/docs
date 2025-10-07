@@ -69,18 +69,17 @@ print(response.text)   # Báwo ni olólùfẹ́ mi?
 ```
 
 
-```javascript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 
 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
 
-async function addToneMarks() {
-  const input = "Omo omo ni ayo";
-  const response = await client.text.toneMark({
-    text: input,
-    language: "yo"
-  });
-  console.log("With diacritics:", response.text);
+async function addToneMarks(): Promise<void> {
+    const response = await client.text.toneMark({
+        text: "Omo omo ni ayo",
+        language: "yo" as const
+    });
+    console.log("With diacritics:", response.text);
 }
 
 addToneMarks();

@@ -50,18 +50,18 @@ translation = client.text.translate(
 print(translation.text)
 ```
 
-```javascript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 
 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
 
-async function translate() {
-  const response = await client.text.translate({
-    text: "Hello, how are you?",
-    source: "en",
-    target: "yo"
-  });
-  console.log("Translated:", response.text);
+async function translate(): Promise<void> {
+    const response = await client.text.translate({
+        text: "Hello, how are you?",
+        source: "en" as const,
+        target: "yo" as const
+    });
+    console.log("Translated:", response.text);
 }
 
 translate();

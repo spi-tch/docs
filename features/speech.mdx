@@ -14,7 +14,29 @@ Also known as text-to-speech (TTS), speech generation/synthesis is integral part
 
 ## Request
 
-The `generate()` function can be used to generate speech. Examples are provided below as a guide for you.
+The `generate()` function can be used to generate speech. The following parameters are available:
+
+### Parameters
+
+- `text` (required) - The text you want to convert to speech
+- `language` (required) - Language code: `en`, `yo`, `ha`, `ig`, `am`  
+- `voice` (required) - Voice ID to use for generation
+- `model` (optional) - Model to use, defaults to `legacy`
+- `format` (optional) - Output audio format, defaults to `wav`
+
+### Audio Formats
+
+The `format` parameter supports the following audio formats:
+- `wav` (default) - Standard wave format
+- `mp3` - MPEG Layer III audio
+- `ogg_opus` - OGG container with Opus codec
+- `webm_opus` - WebM container with Opus codec  
+- `flac` - Free Lossless Audio Codec
+- `pcm_s16le` - Raw PCM 16-bit little-endian
+- `mulaw` - μ-law encoded audio
+- `alaw` - A-law encoded audio
+
+Examples are provided below as a guide for you.
 
 ### Best Practices for Use
 
@@ -65,27 +87,30 @@ with open("new.mp3", "wb") as f:
     response = client.speech.generate(
         text="Bawo ni ololufe mi?",
         language="yo",
-        voice="sade"
+        voice="sade",
+        format="mp3"
     )
     f.write(response.read())
 ```
 
-```javascript JavaScript
+```typescript TypeScript
 import Spitch from 'spitch';
 import fs from 'fs';
 
 const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
 
-async function generateSpeech() {
-  const res = await client.speech.generate({
-    text: "Báwo ní ṣe wà?",
-    language: "yo",
-    voice: "femi"
-  });
-  const blob = await res.blob();
-  const buffer = Buffer.from(await blob.arrayBuffer());
-  fs.writeFileSync("output.wav", buffer);
-  console.log("Audio saved to output.wav");
+async function generateSpeech(): Promise<void> {
+    const res = await client.speech.generate({
+        text: "Báwo ní ṣe wà?",
+        language: "yo" as const,
+        voice: "femi" as const,
+        format: "wav" as const
+    });
+    
+    const blob = await res.blob();
+    const buffer = Buffer.from(await blob.arrayBuffer());
+    fs.writeFileSync("output.wav", buffer);
+    console.log("Audio saved to output.wav");
 }
 
 generateSpeech();
@@ -98,28 +123,9 @@ curl -X POST https://api.spi-tch.com/v1/speech \
   -d '{
     "language": "yo",
     "voice": "femi",
+    "format": "wav",
     "text": "Mo bọ̀rọ̀ ṣùgbọ́n emi ko ranti sísọ ohunkohun nipa ewe kọlọtọ, emi ni àwọn ṣe ede nla emi ko ni àwọn ijiroro ẹni-kọọkan tabi iranti ati pe emi ko ni idaduro alaye lati àwọn ibaraẹnisọrọ tẹlẹ, ni igba kọọkan ti o ba ni ijiroro tuntun ti o ba fẹ lati mọ nkan nipa ewe kọlọtọ emi yoo ni idunnu lati gbiyanju lati ranlọwọ pẹlu iyẹnì olèbiribiri miiran lẹyin ẹ̀hin."
   }' --output output.wav
   ```
 
-</CodeGroup>
-
-## Examples - streaming
-
-<CodeGroup dropdown>
-
-```python Python
-import os
-from spitch import Spitch
-
-os.environ["SPITCH_API_KEY"] = "YOUR_API_KEY"
-client = Spitch()
-
-with client.speech.with_streaming_response.generate(
-    text="Bawo ni ololufe mi?",
-    language="yo",
-    voice="funmi"
-) as response:
-    response.stream_to_file("new.wav")
-```
 </CodeGroup>
