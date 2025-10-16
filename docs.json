@@ -106,7 +106,7 @@
         "dropdown": "API Reference",
         "icon": "code",
         "description": "Complete API documentation and schemas",
-        "openapi": "openapi.json"
+        "openapi": "https://app.stainless.com/api/spec/documented/spitch/openapi.documented.yml"
       }
     ]
   },
