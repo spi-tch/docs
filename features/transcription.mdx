@@ -35,7 +35,7 @@ You must provide either `content` or `url`, but not both.
 The `model` parameter allows you to choose different speech-to-text models:
 
 - `legacy` (default) - Standard transcription model
-- `mansa_v1` - Enhanced model with better accuracy for African languages  
+- `mansa_v1` - Enhanced model with better accuracy for African accent (English only)
 - `human` - High-quality model optimized for human speech patterns
 
 ### Timestamp Options
@@ -45,6 +45,9 @@ The `timestamp` parameter controls the level of timing information returned:
 - `none` (default) - No timestamp information
 - `sentence` - Timestamps for each sentence
 - `word` - Timestamps for each individual word
+<Note>
+Timestamps are only supported by `Mansa`
+</Note>
 
 Examples are provided below as a guide for you.
 
@@ -100,7 +103,7 @@ client = Spitch()
 
 with open("new.wav", "rb") as f:
     response = client.speech.transcribe(
-        language="yo",
+        language="en",
         content=f.read(),
         model="mansa_v1",
         timestamp="sentence"
