@@ -1,0 +1,14 @@
+.dark nav a[href="https://spitch.studio"],
+.dark header a[href="https://spitch.studio"] {
+  background-color: #334155 !important; /* slate-700 */
+  border-color: transparent !important;
+  color: #f8fafc !important; /* slate-50 */
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.2);
+}
+
+.dark nav a[href="https://spitch.studio"]:hover,
+.dark header a[href="https://spitch.studio"]:hover {
+  background-color: #cbd5f5 !important; /* slate-300 */
+  border-color: transparent !important;
+  color: #0f172a !important; /* slate-900 */
+}
