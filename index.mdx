@@ -1,202 +1,331 @@
 ---
 title: "Overview"
 description: "Spitch is the most accurate voice AI platform for African languages."
-mode: "frame"
+mode: "wide"
 ---
 
-<div className="relative">
-    <div className="absolute top-0 lg:-top-16 left-0 right-0">
-        <img
-            src="/logo/logo-dark.png"
-            className="block dark:hidden pointer-events-none [-webkit-mask-image:linear-gradient(black,transparent)]"
-            alt="Spitch Logo"
-        />
-        <img
-            src="/logo/logo-light.png"
-            className="hidden dark:block pointer-events-none [-webkit-mask-image:linear-gradient(black,transparent)]"
-            alt="Spitch Logo"
-        />
-    </div>
-
-    <div className="px-4 py-16 lg:py-48 lg:pb-24 max-w-3xl mx-auto">
-        <div className="flex justify-center">
-            <h1 className="text-4xl font-medium text-center text-gray-700 dark:text-zinc-300 tracking-tight">
-                Developer Platform
+<section className="px-6 py-8 sm:px-10 sm:py-12">
+    <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/40 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:bg-white/10 dark:text-slate-200">
+                <i className="fa-solid fa-bolt text-[10px]"></i>
+                TTS in production
+            </div>
+            <h1 className="mt-4 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+                Make your first voice with Spitch
             </h1>
         </div>
-        <div className="max-w-xl mx-auto px-4 mt-4 text-lg text-center text-gray-500 dark:text-zinc-500">
-            The most accurate voice AI platform for African languages.
-        </div>
-
-        <div className="flex justify-center gap-4 mt-8">
-            <a href="/start/quickstart" className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors">
-                Get Started
+        <div className="flex flex-wrap gap-3">
+            <a
+                href="/start/quickstart"
+                className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-slate-700 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-300 dark:hover:text-slate-900"
+            >
+                Start building
+                <i className="fa-solid fa-arrow-right text-xs"></i>
             </a>
-            <a href="/api-reference/speech-to-text/transcribe-audio" className="border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
-                API Reference
+            <a
+                href="/api/speech/tts"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-2.5 text-sm font-medium text-slate-900 transition hover:border-slate-400 hover:text-slate-700 dark:border-white/30 dark:text-slate-100 dark:hover:border-slate-500 dark:hover:text-white"
+            >
+                View Endpoints
+                <i className="fa-solid fa-code text-sm"></i>
             </a>
         </div>
+    </div>
+    <div className="mt-8">
+        <div className="mb-4 flex items-center justify-between text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+            <span>Sample integration</span>
+            <span className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-300">
+                <i className="fa-solid fa-circle-check text-[10px]"></i>
+                Works in prod
+            </span>
+        </div>
+        <CodeGroup dropdown>
+            ```python
+            from spitch import Spitch
 
-        <Card title="Developer quickstart" icon="rabbit-running">
-            [Make your first API call, learn about the Spitch API.](/start/quickstart)
+            client = Spitch(api_key="YOUR-API-KEY")
+
+            audio = client.speech.synthesize(
+                voice="amina",
+                text="Welcome to Spitch. Let's build something remarkable.",
+                format="mp3",
+                style="conversational",
+            )
+
+            with open("welcome.mp3", "wb") as output:
+                output.write(audio.content)
+            ```
+
+            ```typescript
+            import fs from "node:fs/promises";
+            import Spitch from "spitch";
+
+            const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY! });
+
+            const response = await client.speech.synthesize({
+                voice: "amina",
+                text: "Welcome to Spitch. Let's build something remarkable.",
+                format: "mp3",
+                style: "conversational",
+            });
+
+            await fs.writeFile("welcome.mp3", Buffer.from(response.content, "base64"));
+            ```
+
+            ```bash
+            curl --request POST \
+                --url https://api.spi-tch.com/v1/speech \
+                --header "Authorization: Bearer $SPITCH_API_KEY" \
+                --header "Content-Type: application/json" \
+                --data '{
+                    "voice": "amina",
+                    "text": "Welcome to Spitch. Let'\''s build something remarkable.",
+                    "format": "mp3",
+                    "style": "conversational"
+                }' \
+                --output welcome.mp3
+            ```
+        </CodeGroup>
+    </div>
+</section>
+
+<section className="mt-12">
+    <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Get started in minutes</h2>
+    <p className="mt-3 max-w-2xl text-base text-slate-600 dark:text-slate-300">
+        Follow the onboarding flow our teams use in production to ship your first transcription or voice experience quickly.
+    </p>
+
+    <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <a
+            href="https://spitch.studio"
+            className="group block rounded-2xl border border-slate-200 bg-white p-6 text-slate-900 no-underline shadow-sm transition hover:border-slate-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-slate-500"
+        >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white dark:bg-slate-800">1</span>
+            <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">Request access &amp; generate your key</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                Log in to the Spitch dashboard to create a workspace, invite teammates, and manage usage.
+            </p>
+            <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-900 transition group-hover:text-slate-600 dark:text-slate-200 dark:group-hover:text-slate-50">
+                <span>Open dashboard</span>
+                <i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </span>
+        </a>
+        <a
+            href="/start/libraries"
+            className="group block rounded-2xl border border-slate-200 bg-white p-6 text-slate-900 no-underline shadow-sm transition hover:border-slate-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-slate-500"
+        >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white dark:bg-slate-800">2</span>
+            <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">Connect an SDK or hit the REST API</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                Install the official Python or TypeScript clients in your app, or make direct HTTP calls with curl.
+            </p>
+            <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-900 transition group-hover:text-slate-600 dark:text-slate-200 dark:group-hover:text-slate-50">
+                <span>Browse libraries</span>
+                <i className="fa-solid fa-angle-right text-xs"></i>
+            </span>
+        </a>
+        <a
+            href="/advanced/models"
+            className="group block rounded-2xl border border-slate-200 bg-white p-6 text-slate-900 no-underline shadow-sm transition hover:border-slate-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-slate-500"
+        >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white dark:bg-slate-800">3</span>
+            <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">Configure models &amp; launch to production</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                Tune vocabularies, manage files, and orchestrate jobs with webhooks, retries, and monitoring.
+            </p>
+            <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-900 transition group-hover:text-slate-600 dark:text-slate-200 dark:group-hover:text-slate-50">
+                <span>Explore advanced guides</span>
+                <i className="fa-solid fa-angle-right text-xs"></i>
+            </span>
+        </a>
+    </div>
+
+    <div className="mt-8 rounded-2xl border border-slate-200/60 bg-gradient-to-r from-white via-[#f8fafc] to-[#e2e8f0] p-6 text-left shadow-md dark:border-white/10 dark:from-slate-900 dark:via-slate-950 dark:to-black">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">SDK quickstart</h3>
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                    Make your first transcription call using the official clients or the REST API.
+                </p>
+            </div>
+            <a
+                href="/start/quickstart"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-slate-900 transition hover:border-emerald-500 hover:text-emerald-600 dark:border-white/30 dark:text-slate-200 dark:hover:border-emerald-400 dark:hover:text-emerald-300"
+            >
+                Quickstart guide
+                <i className="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </div>
+        <div className="mt-6">
             <CodeGroup dropdown>
                 ```python
                 from spitch import Spitch
-                client = Spitch(api_key="YOUR-API-KEY")
 
+                client = Spitch(api_key="YOUR-API-KEY")
                 response = client.speech.transcribe(
-                    content=open("file.wav", "rb"),
+                    content=open("sample.wav", "rb"),
                     language="en",
-                    model="mansa_v1"
+                    model="mansa_v1",
                 )
 
                 print(response.text)
                 ```
 
                 ```typescript
-                import Spitch from 'spitch';
-                import fs from 'fs';
+                import Spitch from "spitch";
 
-                const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY });
+                const client = new Spitch({ apiKey: process.env.SPITCH_API_KEY! });
 
-                async function speechToText(): Promise<void> {
-                    const selectedFile = new File([""], "audio.wav");
-                    const response = await client.speech.transcribe({
-                        content: selectedFile,
-                        language: "en" as const,
-                        model: "mansa_v1" as const,
-                        special_words: "Chinedu, Lekki",
-                        timestamp: "sentence" as const,
+                async function transcribe() {
+                    const file = new File([""], "sample.wav");
+                    const result = await client.speech.transcribe({
+                        content: file,
+                        language: "en",
+                        model: "mansa_v1",
+                        timestamp: "sentence",
                     });
-                    console.log("Transcript:", response.text);
+
+                    console.log(result.text);
                 }
 
-                speechToText();
+                void transcribe();
                 ```
 
                 ```bash
                 curl --request POST \
                     --url https://api.spi-tch.com/v1/transcriptions \
-                    -H 'Authorization: Bearer $SPITCH_API_KEY' \
-                    -H 'Content-Type: multipart/form-data' \
-                    -F content=@file.wav \
-                    -F language=en \
-                    -F model=mansa_v1
+                    --header "Authorization: Bearer $SPITCH_API_KEY" \
+                    --form content=@sample.wav \
+                    --form language=en \
+                    --form model=mansa_v1
                 ```
             </CodeGroup>
+        </div>
+    </div>
+</section>
+
+<section className="mt-12">
+    <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Platform capabilities</h2>
+    <p className="mt-3 max-w-2xl text-base text-slate-600 dark:text-slate-300">
+        Assemble voice and language features with consistent APIs, streaming support, and low-latency infrastructure across the continent.
+    </p>
+
+    <CardGroup cols={2}>
+        <Card title="Speech-to-Text" icon="waveform" href="/features/transcription">
+            Convert audio streams or files to text with custom vocabularies, timestamps, and speaker diarization.
         </Card>
+        <Card title="Text-to-Speech" icon="volume-high" href="/features/speech">
+            Generate natural voices tuned to African tonal patterns for IVRs, narrators, and conversational agents.
+        </Card>
+        <Card title="Language Translation" icon="language" href="/features/translation">
+            Translate bidirectionally between English and African languages with contextual awareness.
+        </Card>
+        <Card title="Tone Marking" icon="pen-nib" href="/features/tone">
+            Add accurate diacritical marks to Yoruba text programmatically for clarity and pronunciation.
+        </Card>
+    </CardGroup>
+</section>
 
+<section className="mt-12">
+    <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Build for your use case</h2>
+    <p className="mt-3 max-w-2xl text-base text-slate-600 dark:text-slate-300">
+        Follow step-by-step guides to ship production experiences fast, whether you are embedding transcription or designing full voice agents.
+    </p>
 
-        <div className="mt-24">
+    <Columns>
+        <Card
+            title="Audio transcription app"
+            icon="file-audio"
+            arrow={"true"}
+            horizontal
+            href="code/audio-transcription"
+        >
+            Build a web tool that ingests audio files and returns transcripts with timestamps in seconds.
+        </Card>
+        <Card
+            title="Multilingual chatbot"
+            icon="message-bot"
+            arrow={"true"}
+            horizontal
+            href="code/multilingual-chatbot"
+        >
+            Combine speech, translation, and TTS to power rich conversational agents in multiple languages.
+        </Card>
+    </Columns>
+    <Columns>
+        <Card
+            title="Voice agent blueprint"
+            icon="robot"
+            arrow={"true"}
+            horizontal
+            href="agents/livekit"
+        >
+            Orchestrate realtime voice flows with LiveKit, event webhooks, and Spitch&rsquo;s streaming APIs.
+        </Card>
+        <Card
+            title="Platform operations"
+            icon="gauge-simple-high"
+            arrow={"true"}
+            horizontal
+            href="advanced/jobs"
+        >
+            Manage batch jobs, retry policies, and monitoring to keep your production workloads healthy.
+        </Card>
+    </Columns>
+</section>
 
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">Why Choose Spitch?</h2>
+<section className="mt-12">
+    <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Operate with confidence</h2>
+    <p className="mt-3 max-w-2xl text-base text-slate-600 dark:text-slate-300">
+        Understand pricing, service coverage, and the operational levers that help teams in regulated industries launch safely.
+    </p>
 
-        <CardGroup>
-            <Card title="High Accuracy" icon="bullseye-pointer">
-                State-of-the-art models trained on diverse African datasets for superior performance.
-            </Card>
-            <Card title="Easy Integration" icon="plug">
-                Simple SDKs for Python and TypeScript with comprehensive documentation and examples.
-            </Card>
-        </CardGroup>
+    <CardGroup cols={3}>
+        <Card title="Model catalog" icon="diagram-project" href="/advanced/models">
+            Choose streaming or batch models with the right accuracy and latency profile for your use case.
+        </Card>
+        <Card title="File storage" icon="cloud-arrow-up" href="/advanced/files">
+            Upload, manage, and reuse audio assets securely across teams from a single dashboard.
+        </Card>
+        <Card title="Languages &amp; pricing" icon="earth-africa" href="/concepts/languages">
+            Explore coverage, supported dialects, and pricing so you can forecast launches with confidence.
+        </Card>
+        <Card title="Voices catalog" icon="microphone" href="/concepts/voices">
+            Pick from curated voices or request custom voice training for your brand identity.
+        </Card>
+        <Card title="Keys &amp; auth" icon="key" href="/keys">
+            Implement secure API key management across environments and rotate credentials programmatically.
+        </Card>
+        <Card title="Troubleshooting" icon="life-ring" href="/concepts/troubleshooting">
+            Diagnose common issues quickly with guidance on logging, monitoring, and best practices.
+        </Card>
+    </CardGroup>
+</section>
 
+<section className="mt-16 mb-16">
+    <div className="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-gradient-to-r from-white via-[#f8fafc] to-[#e2e8f0] p-[1px] shadow-lg dark:border-white/10 dark:from-slate-900 dark:via-slate-950 dark:to-black">
+        <div className="rounded-[calc(theme(borderRadius.3xl)-1px)] bg-white px-6 py-10 text-center dark:bg-slate-950">
+            <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Need a tailored integration?</h2>
+            <p className="mt-2 text-base text-slate-600 dark:text-slate-300">
+                Chat with our solutions team for architecture reviews, custom voice creation, or migration support.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+                <a
+                    href="https://discord.gg/2S7zgKGhPj"
+                    className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-300 dark:hover:text-slate-900"
+                >
+                    Join the community
+                    <i className="fa-brands fa-discord text-sm"></i>
+                </a>
+                <a
+                    href="mailto:hello@spitch.app"
+                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:border-slate-400 hover:text-slate-700 dark:border-white/20 dark:bg-slate-950 dark:text-slate-100 dark:hover:border-slate-500 dark:hover:text-white"
+                >
+                    Talk to support
+                    <i className="fa-solid fa-envelope text-sm"></i>
+                </a>
+            </div>
         </div>
-
-        <div className="mt-24">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-8">Our Models</h2>
-        <div className="flex justify-center">
-            <Card title={"Mansa v1"} img={"/images/mansa.png"} href={"start/models#mansa-v1"} arrow={"true"}>
-                The most versatile ASR model for African languages with support for custom vocabulary and timestamps.
-            </Card>
-        </div>
-        </div>
-
-        <div className="mt-24">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-8">Voice Collection</h2>
-        <div className="flex justify-center">
-            <Card title={"18+ African Voices"} icon={"microphone"} href={"concepts/voices"} arrow={"true"}>
-                Unique African voices across multiple languages for natural-sounding speech synthesis with authentic pronunciation.
-            </Card>
-        </div>
-        </div>
-
-        <div className="mt-24">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent mb-8">Core Features</h2>
-
-        <CardGroup cols={2}>
-            <Card
-                title="Speech-to-Text"
-                icon="waveform"
-                href="/features/transcription"
-            >
-                Convert audio to text with high accuracy for African languages, supporting multiple formats and custom vocabularies.
-            </Card>
-            <Card
-                title="Text-to-Speech"
-                icon="volume-high"
-                href="/features/speech"
-            >
-                Generate natural-sounding speech from text using authentic African voices across 5 languages.
-            </Card>
-            <Card
-                title="Language Translation"
-                icon="language"
-                href="/features/translation"
-            >
-                Translate between African languages and English with context-aware AI models.
-            </Card>
-            <Card
-                title="Tone Marking"
-                icon="pen-nib"
-                href="/features/tone"
-            >
-                Add proper diacritical marks to Yoruba text for accurate pronunciation and meaning.
-            </Card>
-        </CardGroup>
-        </div>
-
-        <div className="mt-24">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-green-600 bg-clip-text text-transparent mb-8">Tutorials & Examples</h2>
-        <Columns>
-            <Card
-                title={"Audio Transcription App"}
-                icon={"file-audio"}
-                arrow={"true"}
-                href={"code/audio-transcription"}
-                horizontal
-            >
-                Build a web application that transcribes audio files in seconds with Spitch.
-            </Card>
-            <Card
-                title={"Multilingual Chatbot"}
-                icon={"message-bot"}
-                arrow={"true"}
-                href={"code/multilingual-chatbot"}
-                horizontal
-            >
-                Create chatbots that converse in multiple African languages.
-            </Card>
-        </Columns>
-        <Columns>
-            <Card
-                title={"Voice AI Agent"}
-                icon={"robot"}
-                arrow={"true"}
-                href={"agents/livekit"}
-                horizontal
-            >
-                Build real-time voice agents using Spitch with LiveKit integration.
-            </Card>
-            <Card
-                title={"File Management"}
-                icon={"folder"}
-                arrow={"true"}
-                href={"utility/files"}
-                horizontal
-            >
-                Upload, manage, and download files for use with translation services.
-            </Card>
-        </Columns>
-        </div>
-  </div>
-</div>
+    </div>
+</section>

@@ -1,0 +1,1209 @@
+openapi: 3.1.0
+info:
+  title: Spitch API
+  version: 1.1.0
+  description: the official API for Spitch, developed by the Spitch Team
+servers:
+  - url: https://api.spi-tch.com
+paths:
+  /v1/transcriptions:
+    post:
+      summary: Transcribe
+      operationId: transcribe_v1_transcriptions_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_transcribe_v1_transcriptions_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transcription'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - ApiKeyAuth: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch({
+              apiKey: 'My API Key',
+            });
+
+            const transcription = await client.speech.transcribe({ language: 'yo' });
+
+            console.log(transcription.request_id);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch(
+                api_key="My API Key",
+            )
+            transcription = client.speech.transcribe(
+                language="yo",
+            )
+            print(transcription.request_id)
+  /v1/speech:
+    post:
+      summary: Synthesize
+      operationId: synthesize_v1_speech_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Speech'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            audio/*:
+              schema:
+                type: string
+                format: binary
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - ApiKeyAuth: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch({
+              apiKey: 'My API Key',
+            });
+
+            const response = await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' });
+
+            console.log(response);
+
+            const content = await response.blob();
+            console.log(content);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch(
+                api_key="My API Key",
+            )
+            response = client.speech.generate(
+                language="yo",
+                text="text",
+                voice="sade",
+            )
+            print(response)
+            content = response.read()
+            print(content)
+  /v1/translate:
+    post:
+      summary: Translate
+      operationId: translate_v1_translate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Translate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Translation'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - ApiKeyAuth: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch({
+              apiKey: 'My API Key',
+            });
+
+            const translation = await client.text.translate({ source: 'yo', target: 'yo' });
+
+            console.log(translation.request_id);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch(
+                api_key="My API Key",
+            )
+            translation = client.text.translate(
+                source="yo",
+                target="yo",
+            )
+            print(translation.request_id)
+  /v1/diacritics:
+    post:
+      summary: Tone Mark
+      operationId: tone_mark_v1_diacritics_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToneMark'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diacritics'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - ApiKeyAuth: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch({
+              apiKey: 'My API Key',
+            });
+
+            const diacritics = await client.text.toneMark({ language: 'yo', text: 'text' });
+
+            console.log(diacritics.request_id);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch(
+                api_key="My API Key",
+            )
+            diacritics = client.text.tone_mark(
+                language="yo",
+                text="text",
+            )
+            print(diacritics.request_id)
+  /v1/files:
+    post:
+      summary: Upload File
+      description: |-
+        Upload a file to the Spitch server.
+
+        Args:
+            file: The file to upload from the request
+            identity: Authentication identity containing org_id and user_id
+            db: Database session
+            
+        Returns:
+            FileMetaResponse: Metadata for the uploaded file
+            
+        Raises:
+            HTTPException: 500 if upload fails
+      operationId: upload_file_v1_files_post
+      security:
+        - OAuth2PasswordBearer: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_file_v1_files_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMetaResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch();
+
+            const file = await client.files.upload({ file: fs.createReadStream('path/to/file') });
+
+            console.log(file.file_id);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch()
+            file = client.files.upload(
+                file=b"raw file contents",
+            )
+            print(file.file_id)
+    get:
+      summary: Get Files
+      description: |-
+        Get a paginated list of files for the authenticated organization.
+
+        Args:
+            identity: Authentication identity containing org_id and user_id
+            limit: Maximum number of files to return (max 100)
+            status: Optional filter by file status (processing, ready, etc.)
+            cursor: Optional pagination cursor for getting next page
+            db: Database session
+            
+        Returns:
+            ListFilesResponse: Paginated list of files with metadata
+            
+        Raises:
+            HTTPException: 400 if cursor is invalid
+      operationId: get_files_v1_files_get
+      security:
+        - OAuth2PasswordBearer: []
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            exclusiveMaximum: 100
+            default: 50
+            title: Limit
+        - name: status
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - enum:
+                  - uploading
+                  - ready
+                type: string
+              - type: 'null'
+            title: Status
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: string
+              - type: 'null'
+            title: Cursor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFilesResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch();
+
+            // Automatically fetches more pages as needed.
+            for await (const file of client.files.list()) {
+              console.log(file.file_id);
+            }
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch()
+            page = client.files.list()
+            page = page.items[0]
+            print(page.file_id)
+  /v1/files/{file_id}:
+    get:
+      summary: Get File
+      description: |-
+        Get metadata for a specific file.
+
+        Args:
+            file_id: UUID of the file to retrieve
+            identity: Authentication identity containing org_id
+            db: Database session
+            
+        Returns:
+            FileMetaResponse: File metadata including upload information
+            
+        Raises:
+            HTTPException: 404 if file not found or doesn't belong to org
+            HTTPException: 500 if uploader information is corrupted
+      operationId: get_file_v1_files__file_id__get
+      security:
+        - OAuth2PasswordBearer: []
+      parameters:
+        - name: file_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: File Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMetaResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch();
+
+            const file = await client.files.get('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+
+            console.log(file.file_id);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch()
+            file = client.files.get(
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+            print(file.file_id)
+    delete:
+      summary: Delete File
+      description: |-
+        Delete a file and its associated S3 object.
+
+        Args:
+            file_id: UUID of the file to delete
+            identity: Authentication identity containing org_id
+            db: Database session
+            s3: S3 session for deleting objects
+            
+        Returns:
+            dict: Success confirmation
+            
+        Raises:
+            HTTPException: 404 if file not found or doesn't belong to org
+      operationId: delete_file_v1_files__file_id__delete
+      security:
+        - OAuth2PasswordBearer: []
+      parameters:
+        - name: file_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: File Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch();
+
+            const file = await client.files.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+
+            console.log(file);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch()
+            file = client.files.delete(
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+            print(file)
+  /v1/files/{file_id}/url:
+    get:
+      summary: Download File
+      description: |-
+        Generate a pre-signed download URL for a file.
+
+        Args:
+            file_id: UUID of the file to download
+            identity: Authentication identity containing org_id
+            ttl: Time-to-live for the download URL in seconds (60-3600)
+            db: Database session
+            s3: S3 session for generating pre-signed URLs
+            
+        Returns:
+            FileDownloadResponse: Contains file_id, download URL, and expiration time
+            
+        Raises:
+            HTTPException: 404 if file not found, doesn't belong to org, or not ready
+      operationId: download_file_v1_files__file_id__url_get
+      security:
+        - OAuth2PasswordBearer: []
+      parameters:
+        - name: file_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: File Id
+        - name: ttl
+          in: query
+          required: false
+          schema:
+            type: integer
+            maximum: 3600
+            minimum: 60
+            default: 60
+            title: Ttl
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileDownloadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch();
+
+            const response = await client.files.download('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+
+            console.log(response.file_id);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch()
+            response = client.files.download(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+            print(response.file_id)
+  /v1/files:usage:
+    get:
+      summary: Get Usage
+      description: |-
+        Get storage usage statistics for the authenticated organization.
+
+        Args:
+            identity: Authentication identity containing org_id
+            db: Database session
+            
+        Returns:
+            FileUsage: Usage statistics including total/used bytes and file count
+            
+        Raises:
+            HTTPException: 500 if unable to calculate usage
+      operationId: get_usage_v1_files_usage_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileUsage'
+      security:
+        - OAuth2PasswordBearer: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch();
+
+            const fileUsage = await client.files.usage();
+
+            console.log(fileUsage.num_files);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch()
+            file_usage = client.files.usage()
+            print(file_usage.num_files)
+  /v1/jobs:
+    get:
+      summary: Get Jobs
+      operationId: get_jobs_v1_jobs_get
+      security:
+        - OAuth2PasswordBearer: []
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            exclusiveMaximum: 100
+            default: 50
+            title: Limit
+        - name: status
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - enum:
+                  - queued
+                  - in_progress
+                  - finished
+                type: string
+              - type: 'null'
+            title: Status
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: string
+              - type: 'null'
+            title: Cursor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch();
+
+            // Automatically fetches more pages as needed.
+            for await (const job of client.jobs.list()) {
+              console.log(job.job_id);
+            }
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch()
+            page = client.jobs.list()
+            page = page.items[0]
+            print(page.job_id)
+  /v1/jobs/{job_id}:
+    get:
+      summary: Get Job
+      operationId: get_job_v1_jobs__job_id__get
+      security:
+        - OAuth2PasswordBearer: []
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobMetadata'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Spitch from 'spitch';
+
+            const client = new Spitch();
+
+            const job = await client.jobs.get('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+
+            console.log(job.job_id);
+        - lang: Python
+          source: |-
+            from spitch import Spitch
+
+            client = Spitch()
+            job = client.jobs.get(
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+            print(job.job_id)
+components:
+  schemas:
+    Body_transcribe_v1_transcriptions_post:
+      properties:
+        model:
+          anyOf:
+            - $ref: '#/components/schemas/STTModelEnum'
+            - type: 'null'
+          default: legacy
+        language:
+          $ref: '#/components/schemas/Language'
+        content:
+          anyOf:
+            - type: string
+              format: binary
+            - type: string
+            - type: 'null'
+          title: Content
+        url:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Url
+        special_words:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Special Words
+          default: ''
+        timestamp:
+          anyOf:
+            - $ref: '#/components/schemas/TimestampEnum'
+            - type: 'null'
+          default: none
+      type: object
+      required:
+        - language
+      title: Body_transcribe_v1_transcriptions_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Diacritics:
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          title: Request Id
+        text:
+          type: string
+          title: Text
+      type: object
+      required:
+        - request_id
+        - text
+      title: Diacritics
+      description: |-
+        Response model for text diacritization requests.
+            
+            Attributes:
+                request_id: Unique identifier for the diacritization request
+                text: Text with added diacritical marks for proper pronunciation
+                language: Language code for the diacritized text
+    Language:
+      type: string
+      enum:
+        - yo
+        - en
+        - ha
+        - ig
+        - am
+      title: Language
+    Voice:
+      type: string
+      enum:
+        - sade
+        - segun
+        - femi
+        - funmi
+        - amina
+        - aliyu
+        - hasan
+        - zainab
+        - john
+        - jude
+        - lina
+        - lucy
+        - henry
+        - kani
+        - ngozi
+        - amara
+        - obinna
+        - ebuka
+        - hana
+        - selam
+        - tena
+        - tesfaye
+      title: Voice
+    AudioFormat:
+      type: string
+      enum:
+        - wav
+        - mp3
+        - ogg_opus
+        - webm_opus
+        - flac
+        - pcm_s16le
+        - mulaw
+        - alaw
+      title: Audio Format
+    Speech:
+      properties:
+        model:
+          anyOf:
+            - $ref: '#/components/schemas/TTSModelEnum'
+            - type: 'null'
+          default: legacy
+        language:
+          $ref: '#/components/schemas/Language'
+        text:
+          type: string
+          title: Text
+        voice:
+          $ref: '#/components/schemas/Voice'
+        format:
+          $ref: '#/components/schemas/AudioFormat'
+          default: wav
+      type: object
+      required:
+        - language
+        - text
+        - voice
+      title: Speech
+      description: |-
+        A request to generate speech in dataset.
+
+        Attributes:
+            language: the language of the text to be generated
+            text: the text for which audio is to be generated
+            voice: the voice to use to generate the audio
+            model: the model to use to generate the audio
+            format: the output format of the audio file
+    TTSModelEnum:
+      type: string
+      enum:
+        - legacy
+      title: TTSModelEnum
+    STTModelEnum:
+      type: string
+      enum:
+        - mansa_v1
+        - legacy
+        - human
+      title: STTModelEnum
+    TimeStamp:
+      properties:
+        text:
+          type: string
+          title: Text
+        start:
+          type: number
+          title: Start
+        end:
+          type: number
+          title: End
+      type: object
+      required:
+        - text
+        - start
+        - end
+      title: TimeStamp
+    TimestampEnum:
+      type: string
+      enum:
+        - sentence
+        - word
+        - none
+      title: TimestampEnum
+    ToneMark:
+      properties:
+        language:
+          $ref: '#/components/schemas/Language'
+        text:
+          type: string
+          title: Text
+      type: object
+      required:
+        - language
+        - text
+      title: ToneMark
+      description: |-
+        Tone marking (diacritics) task model.
+            
+            Defines parameters for adding diacritical marks to text
+            in languages that use tone markings.
+    Transcription:
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          title: Request Id
+        text:
+          type: string
+          title: Text
+        timestamps:
+          anyOf:
+            - items:
+                $ref: '#/components/schemas/TimeStamp'
+              type: array
+            - type: 'null'
+          title: Timestamps
+      type: object
+      required:
+        - request_id
+        - text
+      title: Transcription
+    Translate:
+      properties:
+        source:
+          $ref: '#/components/schemas/Language'
+        target:
+          $ref: '#/components/schemas/Language'
+        text:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Text
+          default: ''
+        model:
+          type: string
+          enum:
+            - human
+            - auto
+          title: Model
+          default: auto
+        file_id:
+          anyOf:
+            - type: string
+              format: uuid
+            - type: 'null'
+          title: File Id
+        instructions:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Instructions
+      type: object
+      required:
+        - source
+        - target
+      title: Translate
+      description: |-
+        Translation task model.
+
+        Defines parameters for text translation between languages,
+        including source/target languages, model selection, and
+        optional custom instructions.
+    Translation:
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          title: Request Id
+        text:
+          type: string
+          title: Text
+        due_date:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: 'null'
+          title: Due Date
+      type: object
+      required:
+        - request_id
+        - text
+      title: Translation
+      description: |-
+        Translation result model.
+
+        Attributes:
+            request_id (UUID): Unique ID for this request.
+            text: translated text.
+            due_date: used when model is `human`. the date you can expect the translation to be delivered
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
+    Body_upload_file_v1_files_post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      type: object
+      required:
+        - file
+      title: Body_upload_file_v1_files_post
+    FileMetaResponse:
+      properties:
+        file_id:
+          type: string
+          format: uuid
+          title: File Id
+        status:
+          type: string
+          enum:
+            - uploading
+            - ready
+          title: Status
+        original_name:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Original Name
+        size_bytes:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Size Bytes
+        content_type:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Content Type
+        category:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Category
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        uploaded_by:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Uploaded By
+      type: object
+      required:
+        - file_id
+        - status
+        - original_name
+        - size_bytes
+        - content_type
+        - category
+        - created_at
+      title: FileMetaResponse
+      description: |-
+        description of a file.
+        Attributes:
+            file_id: unique identifier for the file.
+            status: status of the file, `processing` or `ready`
+            original_name: original name of the file. If the file was uploaded via API
+    FileUsage:
+      properties:
+        total:
+          type: string
+          title: Total
+        used:
+          type: string
+          title: Used
+        total_bytes:
+          type: integer
+          title: Total Bytes
+        used_bytes:
+          type: integer
+          title: Used Bytes
+        num_files:
+          type: integer
+          title: Num Files
+      type: object
+      required:
+        - total
+        - used
+        - total_bytes
+        - used_bytes
+        - num_files
+      title: FileUsage
+      description: |-
+        Storage usage information for an organization.
+
+        Attributes:
+            total: Human-readable total storage limit
+            used: Human-readable used storage amount
+            total_bytes: Total storage limit in bytes
+            used_bytes: Used storage amount in bytes
+            num_files: Number of files stored
+    FileDownloadResponse:
+      properties:
+        file_id:
+          type: string
+          format: uuid
+          title: File Id
+        url:
+          type: string
+          title: Url
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires At
+      type: object
+      required:
+        - file_id
+        - url
+        - expires_at
+      title: FileDownloadResponse
+      description: |-
+        Response model for file download URLs.
+
+        Attributes:
+            file_id: Unique identifier for the file
+            url: Pre-signed download URL
+            expires_at: When the download URL expires
+    ListFilesResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/FileMetaResponse'
+          type: array
+          title: Items
+        next_cursor:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+        - items
+      title: ListFilesResponse
+      description: |-
+        Response model for listing files.
+
+        Attributes:
+            items: List of file metadata responses
+            next_cursor: Optional cursor for pagination to get next page of results
+    JobMetadata:
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          title: Job Id
+        status:
+          type: string
+          title: Status
+        org_id:
+          type: string
+          format: uuid
+          title: Org Id
+        created_by:
+          type: string
+          title: Created By
+        due_date:
+          type: string
+          format: date-time
+          title: Due Date
+      type: object
+      required:
+        - job_id
+        - status
+        - org_id
+        - created_by
+        - due_date
+      title: JobMetadata
+      description: Metadata model for job metadata.
+    ListJobResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/JobMetadata'
+          type: array
+          title: Items
+        next_cursor:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+        - items
+      title: ListJobResponse
+      description: |-
+        Response model for listing jobs.
+
+        Attributes:
+            items: list of job metadata responses
+            next_cursor: Optional cursor for pagination to get next page of results
+    ResponseStatus:
+      properties:
+        status:
+          type: boolean
+          title: Status
+      type: object
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      scheme: bearer

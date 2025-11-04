@@ -1,9 +1,15 @@
 ---
-title: 'Files'
-description: 'Upload, manage, and download files with the Spitch API'
+title: "Files"
+description: "Upload, manage, and download files with the Spitch API"
 ---
 
 The Files API allows you to upload, manage, and download files for use with other Spitch services like translation.
+
+## Storage Behavior
+
+- Spitch will automatically store audio files on behalf of users, from STT and TTS queries.
+- Users have a maximum of 1GB storage for all their files.
+- Beyond 1GB, no files will be stored.
 
 ## Client Setup
 

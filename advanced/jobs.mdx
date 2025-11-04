@@ -1,0 +1,31 @@
+---
+title: "Jobs"
+description: "Upload, manage, and download files with the Spitch API"
+---
+
+The Jobs API is useful for listing and getting jobs.
+Certain actions with the Spitch ecosystem take some time to get a response. These are called long-running tasks (or Jobs).
+When you perform a long-running task, you don't get a response immediately. You get a Job (with an ID) which you can then use to fetch your task status later.
+
+## Job Behavior
+
+- Jobs represent the output of long-running operations, such as [HITL reviews](./hitl).
+- Jobs are read-only; you cannot delete them. You can list all jobs or fetch the details of a specific job.
+
+## Client Setup
+
+<CodeGroup dropdown>
+    ```python Python focus={4-6}
+    from spitch import Spitch
+    client = Spitch()
+    jobs = client.jobs.list()
+    for job in jobs.items:
+        print(job.status)
+    ```
+
+    ```typescript Typescript focus={4-6}
+    import { Spitch } from "spitch";
+    const client = new Sp
+
+    ```
+</CodeGroup>

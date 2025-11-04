@@ -1,11 +1,11 @@
 ---
-title: "Livekit"
+title: "Livekit Integration"
 description: "Learn how to create voice agents on Livekit using Spitch STT and TTS models."
 ---
 
 ### Prerequisites
 
-- Python 3.7 or higher
+- Python 3.10 or higher
 - Spitch API key
 - Livekit API key, URL and secret key
 
@@ -14,7 +14,7 @@ description: "Learn how to create voice agents on Livekit using Spitch STT and T
 Install the following modules into your Python environment and setup your \*.env\* file with the following parameters.
 
 ```powershell
-pip install "livekit-agents[spitch]~=1.0"
+pip install "livekit-agents[spitch]"
 ```
 
 <CodeGroup dropdown>
@@ -85,7 +85,7 @@ To get started, you'll need API keys for Spitch, Livekit and your preffered LLM.
 Install the following packages on your local computer to get started.
 ```bash
 pip install \
-  "livekit-agents[spitch,openai,silero,turn-detector]~=1.0" \
+  "livekit-agents[spitch,openai,silero,turn-detector]" \
   "livekit-plugins-noise-cancellation~=0.2" \
   "python-dotenv"
 ```

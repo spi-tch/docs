@@ -1,11 +1,10 @@
 {
   "name": "Spitch",
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
+  "theme": "almond",
   "colors": {
-    "primary": "#2563eb",
-    "light": "#3b82f6",
-    "dark": "#1e40af"
+    "primary": "#0f172a",
+    "light": "#94a3b8",
+    "dark": "#0b1120"
   },
   "favicon": {
     "light": "/favicon/light.png",
@@ -14,36 +13,31 @@
   "logo": {
     "light": "/logo/logo-dark.png",
     "dark": "/logo/logo-light.png",
-    "href": "https://docs.spitch.app"
+    "href": "https://docs.spitch.app",
+    "alt": "Spitch",
+    "height": 38
+  },
+  "layout": "topnav",
+  "sidebar": {
+    "items": "undecorated"
+  },
+  "topbar": {
+    "style": "default"
   },
   "icons": {
     "library": "fontawesome"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Dashboard",
-        "href": "https://spitch.studio",
-        "icon": "chart-line"
-      },
-      {
-        "label": "Community",
-        "href": "https://discord.gg/2S7zgKGhPj",
-        "icon": "discord"
-      },
-      {
-        "label": "Blog",
-        "href": "https://spitch.app/blog",
-        "icon": "bookmark"
-      }
-    ]
+    "primary": {
+      "type": "button",
+      "label": "Go to Studio",
+      "href": "https://spitch.studio"
+    }
   },
   "navigation": {
-    "dropdowns": [
+    "tabs": [
       {
-        "dropdown": "Documentation",
-        "icon": "books",
-        "description": "Complete developer documentation and guides",
+        "tab": "Docs",
         "groups": [
           {
             "group": "Getting Started",
@@ -52,29 +46,22 @@
               "index",
               "start/setup",
               "start/quickstart",
-              "start/libraries"
+              "start/libraries",
+              "keys"
             ]
           },
           {
-            "group": "Core Features",
+            "group": "Core capabilities",
             "icon": "waveform",
             "pages": [
-              "features/speech",
               "features/transcription",
+              "features/speech",
               "features/translation",
               "features/tone"
             ]
           },
           {
-            "group": "Advanced Usage",
-            "icon": "gear",
-            "pages": [
-              "start/models",
-              "utility/files"
-            ]
-          },
-          {
-            "group": "Voice Agents",
+            "group": "Voice agents",
             "icon": "robot",
             "pages": [
               "agents/overview",
@@ -82,31 +69,72 @@
             ]
           },
           {
-            "group": "Tutorials",
-            "icon": "graduation-cap",
+            "group": "Advanced workflows",
+            "icon": "gear",
             "pages": [
-              "code/audio-transcription",
-              "code/multilingual-chatbot"
+              "advanced/models",
+              "advanced/files",
+              "advanced/jobs",
+              "advanced/hitl"
             ]
           },
           {
-            "group": "Reference",
+            "group": "Guides & tutorials",
+            "icon": "graduation-cap",
+            "pages": [
+              "code/audio-transcription",
+              "code/multilingual-chatbot",
+              "guides/tts-prompting"
+            ]
+          },
+          {
+            "group": "Concepts & reference",
             "icon": "book",
             "pages": [
               "concepts/voices",
               "concepts/languages",
               "concepts/pricing",
-              "concepts/troubleshooting",
-              "keys"
+              "concepts/troubleshooting"
             ]
           }
         ]
       },
       {
-        "dropdown": "API Reference",
-        "icon": "code",
-        "description": "Complete API documentation and schemas",
-        "openapi": "https://app.stainless.com/api/spec/documented/spitch/openapi.documented.yml"
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Speech",
+            "pages": [
+              "api/speech/tts",
+              "api/speech/stt"
+            ]
+          },
+          {
+            "group": "Text",
+            "pages": [
+              "api/text/translate",
+              "api/text/diacritics"
+            ]
+          },
+          {
+            "group": "Files",
+            "pages": [
+              "api/files/upload",
+              "api/files/list",
+              "api/files/get",
+              "api/files/download",
+              "api/files/delete",
+              "api/files/usage"
+            ]
+          },
+          {
+            "group": "Jobs",
+            "pages": [
+              "api/jobs/list",
+              "api/jobs/get"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -132,11 +160,6 @@
   "styling": {
     "eyebrows": "breadcrumbs"
   },
-  "topbarCtaButton": {
-    "name": "Get API Key",
-    "url": "https://spitch.studio"
-  },
-
   "api": {
     "playground": {
       "mode": "show"

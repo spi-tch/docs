@@ -3,6 +3,7 @@ title: "Speech Generation"
 ---
 
 Also known as text-to-speech (TTS), speech generation/synthesis is integral part to modern AI systems. We have built this endpoint with strong support for African languages.
+Spitch offers 40 production-ready voices across English, Hausa, Igbo, and Yoruba so you can choose accents and styles that match your audience.
 <iframe
   className="w-full aspect-video rounded-xl"
   src="https://www.youtube.com/embed/qgGS55efGxc?si=aipAieBX4xS5U2k-"
@@ -12,11 +13,6 @@ Also known as text-to-speech (TTS), speech generation/synthesis is integral part
   allowFullScreen
 ></iframe>
 
-<iframe
-  src="https://cdn.spitch.studio/cdn/embed/reader/index.html?readerId=fee6162a-2cd9-47b5-9bd6-a84ec8c1de0b"
->
-</iframe>
-
 ## Request
 
 The `generate()` function can be used to generate speech. The following parameters are available:
@@ -24,7 +20,7 @@ The `generate()` function can be used to generate speech. The following paramete
 ### Parameters
 
 - `text` (required) - The text you want to convert to speech
-- `language` (required) - Language code: `en`, `yo`, `ha`, `ig`, `am`  
+- `language` (required) - Language code: `en`, `ha`, `ig`, `yo`
 - `voice` (required) - Voice ID to use for generation
 - `model` (optional) - Model to use, defaults to `legacy`
 - `format` (optional) - Output audio format, defaults to `wav`
@@ -43,15 +39,9 @@ The `format` parameter supports the following audio formats:
 
 Examples are provided below as a guide for you.
 
-### Best Practices for Use
-
-
-<Info>
-- We highly recommend that you perform tone-marking first before TTS. This allows the model to pronounce the words properly during speech generation.
-- Make sure your text has correct punctuation before sending it for speech generation to achieve more natural and accurate output.
-- Not all voices work for all languages. Ensure you select the voice that matches the language of your choice. More info on voices can be found on the [Voices](/concepts/voices) page
-
-</Info>
+<Callout type="tip" icon="sparkles">
+Need guidance on tone, punctuation, or narration style? Run through the <a href="/guides/tts-prompting" className="font-semibold text-emerald-600 underline decoration-dotted hover:text-emerald-500 dark:text-emerald-400 dark:hover:text-emerald-300">TTS Prompting Guide</a> for playbooks, checklists, and review workflows.
+</Callout>
 
 ## Response
 
@@ -64,8 +54,7 @@ The response for speech generation is in bytes.
 
 ## Choosing a Voice
 
-We currently have 8 characters with unique voices for the supported languages.
-Each of these characters has unique attributes, we think you will find them fun to use. Feel free to try them out and let us know which one you love the most. 😉
+We currently have 40 characters spanning four languages (English, Hausa, Igbo, Yoruba). Browse the roster on the [Voices](/concepts/voices) page and match voices to your use case before generating audio.
 
 ## Language Support
 
@@ -74,7 +63,6 @@ The speech generation model supports the following languages:
 - English: `en`
 - Hausa: `ha`
 - Igbo: `ig`
-- Amharic: `am`
 - Yoruba: `yo`
 
 ## Examples

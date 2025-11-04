@@ -16,3 +16,6 @@
 - [Libraries](https://docs.spitch.app/start/libraries): Know about the SDK libraries we suppport
 - [Models](https://docs.spitch.app/start/models): Learn about our model options
 - [Quickstart](https://docs.spitch.app/start/quickstart): Code samples to integrate with Spitch in 2 minutes or less
+- [Files](https://docs.spitch.app/advanced/files): Upload, manage, and understand storage limits for Spitch files
+- [Jobs](https://docs.spitch.app/advanced/jobs): Track long-running tasks and review their outputs
+- [HITL](https://docs.spitch.app/advanced/hitl): Route critical work to human reviewers inside Spitch
