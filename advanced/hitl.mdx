@@ -21,38 +21,6 @@ Need access right away? [Request human review in Spitch Studio](https://spitch.s
 - HITL currently supports STT and translation tasks; we are partnering to expand coverage to additional task types.
 - Every HITL request creates a job ID, which you can use later to poll for review status or retrieve the final result.
 
-## How it works
-
-1. **Flag the job** – add `review_mode: "human"` (or use the Studio toggle) when creating a transcription job. You can scope it to specific speakers or risk rules.
-2. **Auto triage** – our queue routes flagged segments to certified linguists. You can monitor the live status in Studio or subscribe to webhook events.
-3. **Verified output** – once approved, the corrected transcript (plus reviewer notes) replaces the automatic result. You can diff the changes or download the reviewer audit log.
-
-<Info>
-Human reviewers operate under strict SLAs. Default turnaround is **under 4 hours** for English and **under 6 hours** for other supported languages. Contact sales for custom coverage or on-call schedules.
-</Info>
-
-## Implementation checklist
-
-- Enable the feature for your workspace (reach out to support if you do not see the toggle).
-- Provide reviewer instructions: domain terminology, redaction rules, formatting preferences.
-- Set up webhook listeners for `job.review.completed` so downstream systems pick up the verified transcript.
-- Decide what should happen if the SLA is breached (auto-approve vs escalate to your team).
-- Monitor the new “Human Review” dashboard in Studio to keep an eye on queue health and reviewer SLAs.
-
-## Related workflow updates
-
-<CardGroup cols={3}>
-  <Card title="1 GB file uploads" icon="cloud-arrow-up">
-    Upload longform audio and video without chunking. Resume failed uploads automatically and manage retention from the Files dashboard.
-  </Card>
-  <Card title="Expanded TTS formats" icon="wave-square">
-    Generate speech in WAV, MP3, OGG/Opus, WebM/Opus, M4A/AAC, FLAC, PCM s16le, μ-law, or A-law to match every player and CDN.
-  </Card>
-  <Card title="Reader" icon="book-open">
-    Convert articles, newsletters, or knowledge base entries into polished audio with a one-line embed. Keep readers engaged wherever they listen.
-  </Card>
-</CardGroup>
-
 ## Ready to pilot?
 
 - Start a manual review from the **Jobs → Human Review** tab in Studio.
