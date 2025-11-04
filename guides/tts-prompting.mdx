@@ -1,0 +1,124 @@
+---
+title: "TTS Prompting Guide"
+description: "Design prompts that produce natural, expressive output from the Spitch text-to-speech models."
+---
+
+Crafting strong prompts is the fastest way to unlock natural-sounding speech with Spitch. The guidance below highlights what to include (and avoid) so the model hits the right voice, tone, and pronunciation every time.
+
+## 1. Start with intent + audience
+
+Open your prompt with a short direction that explains the scenario, the audience, and any emotional cues. This gives the model context before you supply the actual script.
+
+```text
+You are recording a calm bedtime story for children in Lagos. Speak slowly with a reassuring, soft tone.
+Story:
+"Once upon a time in Ikorodu..."
+```
+
+## 2. Select the right voice for the use case
+
+All voices are production-ready, but each carries its own timbre, pacing, and energy. Match the voice to the job rather than using a single default everywhere.
+
+| Voice | Suggested style | Notes |
+| --- | --- | --- |
+| John | Narrative | Steady, warm delivery for audiobooks and explainers. |
+| Jude | Narrative | Slightly deeper tone, works well for reflective storytelling. |
+| Lucy | Conversational | Friendly and expressive; great for chat or support flows. |
+| Lina | Narrative | Smooth, clear diction for learning content and IVRs. |
+| Kani | Narrative | Energetic storyteller; useful for upbeat podcasts. |
+| Henry | Narrative | Authoritative voice that suits documentaries. |
+| Kingsley | Narrative & News | Crisp cadence for announcements or news-style reads. |
+| Daniel | Conversational | Relaxed and personable; ideal for interactive agents. |
+| Comfort | Conversational | Warm helper voice for customer service. |
+| Remi | Advertisements & Narrations | Bright, persuasive tone for promos. |
+| Favour | Conversational | Contemporary, lively voice for short-form content. |
+
+*Tip:* audition two or three voices for each new product surface, then lock the one that resonates most with your users.
+
+## 3. Sprinkle in human disfluencies (sparingly)
+
+Short hesitations such as “uh”, “um”, “hmm”, or “ah” can make generated speech feel conversational. Use them intentionally:
+
+- Add them only where a real speaker would pause (e.g., thinking, switching topics).
+- Combine with ellipses `...` to signal a brief pause.
+- Avoid stacking multiple disfluencies together—clarity drops quickly.
+
+Example:
+
+```text
+“Um… I can get that report over to you by 4 PM, no problem.”
+```
+
+## 4. Clarify acronyms and abbreviations
+
+Spell acronyms in uppercase and add spaces between letters so the model pronounces each character instead of guessing a word.
+
+```text
+“We’ll begin the briefing with the G R E overview, followed by NASA’s update.” 
+```
+
+You can mix both approaches for long names—keep the acronym spaced out on first mention, then revert to the standard form later in the script.
+
+## 5. Keep scripts clean and well-punctuated
+
+- Use complete sentences and commas where a human would naturally pause.
+- Provide numbers in the format you want spoken (`10,000` vs `ten thousand`).
+- Remove screen directions the listener should not hear, or wrap them in brackets and clarify they are stage guidance.
+
+## 6. Iterate quickly
+
+Small prompt edits yield noticeable differences. When prototyping:
+
+1. Draft a prompt with intent, script, and any delivery cues.
+2. Generate audio in Studio or via SDK.
+3. Log what you changed and the result (tone, expressiveness, clarity).
+4. Reuse high-performing patterns across similar experiences.
+
+---
+
+### Checklist before shipping
+
+<div className="mt-4 space-y-3">
+  <label className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-200">
+    <input
+      type="checkbox"
+      disabled
+      className="mt-1 h-4 w-4 cursor-not-allowed rounded border-slate-400 bg-transparent text-emerald-500 focus:ring-emerald-500 dark:border-slate-500"
+    />
+    <span>Have I tested at least two voices with the same script?</span>
+  </label>
+  <label className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-200">
+    <input
+      type="checkbox"
+      disabled
+      className="mt-1 h-4 w-4 cursor-not-allowed rounded border-slate-400 bg-transparent text-emerald-500 focus:ring-emerald-500 dark:border-slate-500"
+    />
+    <span>Does the prompt include the desired tone, pace, and audience?</span>
+  </label>
+  <label className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-200">
+    <input
+      type="checkbox"
+      disabled
+      className="mt-1 h-4 w-4 cursor-not-allowed rounded border-slate-400 bg-transparent text-emerald-500 focus:ring-emerald-500 dark:border-slate-500"
+    />
+    <span>Are disfluencies used intentionally (or omitted for formal reads)?</span>
+  </label>
+  <label className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-200">
+    <input
+      type="checkbox"
+      disabled
+      className="mt-1 h-4 w-4 cursor-not-allowed rounded border-slate-400 bg-transparent text-emerald-500 focus:ring-emerald-500 dark:border-slate-500"
+    />
+    <span>Are acronyms formatted as spaced uppercase letters?</span>
+  </label>
+  <label className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-200">
+    <input
+      type="checkbox"
+      disabled
+      className="mt-1 h-4 w-4 cursor-not-allowed rounded border-slate-400 bg-transparent text-emerald-500 focus:ring-emerald-500 dark:border-slate-500"
+    />
+    <span>Did I verify a full end-to-end call with my production audio settings?</span>
+  </label>
+</div>
+
+Pair this guide with the [Speech Generation docs](/features/speech) when you are ready to automate prompt creation or run bulk TTS jobs.
